@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="mytwtr.StatusSpec" tests="1" skipped="0" failures="1" errors="0" timestamp="2016-02-09T21:45:57" hostname="L-125100-P13" time="0.235">
+<testsuite name="mytwtr.StatusSpec" tests="5" skipped="0" failures="0" errors="0" timestamp="2016-02-11T23:16:44" hostname="L-125100-P13" time="0.233">
   <properties/>
-  <testcase name="test something" classname="mytwtr.StatusSpec" time="0.235">
-    <failure message="Condition not satisfied:&#10;&#10;true == false&#10;     |&#10;     false&#10;" type="org.spockframework.runtime.SpockComparisonFailure">Condition not satisfied:
-
-true == false
-     |
-     false
-
-	at mytwtr.StatusSpec.test something(StatusSpec.groovy:20)
-</failure>
-  </testcase>
+  <testcase name="M1. Saving a message with a valid account and message text will succeed" classname="mytwtr.StatusSpec" time="0.206"/>
+  <testcase name="M2. Test message creation with valid fields message text null " classname="mytwtr.StatusSpec" time="0.007"/>
+  <testcase name="M2. Test message creation with valid fields message text blank " classname="mytwtr.StatusSpec" time="0.005"/>
+  <testcase name="M2. Test message creation with valid fields message text more than 40 chars " classname="mytwtr.StatusSpec" time="0.008"/>
+  <testcase name="M2. Test message creation with valid fields valid message creation succeeds " classname="mytwtr.StatusSpec" time="0.005"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
