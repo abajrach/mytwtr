@@ -2,15 +2,15 @@ package mytwtr
 
 import mytwtr.Account
 
-class Message { /* or Message */
+class Message {
 
-    String status_message // Needs to be 40 characters or less
+    String status_message
     Date dateCreated
 
 
-    static belongsTo = [account: Account] // Test: Verify status is deleted when the account is deleted (cascades)
+    static belongsTo = [account: Account]
 
     static constraints = {
-        status_message size: 1..40
+        status_message size: 1..40, blank: false
     }
 }

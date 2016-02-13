@@ -24,7 +24,7 @@ class AccountSpec extends Specification {
         def account = new Account(handlename: '@foobar', name: 'Mr. Foo Bar', password: 'passWord1', email: 'foo_bar@gmail.com')
 
         when:
-        account.save()
+        account.save(flush: true)
 
         then:
         account.id
@@ -37,10 +37,9 @@ class AccountSpec extends Specification {
         def account = new Account(handlename: handlename, name: name, password: password, email: email)
 
         when:
-        account.save()
+        account.save(flush: true)
 
-        then:
-        //!account.id
+        then: "Verify account creation passes/fails for different required fields missing"
         account.hasErrors() == account_creation_failed
 
         where:
@@ -57,10 +56,9 @@ class AccountSpec extends Specification {
         def account = new Account(handlename: '@foobar', name: 'Mr. Foo Bar', password: password, email: 'foo_bar@gmail.com')
 
         when:
-        account.save()
+        account.save(flush: true)
 
-        then:
-        //account.id
+        then: "check if the account creation succeeds or fails for different password values"
         account.hasErrors() == account_creation_failed
 
         where:
@@ -71,6 +69,8 @@ class AccountSpec extends Specification {
         'upper case missing'  |  'sdfwerwcw324'             | true
         'digit missing'       |  'pihoiKJILKJLd'            | true
         'less than 8 chars'   |  'saFJ9'                    | true
+        'seven characters'    |  'a'*3 + 'X'*3 + '9'        | true
+        '8 characters'        |  'a'*3 + 'X'*3 + '99'       | false
         'more than 16 chars'  |  'aB3456789012345678'       | true
 
     }
