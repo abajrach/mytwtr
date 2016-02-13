@@ -52,26 +52,31 @@ class IntegTestSpec extends Specification {
     }
 
     @Unroll "A4. Saving account with a non-unique email or handle address must fail (integration test) #description" () {
-        given:
-        def account = new Account(handlename: handlename, name: name, password: password, email: email)
+        setup:
+        def account1 = new Account(handlename: handlename1, name: 'John Doe', password: 'John123445', email: email1)
+        def account2 = new Account(handlename: handlename2, name: 'Foo Bar', password: 'fooBar12345', email: email2)
 
         when:
-        account.save(flush: true /*, failOnError: true*/)
+        account1.save(flush: true )
+        def account_1_verify = Account.get(account1.id)
+        account2.save(flush: true)
 
-        then:
-        account.hasErrors() == account_creation_failed
-        account.id
-       /* if (account_creation_failed == false) {
-            account.get(account.id).handlename == handlename
-            account.get(account.id).name == name
-            account.get(account.id).email == email
-        } */
+        then: "Saving of account2 should fail"
 
+        account1.hasErrors() == false
+        account1.errors.errorCount == 0
+        account1.id
+        Account.get(account_1_verify.id).name == 'John Doe'
+
+        account2.hasErrors() == true
+        account2.errors.errorCount == 1
+        !account2.id
+        
         where:
-        description                 | handlename | name     | password      | email               | account_creation_failed
-        'Good handle address'       | 'hello'  | 'John B' | 'John1234556' | 'testA4@gmail.com'  | false
-        'Duplicate handle address'  | 'hello'  | 'John B' | 'John1234452' | 'testA42@gmail.com' | true
-       // 'Duplicate email address'   | '@testA42' | 'John B' | 'John1234452' | 'testA4@gmail.com'  | true
+        description                      | handlename1   | handlename2   | email1                 | email2
+        'Unique handle, duplicate email' | '@jdoe1'      | '@foobar1'    | 'same_email@gmail.com' | 'same_email@gmail.com'
+        'Duplicate email address'        | '@dup_handle' | '@dup_handle' | 'john_doe@gmail.com'   | 'foo_bar@gmail.com'
+
 
     }
 }
