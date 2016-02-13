@@ -2,7 +2,7 @@ package mytwtr
 
 import mytwtr.Account
 
-class Status { /* or Message */
+class Message { /* or Message */
 
     String status_message // Needs to be 40 characters or less
     Date dateCreated

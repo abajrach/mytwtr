@@ -7,8 +7,8 @@ import spock.lang.Unroll
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
-@TestFor(Status)
-class StatusSpec extends Specification {
+@TestFor(Message)
+class MessageSpec extends Specification {
 
     def setup() {
     }
@@ -19,7 +19,7 @@ class StatusSpec extends Specification {
     def 'M1. Saving a message with a valid account and message text will succeed' () {
         given:
         def test_account = new Account(handlename: '@foobar', name: 'Mr. Foo Bar', password: 'passWord1', email: 'foo_bar@gmail.com')
-        def test_status = new Status(account: test_account, status_message: '#Grails is fun :)')
+        def test_status = new Message(account: test_account, status_message: '#Grails is fun :)')
 
         when:
         test_status.save()
@@ -33,7 +33,7 @@ class StatusSpec extends Specification {
     def 'M2. Creating a message/status fails with invalid values data-driven unit test'() {
         given:
         def test_account = new Account(handlename: '@foobar', name: 'Mr. Foo Bar', password: 'passWord1', email: 'foo_bar@gmail.com')
-        def test_status = new Status(account: test_account, status_message: status_message)
+        def test_status = new Message(account: test_account, status_message: status_message)
 
 
         when:

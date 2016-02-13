@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="mytwtr.IntegTestSpec" tests="2" skipped="0" failures="0" errors="0" timestamp="2016-02-13T18:55:47" hostname="L-125100-P13" time="10.034">
-  <properties/>
-  <testcase name="F1. Verify that an account may have multiple followers" classname="mytwtr.IntegTestSpec" time="10.012"/>
-  <testcase name="F2. Verify two accounts may follow each other" classname="mytwtr.IntegTestSpec" time="0.022"/>
-  <system-out><![CDATA[Grails application running at http://localhost:8080 in environment: test
-]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
