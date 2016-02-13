@@ -5,7 +5,6 @@ import mytwtr.Account
 class Status { /* or Message */
 
     String status_message // Needs to be 40 characters or less
-    //Account author
     Date dateCreated
 
 

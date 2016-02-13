@@ -8,7 +8,6 @@ class Account {
     String email
 
     Date dateCreated
-    //static hasMany = [followers: Account, following: Account, statuses: Status]  // or [followed: Account]
     static hasMany = [followedBy: Account]
 
     static constraints = {

@@ -73,7 +73,6 @@ class AccountSpec extends Specification {
         'less than 8 chars'   |  'saFJ9'                    | true
         'more than 16 chars'  |  'aB3456789012345678'       | true
 
-
     }
 
 }
