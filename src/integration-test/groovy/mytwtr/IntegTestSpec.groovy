@@ -9,12 +9,6 @@ import spock.lang.*
 @Rollback
 class IntegTestSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
     void "F1. Verify that an account may have multiple followers" () {
         setup: 'setup accounts for testing'
         def famous_account = new Account(handlename: '@famous_celebrity', name: 'Mr. Famous', password: 'passWord1', email: 'foo_bar@gmail.com').save(flush: true, failOnError: true)
@@ -85,12 +79,12 @@ class IntegTestSpec extends Specification {
 
         then: "Saving of account2 should fail in both cases (duplicate handle, duplicate email)"
 
-        account1.hasErrors() == false
+        !account1.hasErrors()
         account1.errors.errorCount == 0
         account1.id
         Account.get(account_1_verify.id).name == 'John Doe'
 
-        account2.hasErrors() == true
+        account2.hasErrors()
         account2.errors.errorCount == 1
         !account2.id
 
