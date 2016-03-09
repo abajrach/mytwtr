@@ -101,4 +101,12 @@ class AccountResourceFunctionalSpec extends GebSpec {
         'Invalid email'          | '@ObiWanKenobi' | 'Obi-Wan Kenobi' | 'O89Axafwdlkji' | 'Obi_Wan_Kenobi'
         'Multiple invalid input' | ''              | 'Obi-Wan Kenobi' | 'O'             | 'Obi_Wan_Kenobi'
     }
+
+    def 'Update a field for account' () {
+
+    }
+
+    def 'Delete created account' () {
+
+    }
 }

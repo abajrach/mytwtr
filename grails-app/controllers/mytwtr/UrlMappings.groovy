@@ -13,6 +13,9 @@ class UrlMappings {
             "/messages"(resources: 'message')
         }
 
+        "/accounts/${id}/follow/${followAccountId}"(controller: "account", action: "follow", method: "POST")
+        "/accounts/${id}/unfollow/${unfollowAccountId}"(controller: "account", action: "unfollow", method: "POST")
+
         "/"(view: "/index")
         "500"(view: '/error')
         "404"(view: '/notFound')

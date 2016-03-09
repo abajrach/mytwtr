@@ -39,6 +39,21 @@ class AccountController extends RestfulController<Account>{
         else {
             // @Todo: Return all the accounts
         }
+    }
 
+    def follow() {
+        def account = Account.get(params.id)
+        def accountToFollow = Account.get(params.followAccountId)
+        account.addToFollowing(accountToFollow).save()
+        accountToFollow.addToFollowedBy(account).save()
+        render account.following as JSON                // Displays what accounts self is following
+    }
+
+    def unfollow() {
+        def account = Account.get(params.id)
+        def accountToUnFollow = Account.get(params.unfollowAccountId)
+        account.removeFromFollowing(accountToUnFollow).save()
+        accountToUnFollow.removeFromFollowedBy(account).save()
+        render account.following as JSON               // Displays what accounts self is following
     }
 }
