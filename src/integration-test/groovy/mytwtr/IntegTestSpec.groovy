@@ -1,8 +1,9 @@
 package mytwtr
 
-
+import geb.spock.GebSpec
 import grails.test.mixin.integration.Integration
 import grails.transaction.*
+import groovyx.net.http.RESTClient
 import spock.lang.*
 
 @Integration
@@ -100,4 +101,10 @@ class IntegTestSpec extends Specification {
         'Duplicate email address'        | '@dup_handle' | '@dup_handle' | 'john_doe@gmail.com'   | 'foo_bar@gmail.com'
 
     }
+//    class FunctionalTestSpec extends GebSpec {
+//        @Shared
+//
+//        RESTClient restClient
+//
+//    }
 }
