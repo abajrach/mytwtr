@@ -1,7 +1,8 @@
 package mytwtr
 
+import grails.rest.Resource
 import mytwtr.Account
-
+@Resource(uri='/messages',formats = ['json','xml'])
 class Message {
 
     String status_message
