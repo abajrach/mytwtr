@@ -7,19 +7,11 @@ import grails.test.mixin.domain.DomainClassUnitTestMixin
 import spock.lang.Specification
 import spock.lang.Unroll
 
-/**
- * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
- */
+@Unroll
 @TestFor(Message)
 @Mock(Account)
 @TestMixin(DomainClassUnitTestMixin)
 class MessageSpec extends Specification {
-
-    def setup() {
-    }
-
-    def cleanup() {
-    }
 
     def 'M1. Saving a message with a valid account and message text will succeed' () {
         given:
@@ -34,31 +26,25 @@ class MessageSpec extends Specification {
         !test_status.hasErrors()
     }
 
-    @Unroll('M2. Test message creation with valid fields #description ')
-    def 'M2. Creating a message/status fails with invalid values data-driven unit test'() {
+    def 'M2. Creating a message/status fails with invalid values data-driven unit test: #description'() {
         given:
+        def messagesBeforeSaving = Message.count()
         def account = new Account(handlename: '@foobar', name: 'Mr. Foo Bar', password: 'passWord1', email: 'foo_bar@gmail.com')
-        def status = new Message(status_message: status_message, account: account)
+        def message = new Message(status_message: status_message, account: account)
 
         when:
-        status.save(flush: true, failOnError: false)
-
-        def status_verify = Message.get(status.id)
-        def has_error
-        if(status_verify == null)
-            has_error = true
-        else
-            has_error = status_verify.hasErrors()
+        message.save(flush: true, failOnError: false)
 
         then:
-            has_error == status_creation_failed
-
+        !message.id
+        message.hasErrors()
+        message.errors.getFieldError('status_message')
+        Message.count() == messagesBeforeSaving
         where:
-        description                       | status_message                                                | status_creation_failed
-        'message text null'               | null                                                          | true
-        'message text blank'              | ''                                                            | true
-        'message text more than 40 chars' | 'abcdefghijklmnopqrstuvwxyz12345678912345677889afa;sdfjasl;f' | true
-        'valid message creation succeeds' | 'Hi #Grails, you are fun :)'                                  | false
+        description                       | status_message
+        'message text null'               | null
+        'message text blank'              | ''
+        'message text more than 40 chars' | 'abcdefghijklmnopqrstuvwxyz12345678912345677889afa;sdfjasl;f'
     }
 
 }
