@@ -3,6 +3,7 @@ package mytwtr
 import grails.converters.JSON
 import grails.rest.RestfulController
 
+
 class AccountController extends RestfulController<Account>{
     static responseFormats = ['json', 'xml']
 
@@ -12,49 +13,32 @@ class AccountController extends RestfulController<Account>{
 
     /* This returns appropriate error message if specified account is not found */
     def show() {
-        /*if(account == null) {
-            //render status:404
+
+        //println "Hello"
+        //println 'inside show ' + params.handle
+        def account = Account.get(params.id)
+        if (account) {
+            render account as JSON
+        } else {
             response.status = 404
         }
-        else {
-            //return [account: account]
-            render account as JSON
-        } */
+    }
 
-        /*if(params.id) {
+    def index() {
 
-            println "handle = ${handle}"
-            def account = Account.get(params.id)
-            render account as JSON
-        }
-        else {
-            log.info "haha"
-        }
-        */
-        if(${handle}) {
-            println "handle = ${handle}"
+        if(params.handle) {
+            println 'inside index '+ params.handle
             def account = Account.findByHandlename(params.handle)
-            render account as JSON
+            if(account) {
+                render account as JSON
+            }
+            else {
+                response.status = 404 // @Todo: Fix the notFound.gsp issue. Return status is 404 but the page is empty
+            }
         }
-        else if(params.id) {
-            println "id = params.id"
-            def account = Account.get(params.id)
-            render account as JSON
+        else {
+            // @Todo: Return all the accounts
         }
-
 
     }
-
-    /* protected Account queryForAccount(Serializable id) {
-        def accountId = params.accountId
-        Account.where {
-            id == id && Account.id == accountId
-        }.find()
-    }
-*/
-    //def index() { }
-
-    /*def create() {
-        respond new Account(params)
-    } */
 }

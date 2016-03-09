@@ -44,4 +44,16 @@ class AccountResourceFunctionalSpec extends GebSpec {
         resp.data.name == 'Mr. Darth Vader'
         resp.data.email == 'darth_vader@gmail.com'
     }
+
+    def 'Retrieve the account by accountId' () {
+
+    }
+
+    def 'Retrieve the account by handleName' () {
+
+    }
+
+    def 'Account creation with invalid input returns error' () {
+
+    }
 }

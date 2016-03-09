@@ -11,7 +11,7 @@ import spock.lang.Unroll
 @TestMixin(DomainClassUnitTestMixin)
 class AccountSpec extends Specification {
 
-    def 'A1. Saving an account with a valid handle, email, password and name will succeed' () {
+    def 'A1. Saving an account with a valid handle, email, password #description and name will succeed' () {
         given:
         def accountsBeforeSave = Account.count()
         def account = new Account(handlename: '@foobar', name: 'Mr. Foo Bar', password: password, email: 'foo_bar@gmail.com')
