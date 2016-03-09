@@ -95,10 +95,4 @@ class IntegTestSpec extends Specification {
         'Duplicate email address'        | '@dup_handle' | '@dup_handle' | 'john_doe@gmail.com'   | 'foo_bar@gmail.com'
 
     }
-//    class FunctionalTestSpec extends GebSpec {
-//        @Shared
-//
-//        RESTClient restClient
-//
-//    }
 }

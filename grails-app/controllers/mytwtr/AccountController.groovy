@@ -27,7 +27,7 @@ class AccountController extends RestfulController<Account>{
     def index() {
 
         if(params.handle) {
-            println 'inside index '+ params.handle
+            //println 'inside index '+ params.handle
             def account = Account.findByHandlename(params.handle)
             if(account) {
                 render account as JSON
