@@ -72,6 +72,20 @@ class FollowAccountFunctionalSpec extends GebSpec {
         'Account Id 3' | 3         | 1                      | 0
         'Account Id 4' | 4         | 1                      | 3
     }
+/*
+    def 'F3. Retrieve the followers for an account and ensure they are correct.'() {
+        when:
+        def resp = restClient.get(path: "/accounts/4/getfollowers")
 
+        then:
+        resp.status == 200
+        resp.data.size() == 3
+        //resp.data.findByHandlename()
+        //Account.findByHandlename("@darthVader") == resp.data.findByHandlename("@darthVader")
+        resp.data[1..3].each { it ->
+            assert resp.data.find { a -> a.id  == it}.following.size() == 1
+        }
+    }
+*/
 
 }

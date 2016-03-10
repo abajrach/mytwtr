@@ -56,4 +56,18 @@ class AccountController extends RestfulController<Account>{
         accountToUnFollow.removeFromFollowedBy(account).save()
         render account.following as JSON               // Displays what accounts self is following
     }
+
+    /*
+    @Todo: Add the limit and offset logic implemented for messages to this endpoint.
+    @Todo: Figure out if we need to get rid of Followers and FollowedBy from the output
+     */
+    def getFollowers() {
+        def account = Account.get(params.id)
+        def followers = account.followedBy
+       // followers.each { followerAccount ->
+        //    render followerAccount as JSON
+       // }
+        render followers as JSON
+
+    }
 }
