@@ -1,9 +1,15 @@
 package mytwtr
 
 import geb.spock.GebSpec
+import grails.converters.JSON
+import grails.test.mixin.integration.Integration
 import groovyx.net.http.RESTClient
 import spock.lang.Shared
+import spock.lang.Stepwise
 
+
+@Integration
+@Stepwise
 /**
  * Created by taz-hp-1 on 3/10/2016.
  */
@@ -16,10 +22,6 @@ class MessageResourceFunctionalSpec extends GebSpec{
 
     def setup() {
         restClient = new RESTClient(baseUrl)
-        /* def account = new Account(handlename: 'Andy', name: 'Andrew Jackson', password: 'jacksonforprez', email: 'jackson.andrew@whitehouse.gov')
-         def accountJson = account as JSON
-         def respAccount = restClient.post(path: '/accounts', body: accountJson as String, requestContentType: 'application/json')
- */
     }
     def 'Sanity check'() {
         expect: "fix me"
@@ -34,31 +36,41 @@ class MessageResourceFunctionalSpec extends GebSpec{
         resp.data.size() == 0
     }*/
 
-    /* def 'M1: Create a Message given a specified Account id or handle and message text'() {
+     def 'M1: Create a Message given a specified Account id and message text'() {
          given:
-
-         def message = new Message(status_message: 'Hola TWTR', belongsTo: account)
-         def messageJson = message as JSON
+         def account = new Account(handlename: 'm1account', name: 'M1-Test', password: 'd8RTHV8der1', email: 'm1@gmail.com')
+         def accountJson = account as JSON
 
          when:
-
-         def resp = restClient.post(path: '/messages', body: messageJson as String, requestContentType: 'application/json')
+         def resp = restClient.post(path: '/accounts', body: accountJson as String, requestContentType: 'application/json')
 
          then:
          resp.status == 201
          resp.data
 
          when:
-         messageId = resp.data.id
+         //def message = new Message(status_message: 'M1-Message', account: accountJson)
+         //def messageJson = message as JSON
+       //  def status_message = "M1-Message"
+         def messageJson = "{\"status_message\":\"M1-Message\"}"
+
+         def messageResp = restClient.post(path: '/accounts/1/postMessage', body: messageJson as String, requestContentType: 'application/json')
+
+         then:
+         messageResp.status == 201
+         messageResp.data
+
+         when:
+         messageId = messageResp.data.id
 
          then:
          punchId
-         resp.data.status_message == 'Hola TWTR'
-         resp.data.belongsTo == account
+         resp.data.status_message == 'M1-Message'
+         resp.data.account.id == account.id
 
      }
 
-     def 'M2: Return an error response from the create Message endpoint if user is not found or message text is not valid (data-driven test)'() {
+     /*def 'M2: Return an error response from the create Message endpoint if user is not found or message text is not valid (data-driven test)'() {
          expect: "fix me"
          true == false
      }
