@@ -21,6 +21,10 @@ class MessageResourceFunctionalSpec extends GebSpec{
          def respAccount = restClient.post(path: '/accounts', body: accountJson as String, requestContentType: 'application/json')
  */
     }
+    def 'Sanity check'() {
+        expect: "fix me"
+        true == true
+    }
    /* def 'MC1.Unit - Get all message information with no records'(){
         when:
         def resp = restClient.get(path: '/messages')
