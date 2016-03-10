@@ -39,18 +39,39 @@ class FollowAccountFunctionalSpec extends GebSpec {
         'Account Id 4' | '@hanSolo'      | 'Han Solo'      | 'H8nSolo1234'    | 'han.solo@gmail.com'
     }
 
-    def 'Verify an account other accounts'() {
+    def 'F1. Verify an account can follow other accounts #description'() {
 
         when:
-        def resp = restClient.post(path: "/accounts/1/follow/"+followIds )
+        def resp = restClient.post(path: "/accounts/" + selfId + "/follow/" + followIds)
 
         then:
         resp.status == 200
+        sleep(100) // @Todo: Figure out how to get rid of this problem!
+
+        where: 'Account 1 and 3 both follow 2. Account 2 follows 3'
+        description                   | selfId | followIds
+        'Account 1 follows Account 4' | 1      | 4
+        'Account 2 follows Account 4' | 2      | 4
+        'Account 3 follows Account 4' | 3      | 4
+        'Account 4 follows Account 2' | 4      | 2
+    }
+
+    def 'F2. Verify the total number of Followers and Following are correct. #description'() {
+        when:
+        def resp = restClient.get(path: "/accounts/" + accountId)
+
+        then:
+        resp.status == 200
+        resp.data.following.size() == expectedFollowingCount // @Todo: Check with Mike if this is okay to do
+        resp.data.followedBy.size() == expctedFollowedByCount
 
         where:
-        description  | followIds
-        '1' | 2
-       // '2' | 3
-
+        description    | accountId | expectedFollowingCount | expctedFollowedByCount
+        'Account Id 1' | 1         | 1                      | 0
+        'Account Id 2' | 2         | 1                      | 1
+        'Account Id 3' | 3         | 1                      | 0
+        'Account Id 4' | 4         | 1                      | 3
     }
+
+
 }
