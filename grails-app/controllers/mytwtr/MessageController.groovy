@@ -1,26 +1,29 @@
 package mytwtr
 
+import grails.converters.JSON
 import grails.rest.RestfulController
 
-class MessageController extends RestfulController<Message>{
-
+class MessageController extends RestfulController<Message> {
     static responseFormats = ['json', 'xml']
 
-    MessageController(){
+    MessageController() {
         super(Message)
     }
-    protected Message getMessage(Serializable id) {
-        def messageId = params.messageId
-        Message.where {
-            id == id && status_message.id == messageId
-        }.find()
-    }
-   /* def get() {
-        def message = Message.get(params.id)
-        if (!message){
-            response.sendError(404)
-        } else {
-            [ message: message ]
+
+    def index() {
+
+        if(params.handle) {
+            //println 'inside index '+ params.handle
+            def message = Message.findByHandlename(params.handle)
+            if(message) {
+                render message as JSON
+            }
+            else {
+                response.status = 404 // @Todo: Fix the notFound.gsp issue. Return status is 404 but the page is empty
+            }
         }
-    }*/
+        else {
+            // @Todo: Return all the message
+        }
+    }
 }
