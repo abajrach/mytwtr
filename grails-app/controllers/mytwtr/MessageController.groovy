@@ -13,7 +13,7 @@ class MessageController extends RestfulController<Message> {
     def index() {
 
         if(params.handle) {
-            //println 'inside index '+ params.handle
+            //println 'inside MessageController index '+ params.handle
             def message = Message.findByHandlename(params.handle)
             if(message) {
                 render message as JSON
