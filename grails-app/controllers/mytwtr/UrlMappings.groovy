@@ -15,6 +15,7 @@ class UrlMappings {
 
         "/accounts/${id}/follow/${followAccountId}"(controller: "account", action: "follow", method: "POST")
         "/accounts/${id}/unfollow/${unfollowAccountId}"(controller: "account", action: "unfollow", method: "POST")
+        "/accounts/${id}/postMessage"(controller: "message", action: "postMessage", method: "POST")
 
         "/"(view: "/index")
         "500"(view: '/error')
