@@ -173,5 +173,24 @@ class MessageResourceFunctionalSpec extends GebSpec {
         resp.data.message.status_message.toString().contains("ferrari")
         resp.data[0].accountHandle == '@m31'
     }
+
+    def 'Verify GET on /accounts/1/messages works' () {
+        when:
+        def resp = restClient.get(path: "/accounts/1/messages")
+
+        then:
+        resp.status == 200
+        resp.data.size() == 4
+    }
+
+    def 'Verify GET on /accounts/1/messages/2 works' () {
+        when:
+        def resp = restClient.get(path: "/accounts/1/messages/2")
+
+        then:
+        resp.status == 200
+        resp.data.account.id.toString() == "1"
+        resp.data.status_message.toString() == "This ferrari is an awesome car"
+    }
 }
 
