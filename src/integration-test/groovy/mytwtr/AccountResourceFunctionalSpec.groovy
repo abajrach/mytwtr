@@ -67,10 +67,22 @@ class AccountResourceFunctionalSpec extends GebSpec {
         resp.data.email == 'darth_vader@gmail.com'
     }
 
-    def 'Retrieve the account by handleName'() {
+    def 'Retrieve the account by handleName with format /accounts?handlename=darthVader'() {
         when:
         def resp = restClient.get(path: '/accounts',
                 query: ['handle': 'darthVader'])
+
+        then:
+        resp.status == 200
+        resp.data.id == accountId
+        resp.data.handlename == 'darthVader'
+        resp.data.name == 'Mr. Darth Vader'
+        resp.data.email == 'darth_vader@gmail.com'
+    }
+
+    def 'Retrieve the account by handleName with format /accounts/handle=darthVader'() {
+        when:
+        def resp = restClient.get(path: '/accounts/handle=darthVader')
 
         then:
         resp.status == 200

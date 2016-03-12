@@ -17,28 +17,50 @@ class AccountController extends RestfulController<Account> {
 
     def show() {
 
-        def account = Account.get(params.id)
-        if (account) {
-            render account as JSON
-        } else {
-            response.status = 404
+        def account
+
+        // Executed when URI is /accounts/handle=foobar
+        if(params.id.toString().contains("handle=")) {
+            def handle = params.id.replace("handle=","")
+
+            account = Account.findByHandlename(handle)
+            if (account) {
+                render account as JSON
+            } else {
+                render(status: 404, text: "Specified account with account handle ${handle} not found")
+            }
+
+        }
+
+        // Executed when URI is /accounts/1
+        else {
+
+            account = Account.get(params.id)
+            if (account) {
+                render account as JSON
+            } else {
+                //response.status = 404
+                render(status: 404, text: "Specified account with account ID ${params.id} not found")
+            }
         }
     }
 
-    /* Called when GET on /accounts URI without Ids */
+    /* Executed when GET on /accounts URI without Ids */
 
     def index() {
 
+        // Executed when URI is /accounts?handle=foobar
         if (params.handle) {
 
             def account = Account.findByHandlename(params.handle)
             if (account) {
                 render account as JSON
             } else {
-                response.status = 404 // @Todo: Fix the notFound.gsp issue. Return status is 404 but the page is empty
-                // @Todo: Set error status message
+                render(status: 404, text: "Specified account with account handle ${params.handle} not found")
             }
-        } else {
+        }
+        //Executed when URI is /accounts
+        else {
             // Return all the accounts
             render Account.getAll() as JSON
         }
