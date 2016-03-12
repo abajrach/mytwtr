@@ -3,6 +3,8 @@ package mytwtr
 import grails.converters.JSON
 import grails.rest.RestfulController
 
+import java.text.SimpleDateFormat
+
 
 class AccountController extends RestfulController<Account>{
     static responseFormats = ['json', 'xml']
@@ -70,8 +72,8 @@ class AccountController extends RestfulController<Account>{
     def getFollowers() {
 
         def accountId = Integer.parseInt(params.id)
-        def max    = params.max ? Integer.parseInt(params.max) : 10
-        def offset = params.offset ? Integer.parseInt(params.offset) : 0
+        def max       = params.max ? Integer.parseInt(params.max) : 10
+        def offset    = params.offset ? Integer.parseInt(params.offset) : 0
 
         if(Account.get(accountId)) {
             def followers = Account.findAll('from Account acc where acc.id in (:accounts)',
@@ -79,6 +81,28 @@ class AccountController extends RestfulController<Account>{
                     [max: max, offset: offset, order: 'asc'])
 
             render followers as JSON
+        }
+        else {
+            render(status: 404, text: "Specified account with account ID ${accountId} doesn't exists")
+        }
+    }
+
+    def shownewsfeed() {
+        def accountId   = Integer.parseInt(params.id)
+        def limit       = params.limit ? Integer.parseInt(params.limit) : 10
+        def from        = params.from
+
+        if(Account.get(accountId)) {
+            def messageResults = Message.withCriteria {
+               'in' ('account', Account.get(accountId).following)
+                maxResults(limit)
+                order('dateCreated', 'desc')
+                if(from) {
+                    gte('dateCreated', new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX").parse(from))
+                }
+            }
+
+            render messageResults as JSON
         }
         else {
             render(status: 404, text: "Specified account with account ID ${accountId} doesn't exists")
