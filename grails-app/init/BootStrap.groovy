@@ -15,6 +15,7 @@ class BootStrap {
         darthVader.addToFollowing(kkardashian).save(flush: true, failOnError: true)
         kkardashian.addToFollowedBy(darthVader).save(flush: true, failOnError: true)
 
+
     }
     def destroy = {
     }

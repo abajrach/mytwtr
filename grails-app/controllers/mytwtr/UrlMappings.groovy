@@ -9,7 +9,7 @@ class UrlMappings {
             }
         }
 
-        "/accounts/accountId"(resources: 'account') {
+        "/accounts"(resources: 'account') {
             "/messages"(resources: 'message')
         }
 
