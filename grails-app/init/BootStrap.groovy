@@ -1,10 +1,11 @@
 import mytwtr.Account
+import mytwtr.Message
 
 class BootStrap {
 
     def init = { servletContext ->
-
-       /* def foobar = new Account(handlename: 'foobar', name: 'Mr. Foo Bar', password: 'pSDsfsfsFD2', email: 'foo_bar@gmail.com').save()
+/*
+        def foobar = new Account(handlename: 'foobar', name: 'Mr. Foo Bar', password: 'pSDsfsfsFD2', email: 'foo_bar@gmail.com').save()
         def darthVader = new Account(handlename: 'darthVader', name: 'Mr. Darth Vader', password: 'd8RTHV8der1', email: 'darth_vader@gmail.com').save()
         def darthVader2 = new Account(handlename: 'darthVader2', name: 'Mr. Darth Vader', password: 'd8RTHV8der1', email: 'darth_vader2@gmail.com').save()
         def darthVader3 = new Account(handlename: 'darthVader3', name: 'Mr. Darth Vader', password: 'd8RTHV8der1', email: 'darth_vader3@gmail.com').save()
@@ -28,7 +29,12 @@ class BootStrap {
         darthVader4.addToFollowing(kkardashian).save(flush: true, failOnError: true)
         kkardashian.addToFollowedBy(darthVader4).save(flush: true, failOnError: true)
 
-*/
+        def message1 = new Message(status_message: "emJaysfa ", account: kkardashian).save(flush: true, failOnError: true)
+        def message2 = new Message(status_message: "lisaAnn afd asd", account: kkardashian).save(flush: true, failOnError: true)
+        def message3 = new Message(status_message: "playboy lisaAnn magazine", account: kkardashian).save(flush: true, failOnError: true)
+        def message4 = new Message(status_message: "playboy magazine lisaAnn", account: kkardashian).save(flush: true, failOnError: true)
+        def message5 = new Message(status_message: "playboy magazine lisaAnn2", account: kkardashian).save(flush: true, failOnError: true)
+        */
     }
     def destroy = {
     }

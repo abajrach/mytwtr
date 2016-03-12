@@ -24,6 +24,7 @@ class MessageResourceFunctionalSpec extends GebSpec {
     def setup() {
         restClient = new RESTClient(baseUrl)
     }
+
     def 'Create set of accounts to test Messages functionality #description'() {
         given:
         def account = new Account(handlename: handlename, name: name, password: password, email: email)
@@ -37,9 +38,10 @@ class MessageResourceFunctionalSpec extends GebSpec {
         resp.data
 
         where:
-        description    | handlename      | name            | password         | email
-        'm31'          | '@m31'          | 'M31 test acct' | 'd8ArthVader1'   | 'm31@gmail.com'
-     }
+        description | handlename | name            | password       | email
+        'm31'       | '@m31'     | 'M31 test acct' | 'd8ArthVader1' | 'm31@gmail.com'
+    }
+
     def 'M1: Create a Message given a specified Account id and message text'() {
         given:
         def account = new Account(handlename: 'm1account', name: 'M1-Test', password: 'd8RTHV8der1', email: 'm1@gmail.com')
@@ -63,7 +65,7 @@ class MessageResourceFunctionalSpec extends GebSpec {
         messageResp.data
         messageId
         messageResp.responseData.status_message == status_message
-      //  messageResp.responseData.account.id == accountID
+        //  messageResp.responseData.account.id == accountID
 
     }
 
@@ -71,7 +73,7 @@ class MessageResourceFunctionalSpec extends GebSpec {
 
         when:
         def messageJson = "{\"status_message\":\"" + status_message + "\",\"account\":" + accountID + "}"
-        def pathForTest = "/accounts/"+ accountID + "/messages"
+        def pathForTest = "/accounts/" + accountID + "/messages"
         def messageResp = restClient.post(path: pathForTest, body: messageJson as String, requestContentType: 'application/json')
 
         then: 'Verify that error code 422: Unprocessable Entity is thrown'
@@ -84,7 +86,7 @@ class MessageResourceFunctionalSpec extends GebSpec {
         'Bad account ID'             | '@ObiWanKenobi' | 0
         'empty message and bad acct' | 1               | 0
     }
-
+/*
     def 'M3: Create a REST endpoint that will return the most recent messages for an Account. The endpoint must honor a limit parameter that caps the number of responses. The default limit is 10. (data-driven test)'() {
         when: 'Add message #status_message'
         def messageJson = "{\"status_message\":\"" + status_message + "\",\"account\":" + accountID + "}"
@@ -142,15 +144,34 @@ class MessageResourceFunctionalSpec extends GebSpec {
 
 
     }
-
-/*    def 'M4: Support an offset parameter into the recent Messages endpoint to provide paged responses.'() {
-        expect: "fix me"
-        true == false
-    }
+*/
+    /*   def 'M4: Support an offset parameter into the recent Messages endpoint to provide paged responses.'() {
+           expect: "fix me"
+           true == false
+       }
+   */
 
     def 'M5: Create a REST endpoint that will search for messages containing a specified search term. Each response value will be a JSON object containing the Message details (text, date) as well as the Account (handle)'() {
-        expect: "fix me"
-        true == false
-    }*/
+        given: 'Create few messages with search term which we want to search later'
+
+        def message1 = '{"status_message": "This ferrari is an awesome car", "account": 1}'
+        def message2 = '{"status_message": "Ferraris are very fast cars", "account": 1}'
+        def message3 = '{"status_message": "The type of this car is ferrari.", "account": 1}'
+        def message4 = '{"status_message": "I saw ferari today", "account": 1}'
+
+        restClient.post(path: '/accounts/1/messages', body: message1 as String, requestContentType: 'application/json')
+        restClient.post(path: '/accounts/1/messages', body: message2 as String, requestContentType: 'application/json')
+        restClient.post(path: '/accounts/1/messages', body: message3 as String, requestContentType: 'application/json')
+        restClient.post(path: '/accounts/1/messages', body: message4 as String, requestContentType: 'application/json')
+
+        when:
+        def resp = restClient.get(path: "/messages/search", query: ['query': 'ferrari'])
+
+        then:
+        resp.status == 200
+        resp.data.size() == 3
+        resp.data.message.status_message.toString().contains("ferrari")
+        resp.data[0].accountHandle == '@m31'
+    }
 }
 

@@ -45,9 +45,9 @@ class MessageController extends RestfulController<Message> {
     }
 
     /*
-     Returns the list of messages for an account
-     max and offset query parameters can be used to filter the maximum and offset value for the result
-  */
+     * Returns the list of messages for an account
+     * max and offset query parameters can be used to filter the maximum and offset value for the result
+     */
 
     def recentMessages() {
 
@@ -65,4 +65,21 @@ class MessageController extends RestfulController<Message> {
         }
     }
 
+    /*
+     * This method is used to search for specified search term in all messages. If the search term is found, it returns
+     * the message body (message ID, account ID, status message and date Created) and account handle name.
+     * The search is case-insensitive
+     * The format of the URL should be http://localhost:8080/messages/search?query=mssetwitter
+     */
+
+    def search() {
+
+        def querySearch = params.query.toString()
+
+        respond Message.where {
+            status_message =~ "%${querySearch}%"
+        }.list().collect {
+            m -> return [message: m, accountHandle: Account.get(m.account.id).handlename]
+        }
+    }
 }

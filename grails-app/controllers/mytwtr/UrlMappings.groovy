@@ -18,6 +18,7 @@ class UrlMappings {
         "/accounts/${id}/getfollowers"(controller: "account", action: "getFollowers", method: "GET")
         "/accounts/${id}/shownewsfeed"(controller: "account", action: "shownewsfeed", method: "GET")
         "/messages/${id}/recentmessages"(controller: "message", action: "recentMessages", method: "GET")
+        "/messages/search"(controller: "message", action: "search", method: "GET")
 
         "/"(view: "/index")
         "500"(view: '/error')
