@@ -37,51 +37,86 @@ class FollowAccountFunctionalSpec extends GebSpec {
         'Account Id 2' | '@darthSidious' | 'Darth Sidious' | 'd8ArthSidious1' | 'darth.Sidous@gmail.com'
         'Account Id 3' | '@yoda'         | 'Yoda'          | 'Yoda80012'      | 'yoda@gmail.com'
         'Account Id 4' | '@hanSolo'      | 'Han Solo'      | 'H8nSolo1234'    | 'han.solo@gmail.com'
+        'Account Id 5' | '@Aragorn'      | 'Aragorn'       | 'Ar8gorn12'      | 'aragorn@gmail.com'
+        'Account Id 6' | '@Gandalf'      | 'Gandalf'       | 'G8d8Lf2134'     | 'Gandalf@gmail.com'
     }
 
     def 'F1. Verify an account can follow other accounts #description'() {
 
-        when:
+        when: 'Accounts 1-5 is following 6 and account 6 is following back 1'
         def resp = restClient.post(path: "/accounts/" + selfId + "/follow/" + followIds)
 
         then:
         resp.status == 200
         sleep(100) // @Todo: Figure out how to get rid of this problem!
 
-        where: 'Account 1 and 3 both follow 2. Account 2 follows 3'
+        where: 'Accounts 1-5 follows 6. Account 6 follows 1'
         description                   | selfId | followIds
-        'Account 1 follows Account 4' | 1      | 4
-        'Account 2 follows Account 4' | 2      | 4
-        'Account 3 follows Account 4' | 3      | 4
-        'Account 4 follows Account 2' | 4      | 2
+        'Account 1 follows Account 6' | 1      | 6
+        'Account 2 follows Account 6' | 2      | 6
+        'Account 3 follows Account 6' | 3      | 6
+        'Account 4 follows Account 6' | 4      | 6
+        'Account 5 follows Account 6' | 5      | 6
+        'Account 6 follows Account 1' | 6      | 1
     }
 
     def 'F2. Verify the total number of Followers and Following are correct. #description'() {
-        when:
+        when: 'Getting all followers for account Id 6'
         def resp = restClient.get(path: "/accounts/" + accountId)
 
-        then:
+        then: 'Account Id is following 1 and has 5 followers'
         resp.status == 200
         resp.data.following.size() == 1
         resp.data.followedBy.size() == expctedFollowedByCount
 
         where:
         description    | accountId | expctedFollowedByCount
-        'Account Id 1' | 1         | 0
-        'Account Id 2' | 2         | 1
+        'Account Id 1' | 1         | 1
+        'Account Id 2' | 2         | 0
         'Account Id 3' | 3         | 0
-        'Account Id 4' | 4         | 3
+        'Account Id 4' | 4         | 0
+        'Account Id 5' | 5         | 0
+        'Account Id 6' | 6         | 5
     }
 
     def 'F3. Retrieve the followers for an account and ensure they are correct.'() {
-        when:
-        def resp = restClient.get(path: "/accounts/4/getfollowers")
+        when: 'Getting all the followers, no query parameters used'
+        def resp = restClient.get(path: "/accounts/6/getfollowers")
 
-        then:
+        then: 'Account 6 has 5 followers. First one being accound Id 1, since the list is sorted in asc order'
+        resp.status == 200
+        resp.data.size() == 5
+        resp.data[0].id == 1
+
+        when: 'Getting first 3 followers for account Id 6'
+        resp = restClient.get(path: "/accounts/6/getfollowers", query: ['max': 3])
+
+        then: 'Returns only 3 followers'
         resp.status == 200
         resp.data.size() == 3
+        resp.data[0].id == 1
+        resp.data[1].id == 2
+        resp.data[2].id == 3
 
-        // @Todo: Check if the followers are correct
+        when: 'Skips first 2 followers for account Id 6'
+        resp = restClient.get(path: "/accounts/6/getfollowers", query: ['offset': 2])
+
+        then: 'Returns remaining 3 followers for account Id 6'
+        resp.status == 200
+        resp.data.size() == 3
+        resp.data[0].id == 3
+        resp.data[1].id == 4
+        resp.data[2].id == 5
+
+        when: 'Show only 3 followers and skip first 2 followers for account Id 6'
+        resp = restClient.get(path: "/accounts/6/getfollowers", query: ['max': 3, 'offset': 2])
+
+        then: 'Returns 3 followers, skips first 2 followers for account Id 6'
+        resp.status == 200
+        resp.data.size() == 3
+        resp.data[0].id == 3
+        resp.data[1].id == 4
+        resp.data[2].id == 5
 
         //resp.data.findByHandlename()
         //Account.findByHandlename("@darthVader") == resp.data.findByHandlename("@darthVader")
@@ -91,6 +126,10 @@ class FollowAccountFunctionalSpec extends GebSpec {
         }*/
 
         //resp.data[0].id == 1
+    }
+
+    def 'F4. '() {
+
     }
 
 

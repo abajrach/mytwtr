@@ -73,6 +73,14 @@ class MessageResourceFunctionalSpec extends GebSpec {
 
     }
 
+    def 'Retrieve all messages for particular account'() {
+
+    }
+
+    def 'Retrieve particular message for particular account'() {
+
+    }
+
     /*def 'M2: Return an error response from the create Message endpoint if user is not found or message text is not valid (data-driven test)'() {
         expect: "fix me"
         true == false

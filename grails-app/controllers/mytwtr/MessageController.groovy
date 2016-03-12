@@ -12,6 +12,7 @@ class MessageController extends RestfulController<Message> {
 
     /**
      * This method is called when URL path is /accounts/1/messages/1
+     * * @Todo: Make sure there is tests for this
      */
     @Override
     protected Message queryForResource(Serializable id) {
@@ -25,6 +26,7 @@ class MessageController extends RestfulController<Message> {
 
     /**
      * This method is called when URL path is /accounts/1/messages
+     * @Todo: Make sure there is tests for this
      */
     def index() {
         def accountId = params.accountId

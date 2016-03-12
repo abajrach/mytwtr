@@ -33,6 +33,7 @@ class AccountController extends RestfulController<Account>{
             }
             else {
                 response.status = 404 // @Todo: Fix the notFound.gsp issue. Return status is 404 but the page is empty
+                                      // @Todo: Set error status message
             }
         }
         else {
@@ -64,16 +65,24 @@ class AccountController extends RestfulController<Account>{
     }
 
     /*
-    @Todo: Add the limit and offset logic implemented for messages to this endpoint.
     @Todo: Figure out if we need to get rid of Followers and FollowedBy from the output
      */
     def getFollowers() {
-        def account = Account.get(params.id)
-        def followers = account.followedBy
-       // followers.each { followerAccount ->
-        //    render followerAccount as JSON
-       // }
-        render followers as JSON
+
+        def accountId = Integer.parseInt(params.id)
+        def max    = params.max ? Integer.parseInt(params.max) : 10
+        def offset = params.offset ? Integer.parseInt(params.offset) : 0
+
+        if(Account.get(accountId)) {
+            def followers = Account.findAll('from Account acc where acc.id in (:accounts)',
+                    [accounts: Account.get(accountId).followedBy.id],
+                    [max: max, offset: offset, order: 'asc'])
+
+            render followers as JSON
+        }
+        else {
+            render(status: 404, text: "Specified account with account ID ${accountId} doesn't exists")
+        }
 
     }
 }
