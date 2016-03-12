@@ -39,7 +39,6 @@ class AccountController extends RestfulController<Account> {
             if (account) {
                 render account as JSON
             } else {
-                //response.status = 404
                 render(status: 404, text: "Specified account with account ID ${params.id} not found")
             }
         }
@@ -67,24 +66,24 @@ class AccountController extends RestfulController<Account> {
     }
 
     /**
-     * @Todo: Requires more testing
+     * Allows one account to follow another
      */
     def follow() {
         def account = Account.get(params.id)
         def accountToFollow = Account.get(params.followAccountId)
-        account.addToFollowing(accountToFollow).save()
-        accountToFollow.addToFollowedBy(account).save()
+        account.addToFollowing(accountToFollow).save(flush: true)
+        accountToFollow.addToFollowedBy(account).save(flush: true)
         render account.following as JSON                // Displays what accounts self is following
     }
 
     /**
-     * @Todo: Requires more testing
+     * Allows one account to unfollow another
      */
     def unfollow() {
         def account = Account.get(params.id)
         def accountToUnFollow = Account.get(params.unfollowAccountId)
-        account.removeFromFollowing(accountToUnFollow).save()
-        accountToUnFollow.removeFromFollowedBy(account).save()
+        account.removeFromFollowing(accountToUnFollow).save(flush: true)
+        accountToUnFollow.removeFromFollowedBy(account).save(flush: true)
         render account.following as JSON               // Displays what accounts self is following
     }
 
