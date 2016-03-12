@@ -10,7 +10,7 @@ class MessageController extends RestfulController<Message> {
         super(Message)
     }
 
-    def index() {
+    /*def index() {
 
         if (params.handle) {
             //println 'inside MessageController index '+ params.handle
@@ -23,21 +23,26 @@ class MessageController extends RestfulController<Message> {
         } else {
             // @Todo: Return all the message
         }
-    }
+    }*/
 
-    def postMessage() {
-        def account = Account.get(params.id)
-        if (account){
-        def message = new Message(status_message: status_message, account: account).save
-        if (message) {
-            render message as JSON
+  /*  def postmessage() {
+        def account
+        def status_message = request.JSON.status_message
+
+        if (params.handle) {
+            account = Account.findByHandlename(params.handle)
+        } else {
+            account = Account.get(params.id)
+        }
+        if (account) {
+            def message = new Message(status_message: status_message, account: account).save
+            if (message) {
+                render message as JSON
+            } else {
+                response.status = 404
             }
-            else{
+        } else {
             response.status = 404
-            }
         }
-        else{
-             response.status = 404
-        }
-    }
+    }*/
 }
