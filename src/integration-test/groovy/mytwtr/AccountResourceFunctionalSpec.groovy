@@ -7,6 +7,7 @@ import groovyx.net.http.HttpResponseException
 import groovyx.net.http.RESTClient
 import spock.lang.Shared
 import spock.lang.Stepwise
+import spock.lang.Unroll
 
 /**
  * Created by Arbindra on 3/9/2016.
@@ -92,6 +93,7 @@ class AccountResourceFunctionalSpec extends GebSpec {
         resp.data.email == 'darth_vader@gmail.com'
     }
 
+    @Unroll
     def 'Account creation with invalid input returns error: #description'() {
         given:
         def account = new Account(handlename: handlename, name: name, password: password, email: email)
@@ -112,13 +114,5 @@ class AccountResourceFunctionalSpec extends GebSpec {
         'Empty Password'         | '@ObiWanKenobi' | 'Obi-Wan Kenobi' | ''              | 'Obi_Wan_Kenobi@nsa.gov'
         'Invalid email'          | '@ObiWanKenobi' | 'Obi-Wan Kenobi' | 'O89Axafwdlkji' | 'Obi_Wan_Kenobi'
         'Multiple invalid input' | ''              | 'Obi-Wan Kenobi' | 'O'             | 'Obi_Wan_Kenobi'
-    }
-
-    def 'Update a field for account' () {
-
-    }
-
-    def 'Delete created account' () {
-
     }
 }

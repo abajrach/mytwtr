@@ -5,6 +5,7 @@ import groovyx.net.http.RESTClient
 import grails.converters.JSON
 import grails.test.mixin.integration.Integration
 import spock.lang.Stepwise
+import spock.lang.Unroll
 
 /**
  * Created by Arbindra on 3/9/2016.
@@ -19,6 +20,7 @@ class FollowAccountFunctionalSpec extends GebSpec {
         restClient = new RESTClient(baseUrl)
     }
 
+    //@Unroll
     def 'Create set of accounts to test Account Following functionality #description'() {
         given:
         def account = new Account(handlename: handlename, name: name, password: password, email: email)
@@ -41,6 +43,7 @@ class FollowAccountFunctionalSpec extends GebSpec {
         'Account Id 6' | '@Gandalf'      | 'Gandalf'       | 'G8d8Lf2134'     | 'Gandalf@gmail.com'
     }
 
+    //@Unroll
     def 'Create messages #description'() {
         when:
         def account_resp = restClient.get(path: "/accounts/6")
@@ -69,6 +72,7 @@ class FollowAccountFunctionalSpec extends GebSpec {
     }
 
 
+    //@Unroll
     def 'F1. Verify an account can follow other accounts #description'() {
 
         when: 'Accounts 1-5 is following 6 and account 6 is following back 1'
@@ -76,7 +80,7 @@ class FollowAccountFunctionalSpec extends GebSpec {
 
         then:
         resp.status == 200
-        sleep(100) // @Todo: Figure out how to get rid of this problem!
+        resp.data.followedBy.id.toString().contains(selfId.toString())
 
         where: 'Accounts 1-5 follows 6. Account 6 follows 1'
         description                   | selfId | followIds
@@ -88,6 +92,7 @@ class FollowAccountFunctionalSpec extends GebSpec {
         'Account 6 follows Account 1' | 6      | 1
     }
 
+    //@Unroll
     def 'F2. Verify the total number of Followers and Following are correct. #description'() {
         when: 'Getting all followers for account Id 6'
         def resp = restClient.get(path: "/accounts/" + accountId)
@@ -107,6 +112,7 @@ class FollowAccountFunctionalSpec extends GebSpec {
         'Account Id 6' | 6         | 5
     }
 
+    //@Unroll
     def 'F3. Retrieve the followers for an account and ensure they are correct.'() {
         when: 'Getting all the followers, no query parameters used'
         def resp = restClient.get(path: "/accounts/6/getfollowers")
@@ -181,6 +187,28 @@ class FollowAccountFunctionalSpec extends GebSpec {
         then:
         resp.status == 200
         resp.data
+    }
+
+    def 'Verify that an account can unfollow another account'() {
+        when: 'Make allow account Id 1 unfollow 6'
+        def resp = restClient.post(path: "/accounts/1/unfollow/6")
+
+        then:
+        resp.status == 200
+
+        when: 'Get the account Id 1 details'
+        resp = restClient.get(path: "/accounts/1")
+
+        then: 'Verify that account Id 1 is not following account Id 6 anymore'
+        !resp.data.following.id.toString().contains("6")
+
+        when: 'Get the account Id 6 details'
+        resp = restClient.get(path: "/accounts/6")
+
+        then: 'Verify that account Id 6 is not being followed by account Id 1 anymore'
+        !resp.data.followedBy.id.toString().contains("1")
+
+        //resp.data.followedBy.id.toString().contains(selfId.toString())
     }
 
 
