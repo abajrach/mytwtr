@@ -3,6 +3,7 @@ package mytwtr
 import geb.spock.GebSpec
 import grails.converters.JSON
 import grails.test.mixin.integration.Integration
+import groovyx.net.http.HttpResponseException
 import groovyx.net.http.RESTClient
 import spock.lang.Shared
 import spock.lang.Stepwise
@@ -23,19 +24,6 @@ class MessageResourceFunctionalSpec extends GebSpec {
     def setup() {
         restClient = new RESTClient(baseUrl)
     }
-
-    def 'Sanity check'() {
-        expect: "This will work"
-        true == true
-    }
-    /* def 'MC1.Unit - Get all message information with no records'(){
-         when:
-         def resp = restClient.get(path: '/messages')
-
-         then:
-         resp.status == 200
-         resp.data.size() == 0
-     }*/
 
     def 'M1: Create a Message given a specified Account id and message text'() {
         given:
@@ -73,11 +61,27 @@ class MessageResourceFunctionalSpec extends GebSpec {
 
     }
 
-    /*def 'M2: Return an error response from the create Message endpoint if user is not found or message text is not valid (data-driven test)'() {
-        expect: "fix me"
-        true == false
-    }
+    def 'M2: Return an error response from the create Message endpoint if user is not found or message text is not valid (data-driven test) #description'() {
 
+        when:
+        // def message = new Message(status_message: 'M1-Message', account: accountID)
+        //def messageJson = message as JSON
+        //def status_message = "M1-Message"
+        def messageJson = "{\"status_message\":\"" + status_message + "\",\"account\":" + accountID + "}"
+        //      def countMessageB4 = Message.count()
+        def messageResp = restClient.post(path: '/accounts/1/messages', body: messageJson as String, requestContentType: 'application/json')
+
+        then: 'Verify that error code 422: Unprocessable Entity is thrown'
+        HttpResponseException error = thrown(HttpResponseException)
+        error.statusCode == 422
+
+        where:
+        description                  | status_message  | accountID
+        'Empty status_message'       | ''              | 1
+        'Bad account ID'             | '@ObiWanKenobi' | 0
+        'empty message and bad acct' | 1               | 0
+    }
+/*
     def 'M3: Create a REST endpoint that will return the most recent messages for an Account. The endpoint must honor a limit parameter that caps the number of responses. The default limit is 10. (data-driven test)'() {
         expect: "fix me"
         true == false
