@@ -10,39 +10,59 @@ class MessageController extends RestfulController<Message> {
         super(Message)
     }
 
-    /*def index() {
+    /**
+     * This method is called when URL path is /accounts/1/messages/1
+     * * @Todo: Make sure there is tests for this
+     */
+    @Override
+    protected Message queryForResource(Serializable id) {
+        def accountId = params.accountId
 
-        if (params.handle) {
-            //println 'inside MessageController index '+ params.handle
-            def message = Message.findByHandlename(params.handle)
-            if (message) {
-                render message as JSON
-            } else {
-                response.status = 404 // @Todo: Fix the notFound.gsp issue. Return status is 404 but the page is empty
-            }
-        } else {
-            // @Todo: Return all the message
-        }
-    }*/
+        // Get the particular message for that account
+        Message.where {
+            id == id && account.id == accountId
+        }.find()
+    }
 
-  /*  def postmessage() {
-        def account
-        def status_message = request.JSON.status_message
+    /**
+     * This method is called when URL path is /accounts/1/messages
+     * @Todo: Make sure there is tests for this
+     */
+    def index() {
+        def accountId = params.accountId
 
-        if (params.handle) {
-            account = Account.findByHandlename(params.handle)
-        } else {
-            account = Account.get(params.id)
-        }
-        if (account) {
-            def message = new Message(status_message: status_message, account: account).save
-            if (message) {
-                render message as JSON
-            } else {
-                response.status = 404
-            }
-        } else {
+        // Verify account ID is correct
+        if (Account.get(accountId) == null) {
             response.status = 404
+            return
         }
-    }*/
+
+        // Get all the messages for that account ID
+        render Message.where {
+            account.id == accountId
+        }.findAll() as JSON
+
+    }
+
+    /*
+     Returns the list of messages for an account
+     max and offset query parameters can be used to filter the maximum and offset value for the result
+  */
+
+    def recentMessages() {
+
+        def accountId = Integer.parseInt(params.id)
+        def max = params.max ? Integer.parseInt(params.max) : 10
+        def offset = params.offset ? Integer.parseInt(params.offset) : 0
+
+        if (Account.get(accountId)) {
+            def messages = Message.listOrderByDateCreated('from Message msg where msg.id = Account.get(AccountID)',
+                    [max: max, offset: offset, order: 'dsc'])
+
+            render messages as JSON
+        } else {
+            render(status: 404, text: "Messages for account with account ID ${accountId} don't exists")
+        }
+    }
+
 }
