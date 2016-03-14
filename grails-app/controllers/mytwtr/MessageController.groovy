@@ -3,6 +3,8 @@ package mytwtr
 import grails.converters.JSON
 import grails.rest.RestfulController
 
+import java.text.SimpleDateFormat
+
 class MessageController extends RestfulController<Message> {
     static responseFormats = ['json', 'xml']
 
@@ -12,7 +14,6 @@ class MessageController extends RestfulController<Message> {
 
     /**
      * This method is called when URL path is /accounts/1/messages/1
-     * * @Todo: Make sure there is tests for this
      */
     @Override
     protected Message queryForResource(Serializable id) {
@@ -26,7 +27,6 @@ class MessageController extends RestfulController<Message> {
 
     /**
      * This method is called when URL path is /accounts/1/messages
-     * @Todo: Make sure there is tests for this
      */
     def index() {
         def accountId = params.accountId
@@ -52,17 +52,33 @@ class MessageController extends RestfulController<Message> {
     def recentMessages() {
 
         def accountId = Integer.parseInt(params.id)
-        def max = params.max ? Integer.parseInt(params.max) : 10
+        def limit = params.limit ? Integer.parseInt(params.limit) : 10
         def offset = params.offset ? Integer.parseInt(params.offset) : 0
 
-        if (Account.get(accountId)) {
+        /*if (Account.get(accountId)) {
             def messages = Message.listOrderByDateCreated('from Message msg where msg.id = Account.get(AccountID)',
-                    [max: max, offset: offset, order: 'dsc'])
-
+                    [max: max, offset: offset, order:dateCreated 'desc'])
             render messages as JSON
+*/
+
+        if (Account.get(accountId)) {
+            def messageResults = Message.withCriteria {
+                'in'('account', Account.get(accountId))
+                order('dateCreated', 'desc')
+                firstResult(offset)
+                maxResults(limit)
+            }
+            render messageResults as JSON
         } else {
-            render(status: 404, text: "Messages for account with account ID ${accountId} don't exists")
+            render(status: 404, text: "No messages for account with account ID ${accountId} exist")
         }
+
+
+
+
+
+
+
     }
 
     /*
