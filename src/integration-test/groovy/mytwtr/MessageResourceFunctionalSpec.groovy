@@ -67,31 +67,6 @@ class MessageResourceFunctionalSpec extends GebSpec {
         messageResp.responseData.status_message == status_message
 
     }
-    /*def 'M1: Create a Message given a specified Handle and message text'() {
-        given:
-        def account = new Account(handlename: 'm1account2', name: 'M1-Test2', password: 'd8RTHV8der1', email: 'm12@gmail.com')
-        def accountJson = account as JSON
-
-        when:
-        def resp = restClient.post(path: '/accounts', body: accountJson as String, requestContentType: 'application/json')
-
-        then:
-        resp.status == 201
-        resp.data
-        def accountID = resp.responseData.id
-
-        when:
-        def status_message = "M1-Message2"
-        def messageJson = "{\"status_message\":\"" + status_message + "\",\"account\":" + accountID + "}"
-        def messageResp = restClient.post(path: '/accounts/1/messages', body: messageJson as String, requestContentType: 'application/json')
-        messageId = messageResp.responseData.id
-        then:
-        messageResp.status == 201
-        messageResp.data
-        messageId
-        messageResp.responseData.status_message == status_message
-
-    }*/
 
     def 'M2: Return an error response from the create Message endpoint if user is not found or message text is not valid (data-driven test) #description'() {
 
