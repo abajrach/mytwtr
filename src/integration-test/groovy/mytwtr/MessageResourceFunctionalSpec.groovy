@@ -89,7 +89,7 @@ class MessageResourceFunctionalSpec extends GebSpec {
     def 'M3: Create a REST endpoint that will return the most recent messages for an Account. The endpoint must honor a limit parameter that caps the number of responses. The default limit is 10. (data-driven test)'() {
         when: 'Add message #status_message'
         def messageJson = "{\"status_message\":\"" + status_message + "\",\"account\":" + accountID + "}"
-        def pathForTest = "/accounts/"+ accountID + "/messages"
+        def pathForTest = "/accounts/" + accountID + "/messages"
         def messageResp = restClient.post(path: pathForTest, body: messageJson as String, requestContentType: 'application/json')
         messageId = messageResp.responseData.id
 
@@ -100,7 +100,7 @@ class MessageResourceFunctionalSpec extends GebSpec {
         messageResp.responseData.status_message == status_message
 
         when: 'Getting all the message, no query parameters used - Result count should be #expectedMsgCount'
-        pathForTest = "/messages/"+ accountID + "/recentmessages"
+        pathForTest = "/messages/" + accountID + "/recentmessages"
         messageResp = restClient.get(path: pathForTest, requestContentType: 'application/json')
 
         then: 'Account #accountId should have #expectedMsgCount. As list is in desc order should be current number added'
@@ -108,7 +108,7 @@ class MessageResourceFunctionalSpec extends GebSpec {
         messageResp.data.size() == expectedMsgCount
 
         when: 'Getting latest message for account Id #accountID'
-        pathForTest = "/messages/"+ accountID + "/recentmessages"
+        pathForTest = "/messages/" + accountID + "/recentmessages"
         messageResp = restClient.get(path: pathForTest, query: ['max': 1], requestContentType: 'application/json')
 
         then: 'Check the latest recent message'
@@ -116,30 +116,30 @@ class MessageResourceFunctionalSpec extends GebSpec {
         messageResp.data.size() == 1
 
         where:
-        description                                | status_message  | accountID  | expectedMsgCount
-        'Message1'                                 | 'Message 1'     | 1          | 1
-        'Message2'                                 | 'Message 2'     | 1          | 2
-        'Message3'                                 | 'Message 3'     | 1          | 3
-        'Message4'                                 | 'Message 4'     | 1          | 4
-        'Message5'                                 | 'Message 5'     | 1          | 5
-        'Message6'                                 | 'Message 6'     | 1          | 6
-        'Message7'                                 | 'Message 7'     | 1          | 7
-        'Message8'                                 | 'Message 8'     | 1          | 8
-        'Message9'                                 | 'Message 9'     | 1          | 9
+        description | status_message | accountID | expectedMsgCount
+        'Message1'  | 'Message 1'    | 1         | 1
+        'Message2'  | 'Message 2'    | 1         | 2
+        'Message3'  | 'Message 3'    | 1         | 3
+        'Message4'  | 'Message 4'    | 1         | 4
+        'Message5'  | 'Message 5'    | 1         | 5
+        'Message6'  | 'Message 6'    | 1         | 6
+        'Message7'  | 'Message 7'    | 1         | 7
+        'Message8'  | 'Message 8'    | 1         | 8
+        'Message9'  | 'Message 9'    | 1         | 9
     }
 
-       def 'M4: Support an offset parameter into the recent Messages endpoint to provide paged responses.'() {
-           when: 'Show recent messages starting at 2 for prior account test'
-           def pathForTest = "/messages/1/recentmessages"
-           def messageResp = restClient.get(path: pathForTest, query: ['max': 3, 'offset': 2], requestContentType: 'application/json')
+    def 'M4: Support an offset parameter into the recent Messages endpoint to provide paged responses.'() {
+        when: 'Show recent messages starting at 2 for prior account test'
+        def pathForTest = "/messages/1/recentmessages"
+        def messageResp = restClient.get(path: pathForTest, query: ['max': 3, 'offset': 2], requestContentType: 'application/json')
 
-           then: 'Returns 3 messages in descending order skipping the 2 newest'
-           messageResp.status == 200
-           messageResp.data.size() == 3
-           messageResp.data[0].status_message == 'Message 7'
-           messageResp.data[1].status_message == 'Message 6'
-           messageResp.data[2].status_message == 'Message 5'
-       }
+        then: 'Returns 3 messages in descending order skipping the 2 newest'
+        messageResp.status == 200
+        messageResp.data.size() == 3
+        messageResp.data[0].status_message == 'Message 7'
+        messageResp.data[1].status_message == 'Message 6'
+        messageResp.data[2].status_message == 'Message 5'
+    }
 
     def 'M5: Create a REST endpoint that will search for messages containing a specified search term. Each response value will be a JSON object containing the Message details (text, date) as well as the Account (handle)'() {
 
