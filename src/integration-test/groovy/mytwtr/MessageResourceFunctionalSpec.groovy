@@ -155,8 +155,16 @@ class MessageResourceFunctionalSpec extends GebSpec {
     }
 
        def 'M4: Support an offset parameter into the recent Messages endpoint to provide paged responses.'() {
-           expect: "fix me"
-//           true == false
+           when: 'Show recent messages starting at 2 for prior account test'
+           def pathForTest = "/messages/1/recentmessages"
+           def messageResp = restClient.get(path: pathForTest, query: ['max': 3, 'offset': 2], requestContentType: 'application/json')
+
+           then: 'Returns 3 messages in descending order skipping the 2 newest'
+           messageResp.status == 200
+           messageResp.data.size() == 3
+           messageResp.data[0].status_message == 'Message 7'
+           messageResp.data[1].status_message == 'Message 6'
+           messageResp.data[2].status_message == 'Message 5'
        }
 
 
