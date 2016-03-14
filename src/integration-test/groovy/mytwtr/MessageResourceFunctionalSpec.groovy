@@ -142,8 +142,8 @@ class MessageResourceFunctionalSpec extends GebSpec {
            messageResp.data[2].status_message == 'Message 5'
        }
 
-
     def 'M5: Create a REST endpoint that will search for messages containing a specified search term. Each response value will be a JSON object containing the Message details (text, date) as well as the Account (handle)'() {
+
         given: 'Create few messages with search term which we want to search later'
 
         def message1 = '{"status_message": "This ferrari is an awesome car", "account": 1}'
@@ -158,12 +158,21 @@ class MessageResourceFunctionalSpec extends GebSpec {
 
         when:
         def resp = restClient.get(path: "/messages/search", query: ['query': 'ferrari'])
+        def tempAccountHandle = resp.data[0].accountHandle
 
         then:
         resp.status == 200
         resp.data.size() == 3
         resp.data.message.status_message.toString().contains("ferrari")
-        resp.data[0].accountHandle == '@m31'
+
+
+        when:
+        def resp2 = restClient.get(path: "/accounts/1")
+
+        then:
+        resp2.status == 200
+        resp2.data.id == 1
+        resp2.data.handlename == tempAccountHandle
     }
 
 }
