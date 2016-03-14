@@ -115,7 +115,6 @@ class MessageResourceFunctionalSpec extends GebSpec {
         messageResp.status == 200
         messageResp.data.size() == 1
 
-//The expectedMsgCount is +1 as there is one for the account in the count.
         where:
         description                                | status_message  | accountID  | expectedMsgCount
         'Message1'                                 | 'Message 1'     | 1          | 1
