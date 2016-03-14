@@ -60,13 +60,6 @@ class MessageController extends RestfulController<Message> {
         } else {
             render(status: 404, text: "No messages for account with account ID ${accountId} exist")
         }
-
-
-
-
-
-
-
     }
 
     /*
