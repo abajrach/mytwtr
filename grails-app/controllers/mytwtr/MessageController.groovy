@@ -46,14 +46,8 @@ class MessageController extends RestfulController<Message> {
     def recentMessages() {
 
         def accountId = Integer.parseInt(params.id)
-        def limit = params.limit ? Integer.parseInt(params.limit) : 10
+        def limit = params.max ? Integer.parseInt(params.max) : 10
         def offset = params.offset ? Integer.parseInt(params.offset) : 0
-
-        /*if (Account.get(accountId)) {
-            def messages = Message.listOrderByDateCreated('from Message msg where msg.id = Account.get(AccountID)',
-                    [max: max, offset: offset, order:dateCreated 'desc'])
-            render messages as JSON
-*/
 
         if (Account.get(accountId)) {
             def messageResults = Message.withCriteria {
