@@ -31,12 +31,6 @@ class MessageController extends RestfulController<Message> {
     def index() {
         def accountId = params.accountId
 
-        // Verify account ID is correct
-        if (Account.get(accountId) == null) {
-            response.status = 404
-            return
-        }
-
         // Get all the messages for that account ID
         render Message.where {
             account.id == accountId
