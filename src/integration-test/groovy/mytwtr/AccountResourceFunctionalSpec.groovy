@@ -9,9 +9,6 @@ import spock.lang.Shared
 import spock.lang.Stepwise
 import spock.lang.Unroll
 
-/**
- * Created by Arbindra on 3/9/2016.
- */
 @Integration
 @Stepwise
 class AccountResourceFunctionalSpec extends GebSpec {
@@ -100,7 +97,7 @@ class AccountResourceFunctionalSpec extends GebSpec {
         def json = account as JSON
 
         when:
-        def resp = restClient.post(path: '/accounts', body: json as String, requestContentType: 'application/json')
+        restClient.post(path: '/accounts', body: json as String, requestContentType: 'application/json')
 
         then: 'Verify that error code 422: Unprocessable Entity is thrown'
         HttpResponseException error = thrown(HttpResponseException)

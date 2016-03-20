@@ -11,13 +11,9 @@ import spock.lang.Stepwise
 
 @Integration
 @Stepwise
-/**
- * Created by taz-hp-1 on 3/10/2016.
- */
 class MessageResourceFunctionalSpec extends GebSpec {
     @Shared
     def messageId
-    def accountId
 
     RESTClient restClient
 
@@ -53,27 +49,27 @@ class MessageResourceFunctionalSpec extends GebSpec {
         then:
         resp.status == 201
         resp.data
-        def accountID = resp.responseData.id
 
         when:
+        def accountID = resp.responseData.id
         def status_message = "M1-Message"
-        def messageJson = "{\"status_message\":\"" + status_message + "\",\"account\":" + accountID + "}"
+        def messageJson = "{\"status_message\":\"" + status_message + "\",\"account\":" + (accountID as String) + "}"
         def messageResp = restClient.post(path: '/accounts/1/messages', body: messageJson as String, requestContentType: 'application/json')
         messageId = messageResp.responseData.id
+
         then:
         messageResp.status == 201
         messageResp.data
         messageId
         messageResp.responseData.status_message == status_message
-
     }
 
     def 'M2: Return an error response from the create Message endpoint if user is not found or message text is not valid (data-driven test) #description'() {
 
         when:
-        def messageJson = "{\"status_message\":\"" + status_message + "\",\"account\":" + accountID + "}"
+        def messageJson = ([status_message: status_message, account: accountID] as JSON) as String
         def pathForTest = "/accounts/" + accountID + "/messages"
-        def messageResp = restClient.post(path: pathForTest, body: messageJson as String, requestContentType: 'application/json')
+        restClient.post(path: pathForTest, body: messageJson as String, requestContentType: 'application/json')
 
         then: 'Verify that error code 422: Unprocessable Entity is thrown'
         HttpResponseException error = thrown(HttpResponseException)
@@ -88,9 +84,9 @@ class MessageResourceFunctionalSpec extends GebSpec {
 
     def 'M3: Create a REST endpoint that will return the most recent messages for an Account. The endpoint must honor a limit parameter that caps the number of responses. The default limit is 10. (data-driven test)'() {
         when: 'Add message #status_message'
-        def messageJson = "{\"status_message\":\"" + status_message + "\",\"account\":1}"
+        def messageJson = ([status_message: status_message, account: 1] as JSON) as String
         def pathForTest = "/accounts/1/messages"
-        def messageResp = restClient.post(path: pathForTest, body: messageJson as String, requestContentType: 'application/json')
+        def messageResp = restClient.post(path: pathForTest, body: messageJson, requestContentType: 'application/json')
         messageId = messageResp.responseData.id
 
         then: 'Message added'
@@ -135,10 +131,15 @@ class MessageResourceFunctionalSpec extends GebSpec {
 
         then: 'Returns 3 messages in descending order skipping the 2 newest'
         messageResp.status == 200
+
+        when:
+        List messages = messageResp.data as List
+
+        then:
         messageResp.data.size() == 3
-        messageResp.data[0].status_message == 'Message 7'
-        messageResp.data[1].status_message == 'Message 6'
-        messageResp.data[2].status_message == 'Message 5'
+        messages[0].status_message == 'Message 7'
+        messages[1].status_message == 'Message 6'
+        messages[2].status_message == 'Message 5'
     }
 
     def 'M5: Create a REST endpoint that will search for messages containing a specified search term. Each response value will be a JSON object containing the Message details (text, date) as well as the Account (handle)'() {
@@ -157,7 +158,7 @@ class MessageResourceFunctionalSpec extends GebSpec {
 
         when:
         def resp = restClient.get(path: "/messages/search", query: ['query': 'ferrari'])
-        def tempAccountHandle = resp.data[0].accountHandle
+        def tempAccountHandle = (resp.data as List)[0].accountHandle
 
         then:
         resp.status == 200

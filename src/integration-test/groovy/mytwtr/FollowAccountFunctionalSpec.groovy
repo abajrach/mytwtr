@@ -7,11 +7,9 @@ import grails.test.mixin.integration.Integration
 import spock.lang.Stepwise
 import spock.lang.Unroll
 
-/**
- * Created by Arbindra on 3/9/2016.
- */
 @Integration
 @Stepwise
+@Unroll
 class FollowAccountFunctionalSpec extends GebSpec {
 
     RESTClient restClient
@@ -19,7 +17,6 @@ class FollowAccountFunctionalSpec extends GebSpec {
     def setup() {
         restClient = new RESTClient(baseUrl)
     }
-
 
     def 'Create set of accounts to test Account Following functionality #description'() {
         given:
@@ -43,7 +40,7 @@ class FollowAccountFunctionalSpec extends GebSpec {
         'Account Id 6' | '@Gandalf'      | 'Gandalf'       | 'G8d8Lf2134'     | 'Gandalf@gmail.com'
     }
 
-    def 'Create messages #description'() {
+    def 'Create some test messages'() {
         when:
         def account_resp = restClient.get(path: "/accounts/6")
 
@@ -51,36 +48,30 @@ class FollowAccountFunctionalSpec extends GebSpec {
         account_resp.status == 200
 
         when:
-        def message = '{"status_message": "' + status_message + '", "account": ' + account_resp.data.id.toString() + '}'
-        def resp = restClient.post(path: '/accounts/6/messages', body: message as String, requestContentType: 'application/json')
+        def responses = []
+        (1..8).each { i->
+            def message = ([status_message: "status message ${i}", account: account_resp.data.id] as JSON) as String
+            responses << restClient.post(path: '/accounts/6/messages', body: message as String, requestContentType: 'application/json')
+        }
 
         then: 'Verify that all accounts are successfully created'
-        resp.status == 201
-        resp.data
-
-        where:
-        description                       | status_message
-        'message 1'                       | 'status message 1'
-        'message 2'                       | 'status message 2'
-        'message 3'                       | 'status message 3'
-        'message 4'                       | 'status message 4'
-        'message 5'                       | 'status message 5'
-        'message 6'                       | 'status message 6'
-        'message 7'                       | 'status message 7'
-        'message 8'                       | 'status message 8'
+        responses.each { response ->
+            assert response.status == 201
+            assert response.data
+        }
     }
 
     def 'F1. Verify an account can follow other accounts #description'() {
 
         when: 'Accounts 1-5 is following 6 and account 6 is following back 1'
-        def resp = restClient.post(path: "/accounts/" + selfId + "/follow/" + followIds)
+        def resp = restClient.post(path: "/accounts/${selfId}/follow/${followId}")
 
         then:
         resp.status == 200
         resp.data.followedBy.id.toString().contains(selfId.toString())
 
         where: 'Accounts 1-5 follows 6. Account 6 follows 1'
-        description                   | selfId | followIds
+        description                   | selfId | followId
         'Account 1 follows Account 6' | 1      | 6
         'Account 2 follows Account 6' | 2      | 6
         'Account 3 follows Account 6' | 3      | 6
@@ -114,39 +105,58 @@ class FollowAccountFunctionalSpec extends GebSpec {
 
         then: 'Account 6 has 5 followers. First one being accound Id 1, since the list is sorted in asc order'
         resp.status == 200
-        resp.data.size() == 5
-        resp.data[0].id == 1
+
+        when:
+        List followers = resp.data as List
+
+        then:
+        followers.size() == 5
+        followers[0].id == 1
 
         when: 'Getting first 3 followers for account Id 6'
         resp = restClient.get(path: "/accounts/6/getfollowers", query: ['max': 3])
 
         then: 'Returns only 3 followers'
         resp.status == 200
-        resp.data.size() == 3
-        resp.data[0].id == 1
-        resp.data[1].id == 2
-        resp.data[2].id == 3
+
+        when:
+        followers = resp.data as List
+
+        then:
+        followers.size() == 3
+        followers[0].id == 1
+        followers[1].id == 2
+        followers[2].id == 3
 
         when: 'Skips first 2 followers for account Id 6'
         resp = restClient.get(path: "/accounts/6/getfollowers", query: ['offset': 2])
 
         then: 'Returns remaining 3 followers for account Id 6'
         resp.status == 200
-        resp.data.size() == 3
-        resp.data[0].id == 3
-        resp.data[1].id == 4
-        resp.data[2].id == 5
+
+        when:
+        followers = resp.data as List
+
+        then:
+        followers.size() == 3
+        followers[0].id == 3
+        followers[1].id == 4
+        followers[2].id == 5
 
         when: 'Show only 3 followers and skip first 2 followers for account Id 6'
         resp = restClient.get(path: "/accounts/6/getfollowers", query: ['max': 3, 'offset': 2])
 
         then: 'Returns 3 followers, skips first 2 followers for account Id 6'
         resp.status == 200
-        resp.data.size() == 3
-        resp.data[0].id == 3
-        resp.data[1].id == 4
-        resp.data[2].id == 5
 
+        when:
+        followers = resp.data as List
+
+        then:
+        followers.size() == 3
+        followers[0].id == 3
+        followers[1].id == 4
+        followers[2].id == 5
     }
 
     def 'F4. Show news feed for the account being followed'() {
@@ -155,19 +165,29 @@ class FollowAccountFunctionalSpec extends GebSpec {
 
         then: 'Account Id 1 is following 6 who has 8 messages in total. First one being message Id 8, since the list is sorted in desc order by creation date'
         resp.status == 200
-        resp.data.size() == 8
-        resp.data[0].id == 8
+
+        when:
+        def feed = resp.data as List
+
+        then:
+        feed.size() == 8
+        feed[0].id == 8
 
         when: 'Getting only 4 news feed'
         resp = restClient.get(path: "/accounts/1/shownewsfeed", query: ['limit': 4])
 
         then: 'Returns only 4 messages'
         resp.status == 200
-        resp.data.size() == 4
-        resp.data[0].id == 8
-        resp.data[1].id == 7
-        resp.data[2].id == 6
-        resp.data[3].id == 5
+
+        when:
+        def messages = resp.data as List
+
+        then:
+        messages.size() == 4
+        messages[0].id == 8
+        messages[1].id == 7
+        messages[2].id == 6
+        messages[3].id == 5
 
         when: 'Get the dateCreated for message'
         resp = restClient.get(path: "/accounts/6/messages/6")
@@ -202,7 +222,6 @@ class FollowAccountFunctionalSpec extends GebSpec {
 
         then: 'Verify that account Id 6 is not being followed by account Id 1 anymore'
         !resp.data.followedBy.id.toString().contains("1")
-
     }
 
 
