@@ -1,8 +1,9 @@
 package mytwtr
 
-
+import geb.spock.GebSpec
 import grails.test.mixin.integration.Integration
 import grails.transaction.*
+import groovyx.net.http.RESTClient
 import spock.lang.*
 
 @Integration
