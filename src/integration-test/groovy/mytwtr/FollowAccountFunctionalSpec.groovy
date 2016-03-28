@@ -4,9 +4,11 @@ import geb.spock.GebSpec
 import groovyx.net.http.RESTClient
 import grails.converters.JSON
 import grails.test.mixin.integration.Integration
+import spock.lang.Ignore
 import spock.lang.Stepwise
 import spock.lang.Unroll
 
+@Ignore
 @Integration
 @Stepwise
 @Unroll

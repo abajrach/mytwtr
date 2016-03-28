@@ -12,7 +12,7 @@ root(ERROR, ['STDOUT'])
 
 def targetDir = BuildSettings.TARGET_DIR
 if (Environment.isDevelopmentMode() && targetDir) {
-    appender("FULL_STACKTRACE", FileAppender) {
+    /* appender("FULL_STACKTRACE", FileAppender) {
         file = "${targetDir}/stacktrace.log"
         append = true
         encoder(PatternLayoutEncoder) {
@@ -20,4 +20,19 @@ if (Environment.isDevelopmentMode() && targetDir) {
         }
     }
     logger("StackTrace", ERROR, ['FULL_STACKTRACE'], false)
+    */
+
+   /* appender("FULL_STACKTRACE", FileAppender) {
+        file = "${targetDir}/stacktrace.log"
+        append = true
+        encoder(PatternLayoutEncoder) {
+            pattern = "%level %logger - %msg%n"
+        }
+    }
+    logger("StackTrace", ERROR, ['FULL_STACKTRACE'], false)
+
+    logger("org.springframework.security", DEBUG, ['STDOUT'], false)
+    logger("grails.plugin.springsecurity", DEBUG, ['STDOUT'], false)
+    logger("org.pac4j", DEBUG, ['STDOUT'], false)
+    */
 }

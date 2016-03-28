@@ -6,6 +6,7 @@ import grails.transaction.*
 import groovyx.net.http.RESTClient
 import spock.lang.*
 
+@Ignore
 @Integration
 @Rollback
 class IntegTestSpec extends Specification {

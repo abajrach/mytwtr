@@ -1,17 +1,15 @@
 package mytwtr
 
 import grails.test.mixin.TestFor
+import spock.lang.Ignore
 import spock.lang.Specification
 
 /**
  * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
  */
-
-// @TODO: Get rid of this file
-
-
-@TestFor(MessageController)
-class MessageControllerSpec extends Specification {
+@Ignore
+@TestFor(ErrorController)
+class ErrorControllerSpec extends Specification {
 
     def setup() {
     }
@@ -20,7 +18,7 @@ class MessageControllerSpec extends Specification {
     }
 
     void "test something"() {
-        expect:"fix me"
-            true == true
+        expect: "fix me"
+        true == false
     }
 }

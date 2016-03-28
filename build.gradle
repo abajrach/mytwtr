@@ -22,6 +22,7 @@ apply plugin:"war"
 apply plugin:"org.grails.grails-web"
 apply plugin:"org.grails.grails-gsp"
 apply plugin:"asset-pipeline"
+apply plugin: "spring-boot"
 
 ext {
     grailsVersion = project.grailsVersion
@@ -53,6 +54,8 @@ dependencies {
     compile "org.grails.plugins:hibernate4"
     compile "org.hibernate:hibernate-ehcache"
     console "org.grails:grails-console"
+    compile 'org.grails.plugins:spring-security-rest:2.0.0.M2'  // Security Related Stuff
+    compile 'org.grails.plugins:spring-security-rest-gorm:2.0.0.M2' // Security Related Stuff
     profile "org.grails.profiles:web:3.1.1"
     runtime "org.grails.plugins:asset-pipeline"
     runtime "com.h2database:h2"
