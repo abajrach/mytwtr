@@ -19,3 +19,9 @@ if (typeof jQuery !== 'undefined') {
         });
     })(jQuery);
 }
+
+angular.module('app', []);
+
+angular.module('app').controller('welcomeController', function($scope) {
+    $scope.greeting = 'Hello Stranger'
+});

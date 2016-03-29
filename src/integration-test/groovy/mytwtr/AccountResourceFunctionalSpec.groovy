@@ -10,6 +10,7 @@ import spock.lang.Shared
 import spock.lang.Stepwise
 import spock.lang.Unroll
 
+@Ignore
 @Integration
 @Stepwise
 class AccountResourceFunctionalSpec extends GebSpec {
