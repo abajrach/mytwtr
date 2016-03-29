@@ -60,14 +60,13 @@ class AccountResourceFunctionalSpec extends GebSpec {
         response.data.size() == 0
     }
 
-    @Ignore
     def 'Create a new account'() {
         given:
         def account = new Account(handlename: 'darthVader', name: 'Mr. Darth Vader', password: 'd8RTHV8der1', email: 'darth_vader@gmail.com')
         def json = account as JSON
 
         when:
-        def resp = restClient.post(path: '/accounts', body: json as String, requestContentType: 'application/json')
+        def resp = restClient.post(path: '/accounts', body: json as String, requestContentType: 'application/json',  headers: ['X-Auth-Token': token])
 
         then:
         resp.status == 201
@@ -83,20 +82,18 @@ class AccountResourceFunctionalSpec extends GebSpec {
         resp.data.email == 'darth_vader@gmail.com'
     }
 
-    @Ignore
     def 'Retrieve all accounts'() {
         when:
-        def resp = restClient.get(path: '/accounts')
+        def resp = restClient.get(path: '/accounts', headers: ['X-Auth-Token': token])
 
         then:
         resp.status == 200
         resp.data.size() == 1
     }
 
-    @Ignore
     def 'Retrieve the account by accountId'() {
         when:
-        def resp = restClient.get(path: "/accounts/${accountId}")
+        def resp = restClient.get(path: "/accounts/${accountId}", headers: ['X-Auth-Token': token])
 
         then:
         resp.status == 200
@@ -106,11 +103,10 @@ class AccountResourceFunctionalSpec extends GebSpec {
         resp.data.email == 'darth_vader@gmail.com'
     }
 
-    @Ignore
     def 'Retrieve the account by handleName with format /accounts?handlename=darthVader'() {
         when:
         def resp = restClient.get(path: '/accounts',
-                query: ['handle': 'darthVader'])
+                query: ['handle': 'darthVader'], headers: ['X-Auth-Token': token])
 
         then:
         resp.status == 200
@@ -120,10 +116,9 @@ class AccountResourceFunctionalSpec extends GebSpec {
         resp.data.email == 'darth_vader@gmail.com'
     }
 
-    @Ignore
     def 'Retrieve the account by handleName with format /accounts/handle=darthVader'() {
         when:
-        def resp = restClient.get(path: '/accounts/handle=darthVader')
+        def resp = restClient.get(path: '/accounts/handle=darthVader', headers: ['X-Auth-Token': token])
 
         then:
         resp.status == 200
@@ -133,7 +128,7 @@ class AccountResourceFunctionalSpec extends GebSpec {
         resp.data.email == 'darth_vader@gmail.com'
     }
 
-    @Ignore
+
     @Unroll
     def 'Account creation with invalid input returns error: #description'() {
         given:
@@ -141,7 +136,7 @@ class AccountResourceFunctionalSpec extends GebSpec {
         def json = account as JSON
 
         when:
-        restClient.post(path: '/accounts', body: json as String, requestContentType: 'application/json')
+        restClient.post(path: '/accounts', body: json as String, requestContentType: 'application/json', headers: ['X-Auth-Token': token])
 
         then: 'Verify that error code 422: Unprocessable Entity is thrown'
         HttpResponseException error = thrown(HttpResponseException)

@@ -16,13 +16,14 @@ buildscript {
 version "0.1"
 group "mytwtr"
 
+apply plugin: "spring-boot"
 apply plugin:"eclipse"
 apply plugin:"idea"
 apply plugin:"war"
 apply plugin:"org.grails.grails-web"
 apply plugin:"org.grails.grails-gsp"
 apply plugin:"asset-pipeline"
-apply plugin: "spring-boot"
+
 
 ext {
     grailsVersion = project.grailsVersion
