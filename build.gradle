@@ -70,8 +70,8 @@ dependencies {
     testCompile "org.grails.plugins:geb"
     testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
     testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
-    testRuntime 'org.seleniumhq.selenium:selenium-firefox-driver:2.44.0'
-    testRuntime 'org.seleniumhq.selenium:selenium-chrome-driver:2.44.0'
+    testRuntime 'org.seleniumhq.selenium:selenium-firefox-driver:2.53.0'
+    testRuntime 'org.seleniumhq.selenium:selenium-chrome-driver:2.53.0'
     testCompile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7'
 }
 
@@ -91,6 +91,8 @@ bower {
     }
 
 }
+compileJava.dependsOn bowerInstall
+clean.dependsOn bowerClean
 
 task wrapper(type: Wrapper) {
     gradleVersion = gradleWrapperVersion

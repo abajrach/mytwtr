@@ -8,6 +8,9 @@
 //= require jquery-2.2.0.min
 //= require bootstrap
 //= require_tree .
+//= require ../bower/bootstrap/bootstrap.js
+//= require ../bower/angular/angular.js
+//= require_tree app
 //= require_self
 
 if (typeof jQuery !== 'undefined') {

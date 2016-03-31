@@ -2,7 +2,11 @@ grails.plugin.springsecurity.filterChain.chainMap = [
 
         //Stateless chain
         [
-                pattern: '/**',
+                pattern: '/accounts/**',
+                filters: 'JOINED_FILTERS,-anonymousAuthenticationFilter,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter'
+        ],
+        [
+                pattern: '/messages/**',
                 filters: 'JOINED_FILTERS,-anonymousAuthenticationFilter,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter'
         ]
 
@@ -20,6 +24,10 @@ grails.plugin.springsecurity.authority.className = 'mytwtr.Role'
 grails.plugin.springsecurity.securityConfigType = 'InterceptUrlMap'
 grails.plugin.springsecurity.interceptUrlMap = [
         [
-                [pattern: '/**', access: ['ROLE_READ']]
+                //[pattern: '/**', access: ['ROLE_READ']]
+                [pattern: '/accounts/**', access: ['ROLE_READ']]
+        ],
+        [
+            [pattern: '/messages/**', access: ['ROLE_READ']]
         ]
 ]

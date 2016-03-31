@@ -4,7 +4,6 @@ import geb.spock.GebSpec
 import grails.test.mixin.integration.Integration
 import spock.lang.Ignore
 
-@Ignore
 @Integration
 class WelcomePageFunctionalSpec extends GebSpec {
 

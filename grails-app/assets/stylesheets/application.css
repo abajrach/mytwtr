@@ -13,3 +13,5 @@
 *= require mobile
 *= require_self
 */
+*= require ../bower/angular/angular-csp.css
+*= require ../bower/bootstrap/css/bootstrap.css
