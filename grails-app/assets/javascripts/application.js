@@ -10,8 +10,8 @@
 //= require_tree .
 //= require ../bower/bootstrap/bootstrap.js
 //= require ../bower/angular/angular.js
-//= require_tree app
 //= require_self
+//= require_tree app
 
 if (typeof jQuery !== 'undefined') {
     (function($) {
