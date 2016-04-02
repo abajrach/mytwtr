@@ -19,11 +19,11 @@ app.controller('mainController', function ($scope, $location, attendeeService) {
 });
 
 app.controller('aboutController', function ($scope) {
-    $scope.message = 'About Page';
+    $scope.message = 'MSSE 5199 Class Project';
 });
 
 app.controller('contactController', function ($scope) {
-    $scope.message = 'Contact Us';
+    $scope.message = 'Arbindra Bajracharya, Jason Nordlund';
 });
 
 app.controller('attendeeController', function ($scope, $location, $routeParams, attendeeService) {

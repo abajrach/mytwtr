@@ -1,8 +1,29 @@
-<div class="jumbotron text-center">
-    <h1>Party Planning Redux</h1>
-
-    <button type="button" class="btn btn-primary btn-center" ng-click="toggle = !toggle">I'm a toggle</button>
-    <div><code>ng-click="toggle = !toggle"</code></div>
+<div class="container">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="text-center">Admin</h1>
+            </div>
+            <div class="modal-body">
+                <form class="col-md12 center-block">
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" placeholder="Username">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-block btn-lg btn-primary" value="Login">
+                        <span class="pull-right"><a href="#">Register</a> </span><span><a href="#">Forgot Password</a> </span>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <div class="col-md-12">
+                        <button class="btn">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div ng-include src="'/app/list.html'" ng-show="toggle"></div>
