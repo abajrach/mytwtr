@@ -6,7 +6,7 @@
 // to create separate JavaScript files as needed.
 //
 //= encoding UTF-8
-//= require jquery-2.1.3.js
+//= require jquery-2.2.0.min.js
 //= require ../bower/bootstrap/bootstrap.js
 //= require ../bower/angular/angular.js
 //= require ../bower/angular-route/angular-route.js
@@ -24,7 +24,7 @@
     })(jQuery);
 }*/
 
-angular.module('app', ['ngRoute']);
+var app = angular.module('app', ['ngRoute']);
 
 //angular.module('app').controller('welcomeController', function($scope) {
 //    $scope.greeting = 'Hello Stranger'

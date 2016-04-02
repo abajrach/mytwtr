@@ -25,9 +25,12 @@
 
     <div ng-view></div>
 
-    <footer class="jumbotron text-center">
-        <p>Footer Content</p>
-    </footer>
+<div class = "navbar navbar-default navbar-fixed-bottom">
+    <div class = "container">
+        <p class = "navbar-text pull-left"> Site Built by Arbindra</p>
+        <a class = "navbar-btn btn-danger btn pull-right">This twitter is awesome!!!</a>
+    </div>
+</div>
 
 </body>
 </html>
