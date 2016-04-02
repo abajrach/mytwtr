@@ -1,0 +1,23 @@
+{
+  "name": "mytwtr",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Arbindra Bajracharya <arbindrabajracharya@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/abajrach/mytwtr",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "jquery": "^2.2.2",
+    "angular-route": "^1.5.3"
+  }
+}
