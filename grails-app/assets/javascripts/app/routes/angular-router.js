@@ -8,10 +8,10 @@ app.config(function ($routeProvider) {
             templateUrl: 'angular-router/partials/about.html',
             controller: 'aboutController'
         })
-        //.when('/contact', {
-        //    templateUrl: 'angular-router/partials/contact.html',
-        //    controller: 'contactController'
-        //})
+        .when('/contact', {
+            templateUrl: 'angular-router/partials/contact.html',
+            controller: 'contactController'
+        })
         //.when('/attendee/:action?/:id?', {
         //    templateUrl: 'angular-router/partials/attendee.html'
         //})

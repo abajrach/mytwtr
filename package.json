@@ -1,7 +1,6 @@
 {
   "name": "mytwtr",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "dependencies": {
     "bower": "^1.7.7",
@@ -21,5 +20,6 @@
   "bugs": {
     "url": "https://github.com/abajrach/mytwtr/issues"
   },
-  "homepage": "https://github.com/abajrach/mytwtr#readme"
+  "homepage": "https://github.com/abajrach/mytwtr#readme",
+  "description": ""
 }
