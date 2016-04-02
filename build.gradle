@@ -49,6 +49,7 @@ dependencyManagement {
 }
 
 dependencies {
+    assets "com.craigburke.angular:angular-template-asset-pipeline:2.2.7" // might not be necessary
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-autoconfigure"
     compile "org.grails:grails-core"
