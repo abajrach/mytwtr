@@ -2,7 +2,7 @@ package mytwtr
 
 import geb.spock.GebSpec
 import grails.test.mixin.integration.Integration
-import spock.lang.Ignore
+//import spock.lang.Ignore
 
 @Integration
 class WelcomePageFunctionalSpec extends GebSpec {

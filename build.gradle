@@ -22,7 +22,7 @@ plugins {
 version "0.1"
 group "mytwtr"
 
-apply plugin: "spring-boot"
+apply plugin:"spring-boot"
 apply plugin:"eclipse"
 apply plugin:"idea"
 apply plugin:"war"
@@ -67,12 +67,20 @@ dependencies {
     runtime "org.grails.plugins:asset-pipeline"
     runtime "com.h2database:h2"
     testCompile "org.grails:grails-plugin-testing"
-    testCompile "org.grails.plugins:geb"
+
+    //testCompile "org.grails.plugins:geb"
+    testCompile ("org.grails.plugins:geb"){
+        exclude group: 'org.seleniumhq.selenium'
+    }
+    testCompile 'com.google.guava:guava:18.0'
+
     testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
     testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
     testRuntime 'org.seleniumhq.selenium:selenium-firefox-driver:2.53.0'
     testRuntime 'org.seleniumhq.selenium:selenium-chrome-driver:2.53.0'
     testCompile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7'
+
+
 }
 
 bower {
