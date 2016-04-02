@@ -8,20 +8,11 @@
     <asset:stylesheet src="application.css"/>
 </head>
 
-%{--<body ng-app="app">--}%
-%{--<h1>Welcome to the sample Grails 3 Angular App</h1>--}%
-
-%{--<div ng-controller="welcomeController">--}%
-    %{--<h2>{{ greeting }}</h2>--}%
-%{--</div>--}%
-
-%{--</body>--}%
-
 <body ng-controller="headerController">
     <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container">
             <div class="navbar-header">
-                <a href = "#" class="navbar-brand"> MSSE Awesome Twitter!!! </a>
+                <a href = "#" class="navbar-brand"> My Awesome Twitter!!! </a>
             </div>
 
             <ul class="nav navbar-nav navbar-right">

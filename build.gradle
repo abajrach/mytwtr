@@ -90,6 +90,8 @@ dependencies {
 
 bower {
 
+    installBase = 'grails-app/assets/bower'
+
     'bootstrap'('3.3.x') {
         source 'dist/css/bootstrap.css' >> 'css/'
         source 'dist/css/bootstrap-theme.css' >> 'css/'
@@ -104,6 +106,7 @@ bower {
 
     'angular'('1.5.x') {
         source 'angular.js'
+        source 'angular-route.js'
         source 'angular-csp.css'
     }
 

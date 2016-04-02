@@ -1,22 +1,22 @@
 app.config(function ($routeProvider) {
     $routeProvider
         .when('/home', {
-            templateUrl: 'angular-router/partials/home.html',
+            templateUrl: '/app/home.html',
             controller: 'mainController'
         })
         .when('/about', {
-            templateUrl: 'angular-router/partials/about.html',
+            templateUrl: '/app/about.html',
             controller: 'aboutController'
         })
         .when('/contact', {
-            templateUrl: 'angular-router/partials/contact.html',
+            templateUrl: '/app/contact.html',
             controller: 'contactController'
         })
         //.when('/attendee/:action?/:id?', {
         //    templateUrl: 'angular-router/partials/attendee.html'
         //})
         .when('/accounts', {
-            templateUrl: 'angular-router/partials/accounts',
+            templateUrl: '/app/accounts.html',
             controller: 'accountController'
         })
         .otherwise({

@@ -6,21 +6,15 @@
 // to create separate JavaScript files as needed.
 //
 //= encoding UTF-8
-//= require jquery-2.2.0.min
-//= require bootstrap
+//= require jquery-2.1.3.js
 //= require ../bower/bootstrap/bootstrap.js
 //= require ../bower/angular/angular.js
 //= require ../bower/angular-route/angular-route.js
 //= require ../bower/foo/bar.js
-//= require_tree .
 //= require_self
 //= require_tree app
-//= require jquery/dist/jquery
-//= require bootstrap/dist/js/bootstrap
-//= require angular/angular
-//= require angular-route/angular-route
 
-if (typeof jQuery !== 'undefined') {
+/*if (typeof jQuery !== 'undefined') {
     (function($) {
         $('#spinner').ajaxStart(function() {
             $(this).fadeIn();
@@ -28,7 +22,7 @@ if (typeof jQuery !== 'undefined') {
             $(this).fadeOut();
         });
     })(jQuery);
-}
+}*/
 
 angular.module('app', ['ngRoute']);
 
