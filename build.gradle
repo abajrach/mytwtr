@@ -63,6 +63,10 @@ dependencies {
     console "org.grails:grails-console"
     compile 'org.grails.plugins:spring-security-rest:2.0.0.M2'  // Security Related Stuff
     compile 'org.grails.plugins:spring-security-rest-gorm:2.0.0.M2' // Security Related Stuff
+
+    //compile("org.springframework.boot:spring-boot-devtools") //bootRun stuff
+
+
     profile "org.grails.profiles:web:3.1.1"
     runtime "org.grails.plugins:asset-pipeline"
     runtime "com.h2database:h2"
