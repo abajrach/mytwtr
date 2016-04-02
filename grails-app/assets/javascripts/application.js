@@ -5,13 +5,20 @@
 // You're free to add application-wide JavaScript to this file, but it's generally better
 // to create separate JavaScript files as needed.
 //
+//= encoding UTF-8
 //= require jquery-2.2.0.min
 //= require bootstrap
-//= require_tree .
 //= require ../bower/bootstrap/bootstrap.js
 //= require ../bower/angular/angular.js
+//= require ../bower/angular-route/angular-route.js
+//= require ../bower/foo/bar.js
+//= require_tree .
 //= require_self
 //= require_tree app
+//= require jquery/dist/jquery
+//= require bootstrap/dist/js/bootstrap
+//= require angular/angular
+//= require angular-route/angular-route
 
 if (typeof jQuery !== 'undefined') {
     (function($) {
@@ -23,8 +30,8 @@ if (typeof jQuery !== 'undefined') {
     })(jQuery);
 }
 
-angular.module('app', ["ngRoute"]);
+angular.module('app', ['ngRoute']);
 
-angular.module('app').controller('welcomeController', function($scope) {
-    $scope.greeting = 'Hello Stranger'
-});
+//angular.module('app').controller('welcomeController', function($scope) {
+//    $scope.greeting = 'Hello Stranger'
+//});
