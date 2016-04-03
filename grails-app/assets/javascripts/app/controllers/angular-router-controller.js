@@ -5,17 +5,44 @@ app.controller('headerController', function ($scope, $location) {
     };
 });
 
-app.controller('mainController', function ($scope, $location, attendeeService) {
-    $scope.message = 'Default Routed Page (Home)';
-    $scope.toggle = true;
-    $scope.attendees = attendeeService.getAttendees();
-    $scope.attendeePage = function () {
-        $location.path("/attendee");
-    };
+/**
+ *
+ */
+app.controller('mainController', function ($scope, $location, $http, loginService) {
+    /*    $scope.message = 'Default Routed Page (Home)';
+     $scope.toggle = true;
+     $scope.attendees = attendeeService.getAttendees();
+     $scope.attendeePage = function () {
+     $location.path("/attendee");
+     };
 
-    $scope.deleteAttendee = function (id) {
-        attendeeService.deleteAttendee(id)
-    };
+     $scope.deleteAttendee = function (id) {
+     attendeeService.deleteAttendee(id)
+     };*/
+    $scope.login = function () {
+        console.log("I am inside mainController in controller code");
+        console.log($scope.usrName);
+        console.log($scope.pwd);
+
+        $http.defaults.headers.post["Content-Type"] = "application/json";
+
+        $http({
+            url: '/api/login',
+            method: "POST",
+            data: {'username': $scope.usrName, 'password': $scope.pwd}
+        })
+            .then(function successCallback(response) {
+                    // success
+                    console.log("success");
+                    console.log(response.status);
+                    console.log(response.data);
+                },
+                function errorCallback(response) {
+                    // failed
+                    console.log("failed");
+                    console.log(response.status);
+                });
+    }
 });
 
 app.controller('aboutController', function ($scope) {

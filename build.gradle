@@ -79,7 +79,7 @@ dependencies {
     }
     testCompile 'com.google.guava:guava:18.0'
 
-    testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
+    testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.0"
     testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
     testRuntime 'org.seleniumhq.selenium:selenium-firefox-driver:2.53.0'
     testRuntime 'org.seleniumhq.selenium:selenium-chrome-driver:2.53.0'

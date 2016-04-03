@@ -2,18 +2,20 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="text-center">Admin</h1>
+                <h1 class="text-center">Login Into Your Account</h1>
             </div>
             <div class="modal-body">
                 <form class="col-md12 center-block">
                     <div class="form-group">
-                        <input type="text" class="form-control input-lg" placeholder="Username">
+                        <input type="text" class="form-control input-lg" placeholder="Username" , ng-model="usrName"
+                               required>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control input-lg" placeholder="Password">
+                        <input type="text" class="form-control input-lg" placeholder="Password" , ng-model="pwd"
+                               required>
                     </div>
                     <div class="form-group">
-                        <input type="submit" class="btn btn-block btn-lg btn-primary" value="Login">
+                        <input type="submit" class="btn btn-block btn-lg btn-primary" value="Login" ng-click="login()">
                         <span class="pull-right"><a href="#">Register</a> </span><span><a href="#">Forgot Password</a> </span>
                     </div>
                 </form>
