@@ -6,21 +6,22 @@ app.controller('headerController', function ($scope, $location) {
 });
 
 /**
- *
+ * change this to loginController
  */
 app.controller('mainController', function ($scope, $location, $http, loginService) {
-    /*    $scope.message = 'Default Routed Page (Home)';
-     $scope.toggle = true;
-     $scope.attendees = attendeeService.getAttendees();
-     $scope.attendeePage = function () {
-     $location.path("/attendee");
-     };
 
-     $scope.deleteAttendee = function (id) {
-     attendeeService.deleteAttendee(id)
-     };*/
-    $scope.login = function () {
+    //var usrNamePassword = new Object();
+    //usrNamePassword.usrName = $scope.usrName;
+    //usrNamePassword.pwd = $scope.pwd;
+
+    //$scope.login = loginService.authenticate(usrNamePassword);
+    $scope.login = function() {
         console.log("I am inside mainController in controller code");
+        loginService.authenticate($scope.usrName, $scope.pwd);
+    }
+
+/*    $scope.login = function () {
+
         console.log($scope.usrName);
         console.log($scope.pwd);
 
@@ -42,7 +43,7 @@ app.controller('mainController', function ($scope, $location, $http, loginServic
                     console.log("failed");
                     console.log(response.status);
                 });
-    }
+    }*/
 });
 
 app.controller('aboutController', function ($scope) {
