@@ -10,40 +10,24 @@ app.controller('headerController', function ($scope, $location) {
  */
 app.controller('mainController', function ($scope, $location, $http, loginService) {
 
-    //var usrNamePassword = new Object();
-    //usrNamePassword.usrName = $scope.usrName;
-    //usrNamePassword.pwd = $scope.pwd;
+    $scope.login = function () {
 
-    //$scope.login = loginService.authenticate(usrNamePassword);
-    $scope.login = function() {
-        console.log("I am inside mainController in controller code");
-        loginService.authenticate($scope.usrName, $scope.pwd);
-    }
+        var credentials = new Object();
+        credentials.usrName = $scope.usrName;
+        credentials.pwd = $scope.pwd;
 
-/*    $scope.login = function () {
-
-        console.log($scope.usrName);
-        console.log($scope.pwd);
-
-        $http.defaults.headers.post["Content-Type"] = "application/json";
-
-        $http({
-            url: '/api/login',
-            method: "POST",
-            data: {'username': $scope.usrName, 'password': $scope.pwd}
-        })
-            .then(function successCallback(response) {
-                    // success
+        loginService.authenticate(credentials)
+            .then(function (response) {
                     console.log("success");
                     console.log(response.status);
-                    console.log(response.data);
+                    loginService.setToken(response.data.access_token);
+                    //console.log(response.data);
                 },
-                function errorCallback(response) {
-                    // failed
+                function (response) {
                     console.log("failed");
                     console.log(response.status);
                 });
-    }*/
+    }
 });
 
 app.controller('aboutController', function ($scope) {
