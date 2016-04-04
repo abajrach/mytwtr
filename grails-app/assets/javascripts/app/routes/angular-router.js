@@ -1,7 +1,7 @@
 app.config(function ($routeProvider) {
     $routeProvider
-        .when('/home', {
-            templateUrl: '/app/home.html',
+        .when('/login', {
+            templateUrl: '/app/login.html',
             controller: 'mainController'
         })
         .when('/about', {
@@ -15,11 +15,11 @@ app.config(function ($routeProvider) {
         //.when('/attendee/:action?/:id?', {
         //    templateUrl: 'angular-router/partials/attendee.html'
         //})
-        .when('/accounts', {
-            templateUrl: '/app/accounts.html',
+        .when('/account', {
+            templateUrl: '/app/account.html',
             controller: 'accountController'
         })
         .otherwise({
-            redirectTo: '/home'
+            redirectTo: '/login'
         });
 });

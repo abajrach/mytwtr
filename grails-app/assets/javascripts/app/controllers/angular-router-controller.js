@@ -21,6 +21,7 @@ app.controller('mainController', function ($scope, $location, $http, loginServic
                     console.log("success");
                     console.log(response.status);
                     loginService.setToken(response.data.access_token);
+                    $location.path("/account");
                     //console.log(response.data);
                 },
                 function (response) {
