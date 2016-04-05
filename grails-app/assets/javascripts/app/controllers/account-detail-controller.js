@@ -23,6 +23,9 @@ app.controller('accountController', function ($scope) {
                     $scope.ui.alert = true;
                 });
     }*/
-    
+
+    $scope.getAccountDetails = function() {
+        console.log("Inside getAccountDetails of accountController");
+    }
 
 });

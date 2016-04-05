@@ -27,7 +27,7 @@ app.controller('mainController', function ($scope, $location, $http, loginServic
 
                 },
                 function (response) {
-                    console.log("failed");  // @Todo: Display auth fail message
+                    console.log("failed");
                     console.log(response.status);
                     $scope.ui.alert = true;
                 });
