@@ -1,8 +1,5 @@
 package mytwtr
 
-import grails.rest.Resource
-import mytwtr.Account
-
 class Message {
 
     String status_message

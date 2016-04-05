@@ -17,9 +17,11 @@ grails.plugin.springsecurity.rest.token.storage.gorm.tokenDomainClassName = 'myt
 grails.plugin.springsecurity.rest.token.validation.useBearerToken = false
 grails.plugin.springsecurity.rest.token.validation.headerName = 'X-Auth-Token'
 
-grails.plugin.springsecurity.userLookup.userDomainClassName = 'mytwtr.User'
-grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'mytwtr.UserRole'
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'mytwtr.Account'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'mytwtr.AccountRole'
 grails.plugin.springsecurity.authority.className = 'mytwtr.Role'
+grails.plugin.springsecurity.userLookup.usernamePropertyName = 'handlename'
+grails.plugin.springsecurity.userLookup.passwordPropertyName = 'password'
 
 grails.plugin.springsecurity.securityConfigType = 'InterceptUrlMap'
 grails.plugin.springsecurity.interceptUrlMap = [
