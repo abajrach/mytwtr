@@ -44,7 +44,7 @@ class Account {
         name blank: false, nullable: false
         // @Todo: Temporary hack to get security stuff to work
         //password blank: false,
-        //      matches: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/ // Matches at least 1 uppercase, 1 lowercase
+          //    matches: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/ // Matches at least 1 uppercase, 1 lowercase
         // 1 digit, size must be between 8..16
         email nullable: false, email: true, unique: true
     }

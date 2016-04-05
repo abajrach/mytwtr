@@ -4,6 +4,7 @@
             <div class="modal-header">
                 <h1 class="text-center">Login Into Your Account</h1>
             </div>
+
             <div class="modal-body">
                 <form class="col-md12 center-block">
                     <div class="form-group">
@@ -19,10 +20,19 @@
                         <span class="pull-right"><a href="#">Register</a> </span><span><a href="#">Forgot Password</a> </span>
                     </div>
                 </form>
+
                 <div class="modal-footer">
                     <div class="col-md-12">
                         <button class="btn">Cancel</button>
                     </div>
+
+                    <div class="alert alert-warning alert-dismissible inner" ng-show="ui.alert">
+                        <button type="button" class="close" ng-click="ui.alert = false">
+                            &times;
+                        </button>
+                        <p class="text-center"> <strong>Incorrect Credentials!</strong></p>
+                    </div>
+
                 </div>
             </div>
         </div>

@@ -12,6 +12,8 @@ app.controller('mainController', function ($scope, $location, $http, loginServic
 
     $scope.login = function () {
 
+        $scope.ui = { alert: false };  // Sends alert message when login fails
+
         var credentials = new Object();
         credentials.usrName = $scope.usrName;
         credentials.pwd = $scope.pwd;
@@ -22,11 +24,12 @@ app.controller('mainController', function ($scope, $location, $http, loginServic
                     console.log(response.status);
                     loginService.setToken(response.data.access_token);
                     $location.path("/account");
-                    //console.log(response.data);
+
                 },
                 function (response) {
-                    console.log("failed");
+                    console.log("failed");  // @Todo: Display auth fail message
                     console.log(response.status);
+                    $scope.ui.alert = true;
                 });
     }
 });
@@ -37,37 +40,4 @@ app.controller('aboutController', function ($scope) {
 
 app.controller('contactController', function ($scope) {
     $scope.message = 'Arbindra Bajracharya, Jason Nordlund';
-});
-
-app.controller('attendeeController', function ($scope, $location, $routeParams, attendeeService) {
-    $scope.attendee = {};
-    $scope.mode = 'Add';
-    if ('edit' == $routeParams.action) {
-        $scope.mode = 'Edit';
-        var id = $routeParams.id;
-        var attendees = attendeeService.getAttendees();
-        for (i = 0; i < attendees.length; i++) {
-            if (attendees[i].id == id) {
-                $scope.attendee = attendees[i];
-            }
-        }
-    }
-
-    $scope.saveCurrentAttendee = function () {
-        if ($scope.attendee.first && $scope.attendee.last) {
-            if ($scope.attendee.id) {
-                attendeeService.updateAttendee($scope.attendee);
-            } else {
-                attendeeService.addAttendee($scope.attendee);
-            }
-            attendeeService.attendee = {};
-            $location.path("/home");
-        }
-    };
-
-    $scope.message = 'Wire up controller in html (Not really good practice)';
-
-    $scope.return = function () {
-        $location.path("/home");
-    };
 });

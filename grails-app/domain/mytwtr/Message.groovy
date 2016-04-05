@@ -5,7 +5,6 @@ class Message {
     String status_message
     Date dateCreated
 
-
     static belongsTo = [account: Account]
 
     static constraints = {
