@@ -13,5 +13,6 @@ build/
 .asscache
 node_modules/
 node_modules/*
+*node_modules*
 grails-app/assets/bower
 classes/
