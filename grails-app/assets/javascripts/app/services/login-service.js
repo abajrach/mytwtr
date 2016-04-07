@@ -3,6 +3,7 @@
  */
 app.service('loginService', function ($http) {
     var token = {};
+    var accountHandle = {};
 
     //var getToken = function()
 
@@ -26,9 +27,19 @@ app.service('loginService', function ($http) {
         token = t;
     }
 
+    var getAccountHandle = function() {
+        return accountHandle;
+    }
+
+    var setAccountHandle = function(name) {
+        accountHandle = name;
+    }
+
     return {
         authenticate: authenticate,
         getToken: getToken,
-        setToken: setToken
+        setToken: setToken,
+        getAccountHandle: getAccountHandle,
+        setAccountHandle: setAccountHandle
     };
 });

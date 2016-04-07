@@ -1,3 +1,7 @@
+/**
+ * Created by Arbindra on 4/6/2016.
+ */
+
 app.controller('headerController', function ($scope, $location) {
     $scope.message = 'I manage the header, meaning the nav tabs';
     $scope.isActive = function (viewLocation) {
@@ -23,6 +27,7 @@ app.controller('mainController', function ($scope, $location, $http, loginServic
                     console.log("success");
                     console.log(response.status);
                     loginService.setToken(response.data.access_token);
+                    loginService.setAccountHandle(response.data.username);
                     $location.path("/account");
 
                 },

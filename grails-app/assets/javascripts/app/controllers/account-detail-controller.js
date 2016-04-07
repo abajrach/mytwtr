@@ -1,4 +1,8 @@
-app.controller('accountController', function ($scope) {
+/**
+ * Created by Arbindra on 4/6/2016.
+ */
+
+app.controller('accountController', function ($scope, loginService, accountDetailService) {
     $scope.message = 'User Account Page';
 
 /*    $scope.login = function () {
@@ -25,7 +29,22 @@ app.controller('accountController', function ($scope) {
     }*/
 
     $scope.getAccountDetails = function() {
-        console.log("Inside getAccountDetails of accountController");
+        //console.log("Inside getAccountDetails of accountController");
+
+        var token = loginService.getToken();
+        var handle = loginService.getAccountHandle();
+        console.log("Token read from controller: "+token);
+
+        accountDetailService.getAccountDetails(token, handle)
+            .then(function (response) {
+                console.log("successfully got accountDetails");
+                console.log(response.status);
+                console.log(response.data);
+            },
+            function(response) {
+                console.log("getAccountDetails failed");  // @Todo: Display auth fail message
+                console.log(response.status);
+            });
     }
 
 });
