@@ -22,12 +22,12 @@ app.service('accountDetailService', function ($http) {
 
     };
 
-    var getRecentMessagesForAccount = function($token, $id) {
-        //console.log("Attempting to get most recent messages for id "+$id+" with token: "+$token);
+    var getRecentMessagesForAccount = function($token, $accountDetails) {
+        console.log("Attempting to get most recent messages for id "+$accountDetails.id+" with token: "+$token);
         $http.defaults.headers.post["Content-Type"] = "application/json";
 
         return $http({
-            url: '/messages/'+$id+'/recentmessages',
+            url: '/messages/'+$accountDetails.id+'/recentmessages?max='+$accountDetails.messages.length,
             method: "GET",
             headers: {
                 'X-Auth-Token': $token

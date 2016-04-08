@@ -33,15 +33,17 @@ app.controller('accountController', function ($scope, loginService, accountDetai
 
         var token = loginService.getToken();
         var handle = loginService.getAccountHandle();
+        var accountDetails = {};
 
         accountDetailService.getAccountDetails(token, handle)
             .then(function (response) {
                 console.log(response.status);
                 console.log(response.data);
-                $scope.accountDetails = response.data;
-                console.log("accountDetails= "+$scope.accountDetails.name);
-
-                accountDetailService.getRecentMessagesForAccount(token, $scope.accountDetails.id)
+                accountDetails = response.data;
+                //console.log("accountDetails= "+$scope.accountDetails.name);
+                //console.log("Total messages= " +$scope.accountDetails.messages.length);
+                console.log("id="+accountDetails.id);
+                accountDetailService.getRecentMessagesForAccount(token, accountDetails)
                     .then(function(response) {
                         $scope.recentMessages = response.data;
                     },
