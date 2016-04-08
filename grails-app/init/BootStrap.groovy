@@ -18,7 +18,7 @@ class BootStrap {
         new AccountRole(account: account3, role: role).save(flush: true, failOnError: true)
 
         //@Todo: Messages ids don't roll over to 1 for another account. Need fix?
-        (1..100).each { id -> adminAccount.addToMessages(status_message: "admin said: Message #$id").save(flush: true) }
+        (1..50).each { id -> adminAccount.addToMessages(status_message: "admin said: Message #$id").save(flush: true) }
         (1..20).each { id -> account1.addToMessages(status_message: "@abajrach said: Message #$id").save(flush: true) }
         (1..15).each { id -> account2.addToMessages(status_message: "@Batman said: Message #$id").save(flush: true) }
         (1..5).each { id -> account3.addToMessages(status_message: "@Superman said: Message #$id").save(flush: true) }
