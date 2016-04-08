@@ -4,10 +4,12 @@
 app.service('accountDetailService', function ($http) {
     var token = {};
 
+    
+
     var getAccountDetails = function ($token, $handle) {
-        console.log("I am inside getAccountDetails() in accountDetailService code");
-        console.log($token);
-        console.log($handle);
+        //console.log("I am inside getAccountDetails() in accountDetailService code");
+        //console.log($token);
+        //console.log($handle);
         $http.defaults.headers.post["Content-Type"] = "application/json";
 
         return $http({
