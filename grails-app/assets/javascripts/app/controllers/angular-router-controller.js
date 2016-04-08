@@ -14,6 +14,8 @@ app.controller('headerController', function ($scope, $location) {
  */
 app.controller('mainController', function ($scope, $location, $http, loginLogoutService) {
 
+    $scope.loggedOut = false;
+
     $scope.login = function () {
 
         $scope.ui = { alert: false };  // Sends alert message when login fails
@@ -36,7 +38,14 @@ app.controller('mainController', function ($scope, $location, $http, loginLogout
                     console.log(response.status);
                     $scope.ui.alert = true;
                 });
-    }
+    };
+
+    $scope.logout = function  () {
+        console.log("logout in controller called");
+        $scope.loggedOut = true;
+        loginLogoutService.doLogout();
+        console.log("loggedout state:"+$scope.loggedOut);
+    };
 });
 
 app.controller('aboutController', function ($scope) {
