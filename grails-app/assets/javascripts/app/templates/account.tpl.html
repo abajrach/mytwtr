@@ -4,17 +4,37 @@
     <p>{{ message }}</p> -->
 
 
+<div data-ng-controller="accountController" data-ng-init="getAccountDetails()">
+    <div class = "col-lg-3">
 
-
-    <div class = "col-lg-3" active>
-    	<div data-ng-controller="accountController" data-ng-init="getAccountDetails()">
 			<div class = "list-group">
 				<a href="#" class = "list-group-item">
 					<h4 class = "list-group-item-heading">Account: {{accountDetails.handlename}}</h4>
 					<h4 class = "list-group-item-heading">Name: {{accountDetails.name}}</h4>
-					<h4 class = "list-group-item-heading">Followers: {{accountDetails.followedBy.size}}</h4>
-					<p class = "list-group-item-text">Fusce dfsafaef sdfaefeafse</p>
+					<h4 class = "list-group-item-heading">Followers: {{accountDetails.followedBy.length}}</h4>
+					<h4 class = "list-group-item-heading">Following: {{accountDetails.following.length}}</h4>
+					<h4 class = "list-group-item-heading">Email: {{accountDetails.email}}</h4>
+					<h4 class = "list-group-item-heading">Account Created: {{accountDetails.dateCreated}}</h4>
 				</a>
 			</div>
-		</div>
+	
     </div>
+
+	<div class = "container">
+		<div class ="row">
+			<div class = "col-lg-9">
+				<div class = "panel panel-default">
+					<div class = "panel-body">
+
+						<div class = "page-header">
+							<h1>Messages posted by: {{accountDetails.handlename}}</h1>
+						</div>
+						<h3 ng-repeat="message in recentMessages">{{ message.status_message }} <small> Posted on {{message.dateCreated}}</small></h3>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

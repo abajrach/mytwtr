@@ -33,16 +33,22 @@ app.controller('accountController', function ($scope, loginService, accountDetai
 
         var token = loginService.getToken();
         var handle = loginService.getAccountHandle();
-        //console.log("Token read from controller: "+token);
 
         accountDetailService.getAccountDetails(token, handle)
             .then(function (response) {
-                //console.log("successfully got accountDetails");
                 console.log(response.status);
                 console.log(response.data);
                 $scope.accountDetails = response.data;
-                //$scope.handlename="Something";
                 console.log("accountDetails= "+$scope.accountDetails.name);
+
+                accountDetailService.getRecentMessagesForAccount(token, $scope.accountDetails.id)
+                    .then(function(response) {
+                        $scope.recentMessages = response.data;
+                    },
+                    function(response) {
+                        console.log("getRecentMessagesForAccount failed");
+                        console.log(response.status);
+                    });
             },
             function(response) {
                 console.log("getAccountDetails failed");  // @Todo: Display auth fail message

@@ -4,7 +4,7 @@
 app.service('accountDetailService', function ($http) {
     var token = {};
 
-    
+
 
     var getAccountDetails = function ($token, $handle) {
         //console.log("I am inside getAccountDetails() in accountDetailService code");
@@ -22,12 +22,21 @@ app.service('accountDetailService', function ($http) {
 
     };
 
-    var getMessagesForAccount = function($token, $handle) {
+    var getRecentMessagesForAccount = function($token, $id) {
+        //console.log("Attempting to get most recent messages for id "+$id+" with token: "+$token);
+        $http.defaults.headers.post["Content-Type"] = "application/json";
 
+        return $http({
+            url: '/messages/'+$id+'/recentmessages',
+            method: "GET",
+            headers: {
+                'X-Auth-Token': $token
+            }
+        });
     };
 
    return {
         getAccountDetails: getAccountDetails,
-       getMessagesForAccount: getMessagesForAccount
+        getRecentMessagesForAccount: getRecentMessagesForAccount
     };
 });

@@ -22,6 +22,13 @@ class BootStrap {
         (1..20).each { id -> account1.addToMessages(status_message: "@abajrach said: Message #$id").save(flush: true) }
         (1..15).each { id -> account2.addToMessages(status_message: "@Batman said: Message #$id").save(flush: true) }
         (1..5).each { id -> account3.addToMessages(status_message: "@Superman said: Message #$id").save(flush: true) }
+
+        adminAccount.addToFollowedBy(account1).save(flush: true, failOnError: true)
+        adminAccount.addToFollowedBy(account2).save(flush: true, failOnError: true)
+        adminAccount.addToFollowedBy(account3).save(flush: true, failOnError: true)
+
+        adminAccount.addToFollowing(account1).save(flush: true, failOnError: true)
+    
     }
 
     def destroy = {
