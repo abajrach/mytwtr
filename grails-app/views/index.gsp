@@ -18,7 +18,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li ng-class="{ active: isActive('/home')}"><a href="#home">Home</a></li>
             <li ng-class="{ active: isActive('/about')}"><a href="#about">About</a></li>
-            <li ng-class="{ active: isActive('/contact')}"><a href="#contact">Contact</a></li>
+            <li ng-class="{ active: isActive('/logout')}"><a href="#logout">Logout</a></li>
         </ul>
     </div>
 </nav>

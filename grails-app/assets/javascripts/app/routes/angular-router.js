@@ -8,13 +8,10 @@ app.config(function ($routeProvider) {
             templateUrl: '/app/about.html',
             controller: 'aboutController'
         })
-        .when('/contact', {
-            templateUrl: '/app/contact.html',
-            controller: 'contactController'
+        .when('/logout', {
+            templateUrl: '/app/login.html',
+            controller: 'mainController'
         })
-        //.when('/attendee/:action?/:id?', {
-        //    templateUrl: 'angular-router/partials/attendee.html'
-        //})
         .when('/account', {
             templateUrl: '/app/account.html',
             controller: 'accountController'

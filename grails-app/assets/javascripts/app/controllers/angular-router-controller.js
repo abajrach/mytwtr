@@ -43,6 +43,6 @@ app.controller('aboutController', function ($scope) {
     $scope.message = 'MSSE 5199 Class Project';
 });
 
-app.controller('contactController', function ($scope) {
+/*app.controller('contactController', function ($scope) {
     $scope.message = 'Arbindra Bajracharya, Jason Nordlund';
-});
+});*/
