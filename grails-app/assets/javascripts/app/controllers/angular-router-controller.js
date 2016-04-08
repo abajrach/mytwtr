@@ -12,7 +12,7 @@ app.controller('headerController', function ($scope, $location) {
 /**
  * change this to loginController
  */
-app.controller('mainController', function ($scope, $location, $http, loginService) {
+app.controller('mainController', function ($scope, $location, $http, loginLogoutService) {
 
     $scope.login = function () {
 
@@ -22,12 +22,12 @@ app.controller('mainController', function ($scope, $location, $http, loginServic
         credentials.usrName = $scope.usrName;
         credentials.pwd = $scope.pwd;
 
-        loginService.authenticate(credentials)
+        loginLogoutService.authenticate(credentials)
             .then(function (response) {
                     console.log("success");
                     console.log(response.status);
-                    loginService.setToken(response.data.access_token);
-                    loginService.setAccountHandle(response.data.username);
+                    loginLogoutService.setToken(response.data.access_token);
+                    loginLogoutService.setAccountHandle(response.data.username);
                     $location.path("/account");
 
                 },

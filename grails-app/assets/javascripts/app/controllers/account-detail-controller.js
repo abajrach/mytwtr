@@ -2,13 +2,13 @@
  * Created by Arbindra on 4/6/2016.
  */
 
-app.controller('accountController', function ($scope, loginService, accountDetailService) {
+app.controller('accountController', function ($scope, loginLogoutService, accountDetailService) {
     $scope.message = 'User Account Page';
 
     $scope.getAccountDetails = function() {
 
-        var token = loginService.getToken();
-        var handle = loginService.getAccountHandle();
+        var token = loginLogoutService.getToken();
+        var handle = loginLogoutService.getAccountHandle();
         var accountDetails = {};
 
         accountDetailService.getAccountDetails(token, handle)
