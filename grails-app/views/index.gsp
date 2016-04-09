@@ -19,11 +19,9 @@
                 <li ng-class="{ active: isActive('/home')}"><a href="#home">Home</a></li>
                 <li ng-class="{ active: isActive('/about')}"><a href="#about">About</a></li>
                 <li ng-class="{ active: isActive('/logout')}">
-                    <!-- <input type="submit" button class="btn btn-block btn-lg btn-primary" ng-click="logout()"> -->
                     <p class="navbar-btn" ng-click="logout()">
                         <a href="#logout" class="btn btn-link">Logout</a>
                     </p>
-                    <!-- </button> -->
                 </li>
             </ul>
         </div>

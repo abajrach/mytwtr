@@ -2,19 +2,19 @@
  * Created by Arbindra on 4/6/2016.
  */
 
-app.controller('headerController', function ($scope, $location) {
+/*app.controller('headerController', function ($scope, $location) {
     $scope.message = 'I manage the header, meaning the nav tabs';
     $scope.isActive = function (viewLocation) {
         return viewLocation == $location.path();
     };
-});
+});*/
 
 /**
  * change this to loginController
  */
 app.controller('mainController', function ($scope, $location, $http, loginLogoutService) {
 
-    $scope.loggedOut = false;
+    //$scope.loggedOut = false;
 
     $scope.login = function () {
 
@@ -30,6 +30,7 @@ app.controller('mainController', function ($scope, $location, $http, loginLogout
                     console.log(response.status);
                     loginLogoutService.setToken(response.data.access_token);
                     loginLogoutService.setAccountHandle(response.data.username);
+                    $scope.loggedOut = false;
                     $location.path("/account");
 
                 },
@@ -46,6 +47,7 @@ app.controller('mainController', function ($scope, $location, $http, loginLogout
         loginLogoutService.doLogout();
         console.log("loggedout state:"+$scope.loggedOut);
     };
+    console.log("outside of func");
 });
 
 app.controller('aboutController', function ($scope) {
