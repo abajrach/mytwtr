@@ -2,19 +2,10 @@
  * Created by Arbindra on 4/6/2016.
  */
 
-/*app.controller('headerController', function ($scope, $location) {
-    $scope.message = 'I manage the header, meaning the nav tabs';
-    $scope.isActive = function (viewLocation) {
-        return viewLocation == $location.path();
-    };
-});*/
-
 /**
  * change this to loginController
  */
 app.controller('mainController', function ($scope, $location, $http, loginLogoutService) {
-
-    //$scope.loggedOut = false;
 
     $scope.login = function () {
 
@@ -53,7 +44,3 @@ app.controller('mainController', function ($scope, $location, $http, loginLogout
 app.controller('aboutController', function ($scope) {
     $scope.message = 'MSSE 5199 Class Project';
 });
-
-/*app.controller('contactController', function ($scope) {
-    $scope.message = 'Arbindra Bajracharya, Jason Nordlund';
-});*/

@@ -5,9 +5,6 @@ app.service('loginLogoutService', function ($http) {
     var token = {};
     var accountHandle = {};
 
-
-    //var getToken = function()
-
     var authenticate = function ($credentials) {
         console.log("I am inside authenticate() in loginLogoutService code");
 
