@@ -8,7 +8,7 @@
     <asset:stylesheet src="application.css"/>
 </head>
 
-<body ng-controller="mainController">
+<body ng-controller="loginLogoutController">
     <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container">
             <div class="navbar-header">

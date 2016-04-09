@@ -15,4 +15,4 @@
 //= require_self
 //= require_tree app
 
-var app = angular.module('app', ['ngRoute', 'ngResource']);
+angular.module('app', ['ngRoute', 'ngResource']);

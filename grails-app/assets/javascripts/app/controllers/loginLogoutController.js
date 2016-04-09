@@ -3,9 +3,9 @@
  */
 
 /**
- * change this to loginController
+ * 
  */
-app.controller('mainController', function ($scope, $location, $http, loginLogoutService) {
+angular.module('app').controller('loginLogoutController', function ($scope, $location, loginLogoutService) {
 
     $scope.login = function () {
 
@@ -15,19 +15,19 @@ app.controller('mainController', function ($scope, $location, $http, loginLogout
         credentials.usrName = $scope.usrName;
         credentials.pwd = $scope.pwd;
 
-        loginLogoutService.authenticate(credentials)
+        loginLogoutService.doLogin(credentials)
             .then(function (response) {
                     console.log("success");
-                    console.log(response.status);
-                    loginLogoutService.setToken(response.data.access_token);
-                    loginLogoutService.setAccountHandle(response.data.username);
+                    //console.log(response.status);
+                    //loginLogoutService.setToken(response.data.access_token);
+                    //loginLogoutService.setAccountHandle(response.data.username);
                     $scope.loggedOut = false;
                     $location.path("/account");
 
                 },
                 function (response) {
                     console.log("failed");
-                    console.log(response.status);
+                    //console.log(response.status);
                     $scope.ui.alert = true;
                 });
     };
@@ -38,9 +38,9 @@ app.controller('mainController', function ($scope, $location, $http, loginLogout
         loginLogoutService.doLogout();
         console.log("loggedout state:"+$scope.loggedOut);
     };
-    console.log("outside of func");
+    //console.log("outside of func");
 });
 
-app.controller('aboutController', function ($scope) {
+angular.module('app').controller('aboutController', function ($scope) {
     $scope.message = 'MSSE 5199 Class Project';
 });
