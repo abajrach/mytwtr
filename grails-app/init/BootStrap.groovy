@@ -5,6 +5,7 @@ import mytwtr.Role
 class BootStrap {
 
     def init = { servletContext ->
+       
         def adminAccount = new Account(handlename: 'admin', name: 'Mr. Admin', password: 'root', email: 'i_am_admin@gmail.com').save(flush: true, failOnError: true)
         def role = new Role(authority: 'ROLE_READ').save(flush: true, failOnError: true)
         new AccountRole(account: adminAccount, role: role).save(flush: true, failOnError: true)

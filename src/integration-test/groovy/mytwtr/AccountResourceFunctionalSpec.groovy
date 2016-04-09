@@ -10,6 +10,7 @@ import spock.lang.Shared
 import spock.lang.Stepwise
 import spock.lang.Unroll
 
+@Ignore
 @Integration
 @Stepwise
 class AccountResourceFunctionalSpec extends GebSpec {
@@ -36,6 +37,7 @@ class AccountResourceFunctionalSpec extends GebSpec {
         problem.message.contains('Forbidden')
     }
 
+    @Ignore
     def 'passing a valid username and password generates a token'() {
         setup:
         def authentication = ([username: 'admin', password: 'root'] as JSON) as String
