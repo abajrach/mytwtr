@@ -9,19 +9,10 @@
 //= require jquery-2.2.0.min.js
 //= require ../bower/bootstrap/bootstrap.js
 //= require ../bower/angular/angular.js
+//= require ../bower/angular-resource/angular-resource.js
 //= require ../bower/angular-route/angular-route.js
 //= require ../bower/foo/bar.js
 //= require_self
 //= require_tree app
 
-/*if (typeof jQuery !== 'undefined') {
-    (function($) {
-        $('#spinner').ajaxStart(function() {
-            $(this).fadeIn();
-        }).ajaxStop(function() {
-            $(this).fadeOut();
-        });
-    })(jQuery);
-}*/
-
-var app = angular.module('app', ['ngRoute']);
+var app = angular.module('app', ['ngRoute', 'ngResource']);

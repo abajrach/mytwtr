@@ -104,6 +104,10 @@ bower {
         source 'angular-route.js'
     }
 
+    'angular-resource'('1.5.x') {
+        source 'angular-resource.js'
+    }
+
     'angular'('1.5.x') {
         source 'angular.js'
         source 'angular-route.js'
