@@ -4,7 +4,6 @@
 angular.module('app').factory('accountDetailsService', function ($resource) {
     var service = {};
 
-
     service.getAccountDetails = function ($handle) {
         return $resource('/accounts/handle='+$handle, {});
     };
