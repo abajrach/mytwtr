@@ -26,6 +26,16 @@
 				<div class = "panel panel-default">
 					<div class = "panel-body">
 
+			            <!-- Search bar for messages. @Todo: make it visible only when signed in -->
+			            <div class="col-lg-4 col-lg-offset-4">
+			                <div class="input-group">
+			                    <input type="text" class="form-control", ng-model="searchToken"/> 
+			                    <span class="input-group-btn">
+			                        <button class="btn btn-default" type="button" ng-click="doSearch()">Go!</button>
+			                    </span>
+			                </div>
+			            </div>
+
 						<div class = "page-header">
 							<h1>Messages posted by: {{accountDetails.handlename}}</h1>
 						</div>

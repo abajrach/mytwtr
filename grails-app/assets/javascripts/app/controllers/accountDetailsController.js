@@ -15,4 +15,9 @@ angular.module('app').controller('accountDetailsController', function ($scope, l
             $scope.recentMessages = accountDetailsService.getRecentMessagesForAccount(response).query();
         });
     }
+
+    $scope.doSearch = function() {
+    	//console.log("inside doSearch");
+    	//console.log($scope.searchToken);
+    }
 });

@@ -6,7 +6,6 @@
  * 
  */
 angular.module('app').controller('loginLogoutController', function ($scope, $location, loginLogoutService) {
-
     $scope.login = function () {
 
         $scope.ui = { alert: false };  // Sends alert message when login fails
@@ -18,16 +17,13 @@ angular.module('app').controller('loginLogoutController', function ($scope, $loc
         loginLogoutService.doLogin(credentials)
             .then(function (response) {
                     console.log("success");
-                    //console.log(response.status);
-                    //loginLogoutService.setToken(response.data.access_token);
-                    //loginLogoutService.setAccountHandle(response.data.username);
                     $scope.loggedOut = false;
+
                     $location.path("/account");
 
                 },
                 function (response) {
                     console.log("failed");
-                    //console.log(response.status);
                     $scope.ui.alert = true;
                 });
     };
@@ -38,7 +34,6 @@ angular.module('app').controller('loginLogoutController', function ($scope, $loc
         loginLogoutService.doLogout();
         console.log("loggedout state:"+$scope.loggedOut);
     };
-    //console.log("outside of func");
 });
 
 angular.module('app').controller('aboutController', function ($scope) {
