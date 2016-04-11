@@ -36,7 +36,6 @@ angular.module('app')
         $rootScope.$on('$routeChangeStart', function (event, next) {
           if (next.$$route && next.$$route.originalPath != '/login') {
             if (!loginLogoutService.getCurrentUser()) {
-                console.log("here");
               $location.path('/login');
             }
           }

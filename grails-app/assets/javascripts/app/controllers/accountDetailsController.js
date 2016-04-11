@@ -31,6 +31,8 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
             $scope.accountDetails = accountDetailsService.getAccountDetails(currentUser.username).get();
 
             $scope.accountDetails.$promise.then(function(response){
+                //console.log("currently logged on userId = "+$scope.accountDetails.id);
+                loginLogoutService.setCurrentUserId($scope.accountDetails.id);
                 $scope.recentMessages = accountDetailsService.getRecentMessagesForAccount(response).query();
             });
         }
@@ -58,7 +60,11 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
      * }
      */
     $scope.updateInfo = function() {
-        console.log("updateInfo called with values "+$scope.newName + " " + $scope.newEmail);
-        //$scope.accountDetails.
+        //console.log("updateInfo called with values "+$scope.newName + " " + $scope.newEmail);
+        var currentUser = loginLogoutService.getCurrentUser();
+        console.log("from updateInfo in controller, currentUser = "+currentUser.username + " " + currentUser.id);
+        
+        // pass in id to put request, make it so that name and email are not both required
+        accountDetailsService.updateAccountDetails($id, $newName, $newEmail);
     }    
 });

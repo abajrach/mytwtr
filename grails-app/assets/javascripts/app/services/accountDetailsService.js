@@ -8,6 +8,13 @@ angular.module('app').factory('accountDetailsService', function ($resource) {
         return $resource('/accounts/handle='+$handle, {});
     };
 
+    service.updateAccountDetails = function($id, $newName, $newEmail) {
+/*        return $resource('/accounts/:id', { id: '@_id' }, {
+            update: {
+            method: 'PUT'
+        });*/
+    };
+
      service.getRecentMessagesForAccount = function($response) {
         //console.log("getRecentMessagesForAccount: " + $response.id);
         return $resource('/messages/'+$response.id+'/recentmessages?max='+$response.messages.length,{});

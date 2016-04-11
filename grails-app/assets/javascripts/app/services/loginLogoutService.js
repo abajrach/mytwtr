@@ -34,5 +34,9 @@ angular.module('app').factory('loginLogoutService', ['$http', '$rootScope', func
         return currentUser
     }
 
+    service.setCurrentUserId = function($id) {
+        currentUser.id = $id;
+        //console.log("from loginLogoutService, currentUser = "+currentUser.username + " " + currentUser.id);
+    }
     return service;
 }]);
