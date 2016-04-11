@@ -2,6 +2,7 @@
 <div data-ng-controller="accountDetailsController" data-ng-init="getAccountDetails()">
     <div class = "col-lg-3">
 
+    		<!-- Displays User details -->
 			<div class = "list-group">
 				<a class = "list-group-1item">
 					<h4 class = "list-group-item-heading">Account: {{accountDetails.handlename}}</h4>
@@ -12,9 +13,38 @@
 					<h4 class = "list-group-item-heading">Account Created: {{accountDetails.dateCreated}}</h4>
 				</a>
 			</div>
-	
+
+			<!-- Update User details - Name and Email. Brings up a modal -->			
+			<div class="container">
+				<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Update My Info!</button>
+				  <!-- Update Info Modal Dialog Box-->
+				  <div class="modal fade" id="myModal" role="dialog">
+				    <div class="modal-dialog modal-lg">
+				      <div class="modal-content">
+				        <div class="modal-header">
+				          <button type="button" class="close" data-dismiss="modal">&times;</button>
+				          <h4 class="modal-title"><strong>Update My Info</strong></h4>
+				        </div>
+				        <div class="modal-body">
+                        	<div class="form-group">
+                        		<input type="text" class="form-control input-lg" placeholder="Name" , ng-model="newName">
+                        	</div>
+                        	<div class="form-group">
+                        		<input type="text" class="form-control input-lg" placeholder="Email" , ng-model="newEmail">
+                    		</div>
+				        </div>
+				        <div class="modal-footer">
+				          <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="updateInfo()">Submit</button>
+				          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				        </div>
+				      </div>
+				    </div>
+				  </div>
+			</div>
+
     </div>
 
+    <!-- Display messages from currently logged in user or message search result -->
 	<div class = "container">
 		<div class ="row">
 			<div class = "col-lg-9">

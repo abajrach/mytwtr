@@ -58,6 +58,7 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
      * }
      */
     $scope.updateInfo = function() {
-        return null;
+        console.log("updateInfo called with values "+$scope.newName + " " + $scope.newEmail);
+        //$scope.accountDetails.
     }    
 });
