@@ -6,7 +6,11 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
     $scope.message = 'User Account Page';
 
     $scope.getAccountDetails = function() {
-    	console.log("hahaha getAccountDetails called");
+    	//console.log("hahaha getAccountDetails called");
+
+        /**
+         * Shows the user's detail page by handlename
+         */
         if($routeParams.handle) {
             console.log("handle passed = " + $routeParams.handle);
         
@@ -18,6 +22,9 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
 
         }
 
+        /**
+         * Shows the user's detail page for the currently logged in user
+         */
         else {
             var currentUser = loginLogoutService.getCurrentUser();
 
@@ -38,4 +45,19 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
         });
         
     }
+
+    $scope.followAccount = function() {
+        return null;
+    }
+
+    /**
+     * Do PUT on http://localhost:8080/accounts/4 with a request body as:
+     * {
+     *       "name": "flash",
+     *       "email": "flashisfast@gmail.com"
+     * }
+     */
+    $scope.updateInfo = function() {
+        return null;
+    }    
 });
