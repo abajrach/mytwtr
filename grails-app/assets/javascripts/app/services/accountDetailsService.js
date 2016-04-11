@@ -13,5 +13,11 @@ angular.module('app').factory('accountDetailsService', function ($resource) {
         return $resource('/messages/'+$response.id+'/recentmessages?max='+$response.messages.length,{});
     };
 
+    /* http://localhost:8080/messages/search?query=mssetwitter */
+    service.searchMessageByToken = function($searchToken) {
+    	//console.log("service: "+$searchToken);
+    	return $resource('messages/search?query='+$searchToken,{});
+    };
+
   return service;
 });
