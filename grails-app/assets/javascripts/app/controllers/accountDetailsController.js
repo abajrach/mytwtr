@@ -35,7 +35,7 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
     $scope.doSearch = function() {
     	//console.log("inside doSearch");
     	//console.log($scope.searchToken);
-
+        $scope.showSearchResult = true;
         var query = accountDetailsService.searchMessageByToken($scope.searchToken).query();
 
         query.$promise.then(function(data) {
