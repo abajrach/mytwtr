@@ -12,13 +12,13 @@
     <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container">
             <div class="navbar-header">
-                <a href="#" class="navbar-brand">My Awesome Twitter!!!</a>
+                <a class="navbar-brand">My Awesome Twitter!!!</a>
             </div>
 
 
             <ul class="nav navbar-nav navbar-right">
 
-                <li ng-class="{ active: isActive('/home')}"><a href="#home">Home</a></li>
+                <li ng-class="{ active: isActive('/account')}"><a href="#/account">Home</a></li>
                 <li ng-class="{ active: isActive('/about')}"><a href="#about">About</a></li>
                 <li ng-class="{ active: isActive('/logout')}">
                     <p class="navbar-btn" ng-click="logout()">
