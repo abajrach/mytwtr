@@ -1,14 +1,9 @@
-<!-- <div class="jumbotron text-center">
-    <div data-ng-controller="accountController" data-ng-init="getAccountDetails()"></div>
-    <!-- <h1>Account Page</h1>
-    <p>{{ message }}</p> -->
-
 
 <div data-ng-controller="accountDetailsController" data-ng-init="getAccountDetails()">
     <div class = "col-lg-2">
 
 			<div class = "list-group">
-				<a href="#" class = "list-group-item">
+				<a href="#" class = "list-group-1item">
 					<h4 class = "list-group-item-heading">Account: {{accountDetails.handlename}}</h4>
 					<h4 class = "list-group-item-heading">Name: {{accountDetails.name}}</h4>
 					<h4 class = "list-group-item-heading">Followers: {{accountDetails.followedBy.length}}</h4>
@@ -21,9 +16,9 @@
     </div>
 
 <!-- Commenting out to test the search box -->
-<!-- 	<div class = "container">
+	<div class = "container">
 		<div class ="row">
-			<div class = "col-lg-10">
+			<div class = "col-lg-5">
 				<div class = "panel panel-default">
 					<div class = "panel-body">
 
@@ -46,11 +41,11 @@
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 
-	<div class = "container">
+<!-- 	<div class = "container">
 		<div class ="row">
-			<div class = "col-lg-10">
+			<div class = "col-lg-5">
 				<div class = "panel panel-default">
 					<div class = "panel-body">
 
@@ -65,12 +60,11 @@
 			            </div>
 
 						<div class = "page-header">
-							<!-- <h1>Messages posted by: {{accountDetails.handlename}}</h1> -->
 						</div>
 						
 						<h3 ng-repeat="result in searchResults">{{ result.message.status_message }} 
 							<small> 								
-									Posted by <a href ='#/account'>{{result.accountHandle}}</a>
+									Posted by <a href ='#/account/{{result.accountHandle}}'>{{result.accountHandle}}</a>
 							</small>
 						</h3>
 
@@ -78,4 +72,4 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->

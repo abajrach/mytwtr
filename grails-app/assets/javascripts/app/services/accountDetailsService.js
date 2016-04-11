@@ -9,7 +9,7 @@ angular.module('app').factory('accountDetailsService', function ($resource) {
     };
 
      service.getRecentMessagesForAccount = function($response) {
-        console.log("getRecentMessagesForAccount: " + $response.id);
+        //console.log("getRecentMessagesForAccount: " + $response.id);
         return $resource('/messages/'+$response.id+'/recentmessages?max='+$response.messages.length,{});
     };
 

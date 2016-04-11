@@ -18,7 +18,11 @@ angular.module('app')
                 templateUrl: '/app/login.html',
                 controller: 'loginLogoutController'
             })
-            .when('/account', {
+/*            .when('/account/', {
+                templateUrl: '/app/account.html',
+                controller: 'accountDetailsController'
+            })*/
+            .when('/account/:handle?', {
                 templateUrl: '/app/account.html',
                 controller: 'accountDetailsController'
             })
@@ -30,8 +34,9 @@ angular.module('app')
       // Protect all routes other than login
       .run(function ($rootScope, $location, loginLogoutService) {
         $rootScope.$on('$routeChangeStart', function (event, next) {
-          if (next.$$route.originalPath != '/login') {
+          if (next.$$route && next.$$route.originalPath != '/login') {
             if (!loginLogoutService.getCurrentUser()) {
+                console.log("here");
               $location.path('/login');
             }
           }

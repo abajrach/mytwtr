@@ -2,18 +2,34 @@
  * Created by Arbindra on 4/6/2016.
  */
 
-angular.module('app').controller('accountDetailsController', function ($scope, loginLogoutService, accountDetailsService) {
+angular.module('app').controller('accountDetailsController', function ($scope, $routeParams, loginLogoutService, accountDetailsService) {
     $scope.message = 'User Account Page';
+    //$scope.accountHandle = $routeParams.handle;
+    //console.log("accountHandle to display = "+$scope.accountHandle);
 
     $scope.getAccountDetails = function() {
+    	console.log("hahaha getAccountDetails called");
+    	//console.log("memid= " + id);
+        if($routeParams.handle) {
+            console.log("handle passed = " + $routeParams.handle);
+        
+            $scope.accountDetails = accountDetailsService.getAccountDetails($routeParams.handle).get();
 
-        var currentUser = loginLogoutService.getCurrentUser();
+            $scope.accountDetails.$promise.then(function(response){
+                $scope.recentMessages = accountDetailsService.getRecentMessagesForAccount(response).query();
+            });            
 
-        $scope.accountDetails = accountDetailsService.getAccountDetails(currentUser.username).get();
+        }
 
-        $scope.accountDetails.$promise.then(function(response){
-            $scope.recentMessages = accountDetailsService.getRecentMessagesForAccount(response).query();
-        });
+        else {
+            var currentUser = loginLogoutService.getCurrentUser();
+
+            $scope.accountDetails = accountDetailsService.getAccountDetails(currentUser.username).get();
+
+            $scope.accountDetails.$promise.then(function(response){
+                $scope.recentMessages = accountDetailsService.getRecentMessagesForAccount(response).query();
+            });
+        }
     }
 
     $scope.doSearch = function() {
@@ -23,7 +39,7 @@ angular.module('app').controller('accountDetailsController', function ($scope, l
         var query = accountDetailsService.searchMessageByToken($scope.searchToken).query();
 
         query.$promise.then(function(data) {
-            console.log("Search results: "+data.status_message);
+            //console.log("Search results: "+data.status_message);
             $scope.searchResults = data;
         });
         
