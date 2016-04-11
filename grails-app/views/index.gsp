@@ -40,5 +40,3 @@
 
 </body>
 </html>
-
-<!-- <input type="submit" class="btn btn-block btn-lg btn-primary" value="Login" ng-click="login()"> -->

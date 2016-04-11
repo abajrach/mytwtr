@@ -18,7 +18,7 @@ angular.module('app').controller('loginLogoutController', function ($scope, $loc
             .then(function (response) {
                     console.log("success");
                     $scope.loggedOut = false;
-
+                    
                     $location.path("/account");
 
                 },
