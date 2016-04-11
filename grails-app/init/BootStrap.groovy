@@ -21,7 +21,7 @@ class BootStrap {
         //@Todo: Messages ids don't roll over to 1 for another account. Need fix?
         (1..50).each { id -> adminAccount.addToMessages(status_message: "Message #$id admin was partying").save(flush: true) }
         (1..20).each { id -> account1.addToMessages(status_message: "Message #$id abajrach loves smoothie").save(flush: true) }
-        (1..15).each { id -> account2.addToMessages(status_message: "Message #$id Batman doesn't sleep at night").save(flush: true) }
+        (1..15).each { id -> account2.addToMessages(status_message: "Message #$id Batman doesn't sleep").save(flush: true) }
         (1..5).each { id -> account3.addToMessages(status_message: "Message #$id Superman is a chick magnet").save(flush: true) }
 
         adminAccount.addToFollowedBy(account1).save(flush: true, failOnError: true)
