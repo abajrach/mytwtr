@@ -4,7 +4,7 @@
 
 angular.module('app').controller('accountDetailsController', function ($scope, $routeParams, loginLogoutService, accountDetailsService) {
     $scope.message = 'User Account Page';
-
+    $scope.canUpdate = false;
     $scope.getAccountDetails = function() {
     	//console.log("hahaha getAccountDetails called");
 
@@ -19,7 +19,7 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
             $scope.accountDetails.$promise.then(function(response){
                 $scope.recentMessages = accountDetailsService.getRecentMessagesForAccount(response).query();
             });            
-
+            $scope.canUpdate = false;
         }
 
         /**
@@ -35,6 +35,7 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
                 loginLogoutService.setCurrentUserId($scope.accountDetails.id);
                 $scope.recentMessages = accountDetailsService.getRecentMessagesForAccount(response).query();
             });
+            $scope.canUpdate = true;
         }
     }
 
