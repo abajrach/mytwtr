@@ -29,6 +29,7 @@ class BootStrap {
         adminAccount.addToFollowedBy(account3).save(flush: true, failOnError: true)
 
         adminAccount.addToFollowing(account1).save(flush: true, failOnError: true)
+        adminAccount.addToFollowing(account3).save(flush: true, failOnError: true)
 
     }
 

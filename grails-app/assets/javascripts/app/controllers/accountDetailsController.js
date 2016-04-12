@@ -19,11 +19,14 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
             $scope.accountDetails.$promise.then(function(response){
                 $scope.recentMessages = accountDetailsService.getRecentMessagesForAccount(response).query();
             });
+            
+            $scope.canUpdate = false;
 
             // Check to see if the logged in user is following this user
-            
-
-            $scope.canUpdate = false;
+            var currentUser = loginLogoutService.getCurrentUser();
+            for (var i = 0; i < currentUser.followingAccounts.length; i++) {
+                console.log("haha "+currentUser.followingAccounts[i].id);
+            }
         }
 
         /**
@@ -36,7 +39,19 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
             $scope.accountDetails = accountDetailsService.getAccountDetails(currentUser.username).get();
 
             $scope.accountDetails.$promise.then(function(response){
-                //console.log("currently logged on userId = "+$scope.accountDetails.id);
+                
+                var followingAccounts = $scope.accountDetails.following;
+                var followedByAccounts = $scope.accountDetails.followedBy;
+                
+                loginLogoutService.setFollowingAccounts(followingAccounts);
+                loginLogoutService.setFollowedByAccounts(followedByAccounts);
+
+                //console.log("currently logged on user details = "+followingAccounts.length);
+/*                for (var i = 0; i < followingAccounts.length; i++) {
+                    console.log("following accounts: "+followingAccounts[i].id);
+                }*/
+
+
                 loginLogoutService.setCurrentUserId($scope.accountDetails.id);
                 $scope.recentMessages = accountDetailsService.getRecentMessagesForAccount(response).query();
             });
@@ -67,7 +82,7 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
      */
     $scope.updateInfo = function() {
         var currentUser = loginLogoutService.getCurrentUser();
-        console.log("from updateInfo in controller, currentUser = "+currentUser.username + " " + currentUser.id);
+        //console.log("from updateInfo in controller, currentUser = "+currentUser.username + " " + currentUser.id);
         
         // pass in id to put request, make it so that name and email are not both required
 
@@ -76,13 +91,13 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
         }
         if(!angular.isDefined($scope.newName)) {
             $scope.newName = currentUser.username;
-            console.log('name');
+            //console.log('name');
             
         }
 
         if(!angular.isDefined($scope.newEmail)) {
             $scope.newEmail = currentUser.email;
-            console.log('email');
+            //console.log('email');
         } 
 
         var payLoad = { "name":$scope.newName, "email":$scope.newEmail };
@@ -91,7 +106,7 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
         var upd = updateAccountDetailService.update({ id: currentUser.id}, payLoad);
 
         upd.$promise.then(function(response){
-            console.log('promise resvoled');
+            //console.log('promise resvoled');
             $location.path("/account");
         });
 

@@ -38,5 +38,17 @@ angular.module('app').factory('loginLogoutService', ['$http', '$rootScope', func
         currentUser.id = $id;
         //console.log("from loginLogoutService, currentUser = "+currentUser.username + " " + currentUser.id);
     }
+
+    service.setFollowingAccounts =  function(followingAccounts) {
+        currentUser.followingAccounts = followingAccounts;
+/*        for (var i = 0; i < currentUser.followingAccounts.length; i++) {
+            console.log("following accounts: "+currentUser.followingAccounts[i].id);
+        }*/
+    }
+
+    service.setFollowedByAccounts =  function(followedByAccounts) {
+        currentUser.followedByAccounts = followedByAccounts;
+    }
+
     return service;
 }]);

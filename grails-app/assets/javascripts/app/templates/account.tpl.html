@@ -42,6 +42,11 @@
 				  </div>
 			</div>
 
+			<!-- Follow this account button -->
+			<div class="container" ng-show="!canUpdate" ng-show="!notFollowingYet">
+				<button type="button" class="btn btn-info btn-lg" data-target="#myModal">Follow this account!</button>
+			</div>
+
     </div>
 
     <!-- Display messages from currently logged in user or message search result -->
