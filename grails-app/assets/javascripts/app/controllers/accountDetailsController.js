@@ -2,7 +2,7 @@
  * Created by Arbindra on 4/6/2016.
  */
 
-angular.module('app').controller('accountDetailsController', function ($scope, $routeParams, $location, loginLogoutService, accountDetailsService, updateAccountDetailService) {
+angular.module('app').controller('accountDetailsController', function ($scope, $routeParams, $location, loginLogoutService, accountDetailsService, updateAccountDetailService, followAccountService) {
     $scope.message = 'User Account Page';
     $scope.canUpdate = false;
 
@@ -54,12 +54,6 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
                 loginLogoutService.setFollowingAccounts(followingAccounts);
                 loginLogoutService.setFollowedByAccounts(followedByAccounts);
 
-                //console.log("currently logged on user details = "+followingAccounts.length);
-/*                for (var i = 0; i < followingAccounts.length; i++) {
-                    console.log("following accounts: "+followingAccounts[i].id);
-                }*/
-
-
                 loginLogoutService.setCurrentUserId($scope.accountDetails.id);
                 $scope.recentMessages = accountDetailsService.getRecentMessagesForAccount(response).query();
             });
@@ -78,7 +72,14 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
     }
 
     $scope.followAccount = function() {
-        console.log("followAccount called");
+        var currentUser = loginLogoutService.getCurrentUser();
+        console.log("followAccount called, selfId: "+currentUser.id+" "+$scope.accountDetails.id);
+
+        var follow = followAccountService.post({selfId: currentUser.id,followId: $scope.accountDetails.id},{});
+        follow.$promise.then(function(response){
+            console.log('promise resvoled, successfully followed');
+            $scope.Following = true;
+        });
     }
 
     /**

@@ -44,10 +44,12 @@
 
 			<!-- Follow this account button -->
 			<div class="container" ng-show="!canUpdate && !Following">
+				<h5>You are not following this account yet!</h5>
 				<button type="button" class="btn btn-danger btn-lg" ng-click="followAccount()">Follow this account!</button>
 			</div>
 
 			<div class="container" ng-show="!canUpdate && Following">
+				<h5>You are following this account</h5>
 				<button type="button" class="btn btn-success btn-lg" data-target="#myModal">Following</button>
 			</div>
 
