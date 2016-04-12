@@ -5,9 +5,10 @@
 angular.module('app').controller('accountDetailsController', function ($scope, $routeParams, $location, loginLogoutService, accountDetailsService, updateAccountDetailService) {
     $scope.message = 'User Account Page';
     $scope.canUpdate = false;
+
     $scope.getAccountDetails = function() {
     	//console.log("hahaha getAccountDetails called");
-
+        $scope.Following = false;
         /**
          * Shows the user's detail page by handlename
          */
@@ -28,17 +29,12 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
                 for (var i = 0; i < currentUser.followingAccounts.length; i++) {
                     if (thisUsersId === currentUser.followingAccounts[i].id) {
                         console.log(currentUser.id + " is following " + thisUsersId);
+                        $scope.Following = true;
                     }
                 }
             });
 
             $scope.canUpdate = false;
-
-            
-            /*for (var i = 0; i < currentUser.followingAccounts.length; i++) {
-                console.log("haha "+currentUser.followingAccounts[i].id);
-            }*/
-            
         }
 
         /**
@@ -82,7 +78,7 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
     }
 
     $scope.followAccount = function() {
-        return null;
+        console.log("followAccount called");
     }
 
     /**

@@ -43,8 +43,12 @@
 			</div>
 
 			<!-- Follow this account button -->
-			<div class="container" ng-show="!canUpdate" ng-show="!notFollowingYet">
-				<button type="button" class="btn btn-info btn-lg" data-target="#myModal">Follow this account!</button>
+			<div class="container" ng-show="!canUpdate && !Following">
+				<button type="button" class="btn btn-danger btn-lg" ng-click="followAccount()">Follow this account!</button>
+			</div>
+
+			<div class="container" ng-show="!canUpdate && Following">
+				<button type="button" class="btn btn-success btn-lg" data-target="#myModal">Following</button>
 			</div>
 
     </div>
