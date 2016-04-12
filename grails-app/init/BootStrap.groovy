@@ -24,12 +24,21 @@ class BootStrap {
         (1..15).each { id -> account2.addToMessages(status_message: "Message #$id Batman doesn't sleep").save(flush: true) }
         (1..5).each { id -> account3.addToMessages(status_message: "Message #$id Superman is a chick magnet").save(flush: true) }
 
+        account1.addToFollowing(adminAccount).save(flush: true, failOnError: true)
         adminAccount.addToFollowedBy(account1).save(flush: true, failOnError: true)
+
+        account2.addToFollowing(adminAccount).save(flush: true, failOnError: true)
         adminAccount.addToFollowedBy(account2).save(flush: true, failOnError: true)
+
+        account3.addToFollowing(adminAccount).save(flush: true, failOnError: true)
         adminAccount.addToFollowedBy(account3).save(flush: true, failOnError: true)
 
+
         adminAccount.addToFollowing(account1).save(flush: true, failOnError: true)
+        account1.addToFollowedBy(adminAccount).save(flush: true, failOnError: true)
+
         adminAccount.addToFollowing(account3).save(flush: true, failOnError: true)
+        account3.addToFollowedBy(adminAccount).save(flush: true, failOnError: true)
 
     }
 

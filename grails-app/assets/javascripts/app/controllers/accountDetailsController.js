@@ -13,20 +13,32 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
          */
         if($routeParams.handle) {
             console.log("handle passed = " + $routeParams.handle);
-        
+            
+            // Check to see if the logged in user is following this user
+            var currentUser = loginLogoutService.getCurrentUser();
+
+            var thisUsersId;
             $scope.accountDetails = accountDetailsService.getAccountDetails($routeParams.handle).get();
 
             $scope.accountDetails.$promise.then(function(response){
                 $scope.recentMessages = accountDetailsService.getRecentMessagesForAccount(response).query();
+                thisUsersId = $scope.accountDetails.id;   
+                console.log("This users id: "+thisUsersId);      
+
+                for (var i = 0; i < currentUser.followingAccounts.length; i++) {
+                    if (thisUsersId === currentUser.followingAccounts[i].id) {
+                        console.log(currentUser.id + " is following " + thisUsersId);
+                    }
+                }
             });
-            
+
             $scope.canUpdate = false;
 
-            // Check to see if the logged in user is following this user
-            var currentUser = loginLogoutService.getCurrentUser();
-            for (var i = 0; i < currentUser.followingAccounts.length; i++) {
+            
+            /*for (var i = 0; i < currentUser.followingAccounts.length; i++) {
                 console.log("haha "+currentUser.followingAccounts[i].id);
-            }
+            }*/
+            
         }
 
         /**
