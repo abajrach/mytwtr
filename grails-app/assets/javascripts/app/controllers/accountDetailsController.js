@@ -18,7 +18,11 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
 
             $scope.accountDetails.$promise.then(function(response){
                 $scope.recentMessages = accountDetailsService.getRecentMessagesForAccount(response).query();
-            });            
+            });
+
+            // Check to see if the logged in user is following this user
+            
+
             $scope.canUpdate = false;
         }
 

@@ -33,6 +33,7 @@ angular.module('app').controller('loginLogoutController', function ($scope, $loc
         $scope.loggedOut = true;
         loginLogoutService.doLogout();
         console.log("loggedout state:"+$scope.loggedOut);
+
     };
 });
 
