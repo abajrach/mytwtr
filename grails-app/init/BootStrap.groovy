@@ -14,9 +14,17 @@ class BootStrap {
         def account2 = new Account(handlename: 'batman', name: 'Batman, Dark Knight', password: 'pass', email: 'batman@aol.com').save(flush: true, failOnError: true)
         def account3 = new Account(handlename: 'superman', name: 'Superman, Chick Magnet', password: 'pass', email: 'superman@gmail.com').save(flush: true, failOnError: true)
 
+        def account4 = new Account(handlename: 'dtrump', name: 'Donald J. Drumpf', password: 'p', email: 'don@gmail.com').save(flush: true, failOnError: true)
+        def account5 = new Account(handlename: 'bsanders', name: 'Bernie Sanders', password: 'p', email: 'bern@gmail.com').save(flush: true, failOnError: true)
+        def account6 = new Account(handlename: 'hclinton', name: 'Hilary Clinton', password: 'p', email: 'clint@gmail.com').save(flush: true, failOnError: true)
+
         new AccountRole(account: account1, role: role).save(flush: true, failOnError: true)
         new AccountRole(account: account2, role: role).save(flush: true, failOnError: true)
         new AccountRole(account: account3, role: role).save(flush: true, failOnError: true)
+
+        new AccountRole(account: account4, role: role).save(flush: true, failOnError: true)
+        new AccountRole(account: account5, role: role).save(flush: true, failOnError: true)
+        new AccountRole(account: account6, role: role).save(flush: true, failOnError: true)
 
         //@Todo: Messages ids don't roll over to 1 for another account. Need fix?
         (1..50).each { id -> adminAccount.addToMessages(status_message: "Message #$id admin was partying").save(flush: true) }
