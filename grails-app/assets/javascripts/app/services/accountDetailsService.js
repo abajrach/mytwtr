@@ -8,11 +8,17 @@ angular.module('app').factory('accountDetailsService', function ($resource) {
         return $resource('/accounts/handle='+$handle, {});
     };
 
+    /*
+        @Todo: Remove this function
+    */
     service.updateAccountDetails = function($id, $newName, $newEmail) {
-/*        return $resource('/accounts/:id', { id: '@_id' }, {
-            update: {
-            method: 'PUT'
-        });*/
+        console.log("service: id passed = " + $id + " " + $newName + " " + $newEmail);
+        return $resource('/accounts/:id', null,
+        {
+            'update': { method:'PUT' }
+        });
+
+
     };
 
      service.getRecentMessagesForAccount = function($response) {

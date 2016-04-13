@@ -18,10 +18,10 @@ angular.module('app')
                 templateUrl: '/app/login.html',
                 controller: 'loginLogoutController'
             })
-/*            .when('/account/', {
+            .when('/account/', {
                 templateUrl: '/app/account.html',
                 controller: 'accountDetailsController'
-            })*/
+            })
             .when('/account/:handle?', {
                 templateUrl: '/app/account.html',
                 controller: 'accountDetailsController'

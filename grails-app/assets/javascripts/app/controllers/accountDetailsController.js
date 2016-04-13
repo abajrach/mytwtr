@@ -2,7 +2,7 @@
  * Created by Arbindra on 4/6/2016.
  */
 
-angular.module('app').controller('accountDetailsController', function ($scope, $routeParams, loginLogoutService, accountDetailsService) {
+angular.module('app').controller('accountDetailsController', function ($scope, $routeParams, $location, loginLogoutService, accountDetailsService, updateAccountDetailService) {
     $scope.message = 'User Account Page';
     $scope.canUpdate = false;
     $scope.getAccountDetails = function() {
@@ -26,6 +26,7 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
          * Shows the user's detail page for the currently logged in user
          */
         else {
+            console.log("Getting account details for logged in user");
             var currentUser = loginLogoutService.getCurrentUser();
 
             $scope.accountDetails = accountDetailsService.getAccountDetails(currentUser.username).get();
@@ -61,11 +62,34 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
      * }
      */
     $scope.updateInfo = function() {
-        //console.log("updateInfo called with values "+$scope.newName + " " + $scope.newEmail);
         var currentUser = loginLogoutService.getCurrentUser();
         console.log("from updateInfo in controller, currentUser = "+currentUser.username + " " + currentUser.id);
         
         // pass in id to put request, make it so that name and email are not both required
-        accountDetailsService.updateAccountDetails($id, $newName, $newEmail);
+
+        if(!$scope.newName && !$scope.newEmail) {
+            // Throw error
+        }
+        if(!angular.isDefined($scope.newName)) {
+            $scope.newName = currentUser.username;
+            console.log('name');
+            
+        }
+
+        if(!angular.isDefined($scope.newEmail)) {
+            $scope.newEmail = currentUser.email;
+            console.log('email');
+        } 
+
+        var payLoad = { "name":$scope.newName, "email":$scope.newEmail };
+        console.log(payLoad);
+        //updateAccountDetailService.update({ id: currentUser.id}, '{"name":"new","email":"newmailsdfwe@gmail.com"}');
+        var upd = updateAccountDetailService.update({ id: currentUser.id}, payLoad);
+
+        upd.$promise.then(function(response){
+            console.log('promise resvoled');
+            $location.path("/account");
+        });
+
     }    
 });
