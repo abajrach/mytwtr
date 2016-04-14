@@ -41,5 +41,23 @@ class WelcomePageFunctionalSpec extends GebSpec {
         $('form').find("h4", id:"following-count").text() == "Following: 2"
         $('form').find("h4", id:"email").text() == "Email: i_am_admin@gmail.com"
         $('form').find("h4", id:"dateCreated").text()
+
+        $('form').find("button", id:"udpate-info-button").displayed
+        !$('form').find("button", id:"followButton").displayed
+        !$('form').find("button", id:"followingButton").displayed
+
+        $('form').find("h3", id:"loggedInUserMessages").allElements().size() == 50
+        $('form').find("h3", id:"loggedInUserMessages").allElements()[0].getText() == "Message #50 admin was partying"
+
+        $('form').find("h3", id:"messageDateCreated").displayed
+
+    }
+
+    def "L3: Invalid login will be rejected with an error message"() {
+
+    }
+
+    def "N3: Logout - clicking this should bring you to the login screen and provide a helpful message"() {
+        
     }
 }
