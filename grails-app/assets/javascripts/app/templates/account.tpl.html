@@ -1,96 +1,107 @@
+<form id="account-form">
+    <div data-ng-controller="accountDetailsController" data-ng-init="getAccountDetails()">
+        <div class="col-lg-3" id="account-details-leftpane">
 
-<div data-ng-controller="accountDetailsController" data-ng-init="getAccountDetails()">
-    <div class = "col-lg-3">
+            <!-- Displays User details -->
+            <div class="list-group" id="account-details">
+                <div class="list-group-item">
+                    <h4 id="handlename" class="list-group-item-heading">Account: {{accountDetails.handlename}}</h4>
+                    <h4 id="name" class="list-group-item-heading">Name: {{accountDetails.name}}</h4>
+                    <h4 id="followers-count" class="list-group-item-heading">Followers: {{accountDetails.followedBy.length}}</h4>
+                    <h4 id="following-count" class="list-group-item-heading">Following: {{accountDetails.following.length}}</h4>
+                    <h4 id="email" class="list-group-item-heading">Email: {{accountDetails.email}}</h4>
+                    <h4 id="dateCreated" class="list-group-item-heading">Account Created: {{accountDetails.dateCreated}}</h4>
+                </div>
+            </div>
 
-    		<!-- Displays User details -->
-			<div class = "list-group">
-				<a class = "list-group-1item">
-					<h4 class = "list-group-item-heading">Account: {{accountDetails.handlename}}</h4>
-					<h4 class = "list-group-item-heading">Name: {{accountDetails.name}}</h4>
-					<h4 class = "list-group-item-heading">Followers: {{accountDetails.followedBy.length}}</h4>
-					<h4 class = "list-group-item-heading">Following: {{accountDetails.following.length}}</h4>
-					<h4 class = "list-group-item-heading">Email: {{accountDetails.email}}</h4>
-					<h4 class = "list-group-item-heading">Account Created: {{accountDetails.dateCreated}}</h4>
-				</a>
-			</div>
+            <!-- Update User details - Name and Email. Brings up a modal -->
+            <div class="container" ng-show="canUpdate">
+                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Update My
+                    Info!
+                </button>
+                <!-- Update Info Modal Dialog Box-->
+                <div class="modal" id="myModal" role="dialog">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title"><strong>Update My Info</strong></h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-lg" placeholder="Name" ,
+                                           ng-model="newName">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-lg" placeholder="Email" ,
+                                           ng-model="newEmail">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" data-dismiss="modal"
+                                        ng-click="updateInfo()">Submit
+                                </button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-			<!-- Update User details - Name and Email. Brings up a modal -->			
-			<div class="container" ng-show="canUpdate">
-				<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Update My Info!</button>
-				  <!-- Update Info Modal Dialog Box-->
-				  <div class="modal" id="myModal" role="dialog">
-				    <div class="modal-dialog modal-lg">
-				      <div class="modal-content">
-				        <div class="modal-header">
-				          <button type="button" class="close" data-dismiss="modal">&times;</button>
-				          <h4 class="modal-title"><strong>Update My Info</strong></h4>
-				        </div>
-				        <div class="modal-body">
-                        	<div class="form-group">
-                        		<input type="text" class="form-control input-lg" placeholder="Name" , ng-model="newName">
-                        	</div>
-                        	<div class="form-group">
-                        		<input type="text" class="form-control input-lg" placeholder="Email" , ng-model="newEmail">
-                    		</div>
-				        </div>
-				        <div class="modal-footer">
-				          <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="updateInfo()">Submit</button>
-				          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-				        </div>
-				      </div>
-				    </div>
-				  </div>
-			</div>
+            <!-- Follow this account button -->
+            <div class="container" ng-show="!canUpdate && !Following">
+                <h5>You are not following this account yet!</h5>
+                <button type="button" class="btn btn-danger btn-lg" ng-click="followAccount()">Follow this account!
+                </button>
+            </div>
 
-			<!-- Follow this account button -->
-			<div class="container" ng-show="!canUpdate && !Following">
-				<h5>You are not following this account yet!</h5>
-				<button type="button" class="btn btn-danger btn-lg" ng-click="followAccount()">Follow this account!</button>
-			</div>
+            <div class="container" ng-show="!canUpdate && Following">
+                <h5>You are following this account</h5>
+                <button type="button" class="btn btn-success btn-lg" data-target="#myModal">Following</button>
+            </div>
 
-			<div class="container" ng-show="!canUpdate && Following">
-				<h5>You are following this account</h5>
-				<button type="button" class="btn btn-success btn-lg" data-target="#myModal">Following</button>
-			</div>
+        </div>
 
-    </div>
+        <!-- Display messages from currently logged in user or message search result -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
 
-    <!-- Display messages from currently logged in user or message search result -->
-	<div class = "container">
-		<div class ="row">
-			<div class = "col-lg-9">
-				<div class = "panel panel-default">
-					<div class = "panel-body">
 
-			          
-			            <div class="col-lg-4 col-lg-offset-4">
-			                <div class="input-group">
-			                    <input type="text" class="form-control", ng-model="searchToken"/> 
+                            <div class="col-lg-4 col-lg-offset-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" , ng-model="searchToken"/>
 			                    <span class="input-group-btn">
 			                        <button class="btn btn-default" type="button" ng-click="doSearch()">Go!</button>
 			                    </span>
-			                </div>
-			            </div>
+                                </div>
+                            </div>
 
-			            <div ng-show="!showSearchResult">
-							<div class = "page-header">
-								<h1>Messages posted by: {{accountDetails.handlename}}</h1>
-							</div>
-							<h3 ng-repeat="message in recentMessages">{{ message.status_message }} <small> Posted on {{message.dateCreated}}</small></h3>
-						</div>
-						
-						<br><br><br>
+                            <div ng-show="!showSearchResult">
+                                <div class="page-header">
+                                    <h1>Messages posted by: {{accountDetails.handlename}}</h1>
+                                </div>
+                                <h3 ng-repeat="message in recentMessages">{{ message.status_message }}
+                                    <small> Posted on {{message.dateCreated}}</small>
+                                </h3>
+                            </div>
 
-						<div ng-show="showSearchResult">
-							<h3 ng-repeat="result in searchResults">{{ result.message.status_message }} 
-								<small> 								
-										Posted by <a href ='#/account/{{result.accountHandle}}'>{{result.accountHandle}}</a>
-								</small>
-							</h3>
-						</div>
+                            <br><br><br>
 
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                            <div ng-show="showSearchResult">
+                                <h3 ng-repeat="result in searchResults">{{ result.message.status_message }}
+                                    <small>
+                                        Posted by <a
+                                            href='#/account/{{result.accountHandle}}'>{{result.accountHandle}}</a>
+                                    </small>
+                                </h3>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</form>

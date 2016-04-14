@@ -2,24 +2,24 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="text-center">Login Into Your Account</h1>
+                <h1 class="login-header text-center">Login Into Your Account</h1>
                 <div ng-show="loggedOut">
                     <h3 class="text-center bg-danger" >We are sorry to see you go :(</h3>
                 </div>
             </div>
 
             <div class="modal-body">
-                <form class="col-md12 center-block">
+                <form class="col-md12 center-block" id="login-form">
                     <div class="form-group">
-                        <input type="text" class="form-control input-lg" placeholder="Username" , ng-model="usrName"
+                        <input type="text" class="form-control input-lg" placeholder="Username" name="username" id="username-field", ng-model="usrName"
                                required>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control input-lg" placeholder="Password" , ng-model="pwd"
+                        <input type="text" class="form-control input-lg" placeholder="Password" name="password" id="password-field", ng-model="pwd"
                                required>
                     </div>
                     <div class="form-group">
-                        <input type="submit" class="btn btn-block btn-lg btn-primary" value="Login" ng-click="login()">
+                        <input type="submit" class="btn btn-block btn-lg btn-primary" id="submit-button" value="Login" ng-click="login()">
                         <span class="pull-right"><a href="#">Register</a> </span><span><a href="#">Forgot Password</a> </span>
                     </div>
                 </form>
