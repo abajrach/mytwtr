@@ -63,9 +63,14 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
 
     $scope.doSearch = function() {
         $scope.showSearchResult = true;
-        var query = accountDetailsService.searchMessageByToken($scope.searchToken).query();
+        var messageResultByToken = accountDetailsService.searchMessageByToken($scope.searchToken).query();
 
-        query.$promise.then(function(data) {
+        messageResultByToken.$promise.then(function(data) {
+            $scope.searchResults = data;
+        });
+
+        var messageResultByPoster = accountDetailsService.searchMessageByPoster($scope.searchToken).query();
+        messageResultByPoster.$promise.then(function(data) {
             $scope.searchResults = data;
         });
         

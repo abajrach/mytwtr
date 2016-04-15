@@ -32,5 +32,9 @@ angular.module('app').factory('accountDetailsService', function ($resource) {
     	return $resource('messages/search?query='+$searchToken,{});
     };
 
+    service.searchMessageByPoster = function($poster) {
+
+    };
+
   return service;
 });

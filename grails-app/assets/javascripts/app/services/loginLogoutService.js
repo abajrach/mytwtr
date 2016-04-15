@@ -29,6 +29,7 @@ angular.module('app').factory('loginLogoutService', ['$http', '$rootScope', func
 
     service.doLogout = function() {
         delete $rootScope.currentUser;
+        currentUser = undefined;
     }
 
     service.getCurrentUser = function() {

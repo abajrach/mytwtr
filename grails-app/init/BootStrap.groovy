@@ -32,6 +32,9 @@ class BootStrap {
         (1..15).each { id -> account2.addToMessages(status_message: "Message #$id Batman doesn't sleep").save(flush: true) }
         (1..5).each { id -> account3.addToMessages(status_message: "Message #$id Superman is a chick magnet").save(flush: true) }
 
+        account3.addToMessages(status_message: "I am real hero!").save(flush: true)
+        account3.addToMessages(status_message: "bla bla bla").save(flush: true)
+
         account1.addToFollowing(adminAccount).save(flush: true, failOnError: true)
         adminAccount.addToFollowedBy(account1).save(flush: true, failOnError: true)
 

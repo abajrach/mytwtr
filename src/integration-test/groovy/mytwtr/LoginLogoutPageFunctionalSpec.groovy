@@ -1,3 +1,7 @@
+/**
+ * Created by Arbindra on 4/6/2016.
+ */
+
 package mytwtr
 
 import geb.spock.GebSpec
@@ -5,7 +9,7 @@ import grails.test.mixin.integration.Integration
 import spock.lang.Ignore
 
 @Integration
-class WelcomePageFunctionalSpec extends GebSpec {
+class LoginLogoutPageFunctionalSpec extends GebSpec {
 
     // @Todo: Need more validation
     def 'L1: When not logged in, route user to the login screen'() {
