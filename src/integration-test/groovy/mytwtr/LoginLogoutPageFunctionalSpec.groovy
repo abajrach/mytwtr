@@ -53,11 +53,14 @@ class WelcomePageFunctionalSpec extends GebSpec {
 
     }
 
+/*    def "N3: Logout - clicking this should bring you to the login screen and provide a helpful message"() {
+        when:
+        //$("#login-form input[id=submit-button]").click()
+        $("#logoutButton input[id=]")
+    }*/
+
     def "L3: Invalid login will be rejected with an error message"() {
 
     }
 
-    def "N3: Logout - clicking this should bring you to the login screen and provide a helpful message"() {
-        
-    }
 }
