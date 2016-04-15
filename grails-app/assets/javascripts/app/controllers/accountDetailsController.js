@@ -26,10 +26,12 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
                 thisUsersId = $scope.accountDetails.id;   
                 console.log("This users id: "+thisUsersId);      
 
+                //console.log("currentUser following size = "+)
                 for (var i = 0; i < currentUser.followingAccounts.length; i++) {
-                    if (thisUsersId === currentUser.followingAccounts[i].id) {
+                    if (thisUsersId === currentUser.followingAccounts[i]) {
                         console.log(currentUser.id + " is following " + thisUsersId);
                         $scope.Following = true;
+                        break;
                     }
                 }
             });
@@ -69,10 +71,10 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
             $scope.searchResults = data;
         });
 
-        var messageResultByPoster = accountDetailsService.searchMessageByPoster($scope.searchToken).query();
+        /*var messageResultByPoster = accountDetailsService.searchMessageByPoster($scope.searchToken).query();
         messageResultByPoster.$promise.then(function(data) {
             $scope.searchResults = data;
-        });
+        });*/
         
     }
 
@@ -82,7 +84,9 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
 
         var follow = followAccountService.post({selfId: currentUser.id,followId: $scope.accountDetails.id},{});
         follow.$promise.then(function(response){
-            console.log('promise resvoled, successfully followed');
+            console.log('promise resolved, successfully followed');
+            //loginLogoutService.setFollowingAccounts(followingAccounts);
+            loginLogoutService.addToFollowingAccounts($scope.accountDetails.id);
             $scope.Following = true;
         });
     }
