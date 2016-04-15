@@ -2,24 +2,38 @@
  * Created by Arbindra on 4/3/2016.
  */
 
-angular.module('app').factory('loginLogoutService', ['$http', '$rootScope', function($http, $rootScope) {
+angular.module('app').factory('loginLogoutService', ['$http', '$rootScope', 'webStorage', function($http, $rootScope, webStorage) {
 
     var service = {};
     var currentUser;
 
+    var setCurrentUser = function(user) {
+            currentUser = user;
+           webStorage.set('accountUser', currentUser);
+        $rootScope.$emit('userChange', currentUser);
+    };
+
     var loginSuccess = function(response) {
-        currentUser = {
+      /*  currentUser = {
             username: response.data.username,
             roles: response.data.roles,
             token: response.data['access_token']
         };
-        $rootScope.$emit('userChange', currentUser);
+        $rootScope.$emit('userChange', currentUser);*/
+
+        setCurrentUser({
+            username: response.data.username,
+            roles: response.data.roles,
+            token: response.data['access_token']
+        });
     };
 
     var loginFailure = function() {
-        console.log("loginFailure")
-        currentUser = undefined;
-        delete $rootScope.currentUser;
+        //console.log("loginFailure")
+        //currentUser = undefined;
+        //delete $rootScope.currentUser;
+
+        setCurrentUser(undefined);
     }
 
     service.doLogin = function($credentials) {
@@ -51,6 +65,8 @@ angular.module('app').factory('loginLogoutService', ['$http', '$rootScope', func
     service.setFollowedByAccounts =  function(followedByAccounts) {
         currentUser.followedByAccounts = followedByAccounts;
     }
+
+    setCurrentUser(webStorage.get('accountUser'));
 
     return service;
 }]);

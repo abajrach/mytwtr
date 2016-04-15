@@ -72,6 +72,7 @@ class MessageController extends RestfulController<Message> {
     def search() {
 
         def querySearch = params.query.toString()
+        //def queryHandle = params.handle.toString()
 
         respond Message.where {
             status_message =~ "%${querySearch}%"
