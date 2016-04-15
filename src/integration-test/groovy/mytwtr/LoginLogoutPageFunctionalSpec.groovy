@@ -64,7 +64,22 @@ class LoginLogoutPageFunctionalSpec extends GebSpec {
     }*/
 
     def "L3: Invalid login will be rejected with an error message"() {
+        when:
+        go '/'
 
+        then: 'Login Page displays login to your account message'
+        $(".login-header").text() == "Login Into Your Account"
+
+        when:
+        $("#login-form input[id=username-field]").value("bad")
+        $("#login-form input[id=password-field]").value("login")
+        $("#login-form input[id=submit-button]").click()
+        waitFor(5,1) {
+            getCurrentUrl().endsWith('#/login')
+        }
+
+        then:
+        !$('form').find("class", id:"alert-warning").displayed
     }
 
 }
