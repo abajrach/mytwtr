@@ -17,24 +17,16 @@ angular.module('app').factory('accountDetailsService', function ($resource) {
         {
             'update': { method:'PUT' }
         });
-
-
     };
 
      service.getRecentMessagesForAccount = function($response) {
-        //console.log("getRecentMessagesForAccount: " + $response.id);
         return $resource('/messages/'+$response.id+'/recentmessages?max='+$response.messages.length,{});
     };
 
     /* http://localhost:8080/messages/search?query=mssetwitter */
     service.searchMessageByToken = function($searchToken) {
-    	//console.log("service: "+$searchToken);
     	return $resource('messages/search?query='+$searchToken,{});
     };
-
-/*    service.searchMessageByPoster = function($poster) {
-
-    };*/
 
   return service;
 });

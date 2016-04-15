@@ -7,7 +7,6 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
     $scope.canUpdate = false;
 
     $scope.getAccountDetails = function() {
-    	//console.log("hahaha getAccountDetails called");
         $scope.Following = false;
         /**
          * Shows the user's detail page by handlename
@@ -23,10 +22,7 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
 
             $scope.accountDetails.$promise.then(function(response){
                 $scope.recentMessages = accountDetailsService.getRecentMessagesForAccount(response).query();
-                thisUsersId = $scope.accountDetails.id;   
-                console.log("This users id: "+thisUsersId);      
-
-                //console.log("currentUser following size = "+)
+                thisUsersId = $scope.accountDetails.id;
                 for (var i = 0; i < currentUser.followingAccounts.length; i++) {
                     if (thisUsersId === currentUser.followingAccounts[i]) {
                         console.log(currentUser.id + " is following " + thisUsersId);
@@ -70,22 +66,14 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
         messageResultByToken.$promise.then(function(data) {
             $scope.searchResults = data;
         });
-
-        /*var messageResultByPoster = accountDetailsService.searchMessageByPoster($scope.searchToken).query();
-        messageResultByPoster.$promise.then(function(data) {
-            $scope.searchResults = data;
-        });*/
         
     }
 
     $scope.followAccount = function() {
         var currentUser = loginLogoutService.getCurrentUser();
-        console.log("followAccount called, selfId: "+currentUser.id+" "+$scope.accountDetails.id);
 
         var follow = followAccountService.post({selfId: currentUser.id,followId: $scope.accountDetails.id},{});
         follow.$promise.then(function(response){
-            console.log('promise resolved, successfully followed');
-            //loginLogoutService.setFollowingAccounts(followingAccounts);
             loginLogoutService.addToFollowingAccounts($scope.accountDetails.id);
             $scope.Following = true;
         });
@@ -100,31 +88,24 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
      */
     $scope.updateInfo = function() {
         var currentUser = loginLogoutService.getCurrentUser();
-        //console.log("from updateInfo in controller, currentUser = "+currentUser.username + " " + currentUser.id);
-        
-        // pass in id to put request, make it so that name and email are not both required
 
         if(!$scope.newName && !$scope.newEmail) {
             // Throw error
         }
         if(!angular.isDefined($scope.newName)) {
             $scope.newName = currentUser.username;
-            //console.log('name');
             
         }
 
         if(!angular.isDefined($scope.newEmail)) {
             $scope.newEmail = currentUser.email;
-            //console.log('email');
         } 
 
         var payLoad = { "name":$scope.newName, "email":$scope.newEmail };
         console.log(payLoad);
-        //updateAccountDetailService.update({ id: currentUser.id}, '{"name":"new","email":"newmailsdfwe@gmail.com"}');
         var upd = updateAccountDetailService.update({ id: currentUser.id}, payLoad);
 
         upd.$promise.then(function(response){
-            //console.log('promise resvoled');
             $location.path("/account");
         });
 
