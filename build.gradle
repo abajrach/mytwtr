@@ -108,6 +108,10 @@ bower {
         source 'angular-resource.js'
     }
 
+    'angular-webstorage'() {
+        source 'angular-webstorage.js'
+    }
+
     'angular'('1.5.x') {
         source 'angular.js'
         source 'angular-route.js'

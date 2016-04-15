@@ -11,8 +11,9 @@
 //= require ../bower/angular/angular.js
 //= require ../bower/angular-resource/angular-resource.js
 //= require ../bower/angular-route/angular-route.js
+//= require ../bower/angular-webstorage/angular-webstorage.js
 //= require ../bower/foo/bar.js
 //= require_self
 //= require_tree app
 
-angular.module('app', ['ngRoute', 'ngResource']);
+angular.module('app', ['ngRoute', 'ngResource', 'webStorageModule']);
