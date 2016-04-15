@@ -17,6 +17,7 @@ angular.module('app').factory('loginLogoutService', ['$http', '$rootScope', func
     };
 
     var loginFailure = function() {
+        console.log("loginFailure")
         currentUser = undefined;
         delete $rootScope.currentUser;
     }

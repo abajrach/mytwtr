@@ -15,17 +15,17 @@ angular.module('app').controller('loginLogoutController', function ($scope, $loc
         credentials.pwd = $scope.pwd;
 
         loginLogoutService.doLogin(credentials)
-            .then(function (response) {
-                    console.log("success");
+            .finally(function(result) {
+                var currentUser = loginLogoutService.getCurrentUser();
+                if(currentUser) {
                     $scope.loggedOut = false;
-                    
                     $location.path("/account");
-
-                },
-                function (response) {
+                }
+                else {
                     console.log("failed");
                     $scope.ui.alert = true;
-                });
+                }
+            });
     };
 
     $scope.logout = function  () {
