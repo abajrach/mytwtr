@@ -1,6 +1,3 @@
-/**
- * Created by Arbindra on 4/3/2016.
- */
 
 angular.module('app').factory('loginLogoutService', ['$http', '$rootScope', 'webStorage', function ($http, $rootScope, webStorage) {
 
@@ -34,6 +31,7 @@ angular.module('app').factory('loginLogoutService', ['$http', '$rootScope', 'web
     service.doLogout = function () {
         delete $rootScope.currentUser;
         setCurrentUser(undefined);
+        currentUser = undefined;
     }
 
     service.getCurrentUser = function () {
