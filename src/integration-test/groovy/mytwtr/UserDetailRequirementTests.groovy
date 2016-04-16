@@ -66,6 +66,9 @@ class UserDetailRequirementTests extends GebSpec {
 
         when:
         $('form').find("button", id:"udpate-info-button").click()
+        waitFor(5,1) {
+            $('form').find("h4", class:"modal-title").text() == "Update My Info"
+        }
 
         then: 'Update My Info screen is displayed'
         $('form').find("h4", class:"modal-title").text() == "Update My Info"
@@ -75,7 +78,7 @@ class UserDetailRequirementTests extends GebSpec {
         $('form').find(id:"update-info-email-field").value("dtrump2@gmail.com")
         $('form').find("button", id:"update-info-submit-button").click()
         waitFor(5,1) {
-            getCurrentUrl().endsWith('#/account/')
+            $('form').find("h4", id:"name").text() == "Name: dtrump2"
         }
 
         then: 'name and email are updated'
