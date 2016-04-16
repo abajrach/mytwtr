@@ -9,7 +9,7 @@ class UserDetailRequirementTests extends GebSpec {
 
     }
 
-    def "U2: Other users detail page will allow logged in user to follow postings"() {
+    def "U2: Other users detail page will allow logged in user to follow"() {
 
     }
 
