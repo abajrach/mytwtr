@@ -57,11 +57,37 @@ class LoginLogoutPageFunctionalSpec extends GebSpec {
 
     }
 
-/*    def "N3: Logout - clicking this should bring you to the login screen and provide a helpful message"() {
+    def "N3: Logout - clicking this should bring you to the login screen and provide a helpful message"() {
         when:
-        //$("#login-form input[id=submit-button]").click()
-        $("#logoutButton input[id=]")
-    }*/
+        go '/'
+
+        then: 'Login Page displays login to your account message'
+        $(".login-header").text() == "Login Into Your Account"
+
+        when:
+        $("#login-form input[id=username-field]").value("a")
+        $("#login-form input[id=password-field]").value("a")
+        $("#login-form input[id=submit-button]").click()
+        waitFor(5,1) {
+            getCurrentUrl().endsWith('#/account/')
+        }
+
+        then:
+        $('form').find("h4", id:"handlename").text() == "Account: a"
+        $('form').find("h4", id:"name").text() == "Name: Mr. Admin"
+
+        when:
+   //     $("#account-form input[id=logoutButton]").click() --didn't work
+        $('form').find("button", id:"logoutButton").click()
+       // $("#navbar input[id=logoutButton]").click()
+        waitFor(5,1) {
+            getCurrentUrl().endsWith('#/login')
+        }
+
+        then: "N3 - Logout displays - Sorry to see you go"
+        $('form').find("h3").text() == "We are sorry to see you go :("
+    }
+
 
     def "L3: Invalid login will be rejected with an error message"() {
         when:
