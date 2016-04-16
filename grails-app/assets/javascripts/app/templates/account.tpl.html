@@ -80,9 +80,9 @@
 
                             <div class="col-lg-4 col-lg-offset-4">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" , ng-model="searchToken"/>
+                                    <input type="text" class="form-control" id="searchTokenValue", ng-model="searchToken"/>
 			                    <span class="input-group-btn">
-			                        <button class="btn btn-default" type="button" ng-click="doSearch()">Go!</button>
+			                        <button class="btn btn-default" id="goButton", type="button", ng-click="doSearch()">Go!</button>
 			                    </span>
                                 </div>
                             </div>
@@ -115,4 +115,5 @@
                 </div>
             </div>
         </div>
+    </div>
 </form>
