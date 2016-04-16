@@ -41,9 +41,11 @@ class SearchRequirementTests extends GebSpec {
         when:
         $("#account-form input[id=searchTokenValue]").value("batman")
         //$("#account-form input[id=goButton]").click()
-        $(".account-form input[id=goButton]").click()
+        //$(".account-form input[id=goButton]").click()
+        $('form').find("button", id:"goButton").click()
         waitFor(5,1) {
-            getCurrentUrl().endsWith('#/account/')
+            def tempString = $('form').find("h3", id:"searchedMessageResults").allElements()[0].getText()
+            $('form').find("h3", id:"searchedMessageResults").allElements()[0].getText() == "Message #1 Batman doesn't sleep Posted by batman"
         }
 
         then: 'S1 - Searched records for batman are displayed.'
@@ -58,10 +60,8 @@ class SearchRequirementTests extends GebSpec {
         !$('form').find("button", id:"followButton").displayed
         !$('form').find("button", id:"followingButton").displayed
 
-        $('form').find("h3", id:"loggedInUserMessages").allElements().size() == 15
-        $('form').find("h3", id:"loggedInUserMessages").allElements()[0].getText() == "Message #1 Batman doesn't sleep"
-        $('form').find("h3", id:"loggedInUserMessages").allElements()[14].getText() == "Message #15 Batman doesn't sleep"
-
-        $('form').find("h3", id:"messageDateCreated").displayed
+        $('form').find("h3", id:"searchedMessageResults").allElements().size() == 15
+        $('form').find("h3", id:"searchedMessageResults").allElements()[0].getText() == "Message #1 Batman doesn't sleep Posted by batman"
+        $('form').find("h3", id:"searchedMessageResults").allElements()[14].getText() == "Message #15 Batman doesn't sleep Posted by batman"
     }
 }

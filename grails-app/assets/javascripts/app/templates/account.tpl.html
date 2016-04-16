@@ -102,7 +102,7 @@
                             <br><br><br>
 
                             <div ng-show="showSearchResult">
-                                <h3 ng-repeat="result in searchResults">{{ result.message.status_message }}
+                                <h3 id="searchedMessageResults" ng-repeat="result in searchResults">{{ result.message.status_message }}
                                     <small>
                                         Posted by <a
                                             href='#/account/{{result.accountHandle}}'>{{result.accountHandle}}</a>
