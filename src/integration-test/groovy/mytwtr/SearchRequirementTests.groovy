@@ -1,0 +1,4 @@
+package mytwtr
+
+class SearchRequirementTests {
+}
