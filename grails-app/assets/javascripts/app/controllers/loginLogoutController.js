@@ -1,8 +1,5 @@
 /**
- * Created by Arbindra on 4/6/2016.
- */
-
-/**
+ * Created by Arbindra on 4/6/2016
  * Controller that handles the login/logout functionality
  */
 angular.module('app').controller('loginLogoutController', function ($scope, $location, loginLogoutService) {
