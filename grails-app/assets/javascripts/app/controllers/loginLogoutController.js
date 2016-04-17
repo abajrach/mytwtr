@@ -3,21 +3,21 @@
  */
 
 /**
- * 
+ *
  */
 angular.module('app').controller('loginLogoutController', function ($scope, $location, loginLogoutService) {
     $scope.login = function () {
 
-        $scope.ui = { alert: false };  // Sends alert message when login fails
+        $scope.ui = {alert: false};  // Sends alert message when login fails
 
         var credentials = new Object();
         credentials.usrName = $scope.usrName;
         credentials.pwd = $scope.pwd;
 
         loginLogoutService.doLogin(credentials)
-            .finally(function(result) {
+            .finally(function (result) {
                 var currentUser = loginLogoutService.getCurrentUser();
-                if(currentUser) {
+                if (currentUser) {
                     $scope.loggedOut = false;
                     $location.path("/account");
                 }
@@ -28,9 +28,9 @@ angular.module('app').controller('loginLogoutController', function ($scope, $loc
             });
     };
 
-    $scope.logout = function  () {
+    $scope.logout = function () {
         var isLoggedIn = loginLogoutService.isLoggedIn();
-        if(isLoggedIn) {
+        if (isLoggedIn) {
             console.log("logout in controller called");
             $scope.loggedOut = true;
             loginLogoutService.doLogout();

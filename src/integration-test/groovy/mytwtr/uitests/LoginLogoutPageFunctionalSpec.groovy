@@ -6,7 +6,6 @@ package mytwtr.uitests
 
 import geb.spock.GebSpec
 import grails.test.mixin.integration.Integration
-import spock.lang.Ignore
 
 @Integration
 class LoginLogoutPageFunctionalSpec extends GebSpec {
@@ -24,7 +23,7 @@ class LoginLogoutPageFunctionalSpec extends GebSpec {
         //$('h2').first().text() == 'Hello Stranger'
     }
 
-    def "L2: Login screen allows a user to enter username and password to gain access"(){
+    def "L2: Login screen allows a user to enter username and password to gain access"() {
         when:
         go '/'
 
@@ -35,27 +34,27 @@ class LoginLogoutPageFunctionalSpec extends GebSpec {
         $("#login-form input[id=username-field]").value("a")
         $("#login-form input[id=password-field]").value("a")
         $("#login-form input[id=submit-button]").click()
-        waitFor(5,1) {
+        waitFor(5, 1) {
             getCurrentUrl().endsWith('#/account/')
         }
 
         then:
-        $('form').find("h4", id:"handlename").text() == "Account: a"
-        $('form').find("h4", id:"name").text() == "Name: Mr. Admin"
-        $('form').find("h4", id:"followers-count").text() == "Followers: 3"
-        $('form').find("h4", id:"following-count").text() == "Following: 2"
-        $('form').find("h4", id:"email").text() == "Email: i_am_admin@gmail.com"
-        $('form').find("h4", id:"dateCreated").text()
+        $('form').find("h4", id: "handlename").text() == "Account: a"
+        $('form').find("h4", id: "name").text() == "Name: Mr. Admin"
+        $('form').find("h4", id: "followers-count").text() == "Followers: 3"
+        $('form').find("h4", id: "following-count").text() == "Following: 2"
+        $('form').find("h4", id: "email").text() == "Email: i_am_admin@gmail.com"
+        $('form').find("h4", id: "dateCreated").text()
 
-        $('form').find("button", id:"udpate-info-button").displayed
-        !$('form').find("button", id:"followButton").displayed
-        !$('form').find("button", id:"followingButton").displayed
+        $('form').find("button", id: "udpate-info-button").displayed
+        !$('form').find("button", id: "followButton").displayed
+        !$('form').find("button", id: "followingButton").displayed
 
-        $('form').find("h3", id:"loggedInUserMessages").allElements().size() == 50
+        $('form').find("h3", id: "loggedInUserMessages").allElements().size() == 50
         //$('form').find("h3", id:"loggedInUserMessages").allElements()[0].getText() == "Message #50 admin was partying"
-        $('form').find("h3", id:"loggedInUserMessages").allElements()[0].getText().contains("Message #50 admin was partying")
+        $('form').find("h3", id: "loggedInUserMessages").allElements()[0].getText().contains("Message #50 admin was partying")
 
-        $('form').find("small", id:"messageDateCreated").displayed
+        $('form').find("small", id: "messageDateCreated").displayed
 
     }
 
@@ -71,16 +70,16 @@ class LoginLogoutPageFunctionalSpec extends GebSpec {
         $("#login-form input[id=password-field]").value("a")
 
         $("#login-form input[id=submit-button]").click()
-        waitFor(5,1) {
+        waitFor(5, 1) {
             getCurrentUrl().endsWith('#/account/')
         }
 
         then:
-        $('form').find("h4", id:"handlename").text() == "Account: a"
-        $('form').find("h4", id:"name").text() == "Name: Mr. Admin"
+        $('form').find("h4", id: "handlename").text() == "Account: a"
+        $('form').find("h4", id: "name").text() == "Name: Mr. Admin"
 
         when: 'the user clicks logout button'
-        $('form').find("p", id:"logoutButton").click()
+        $('form').find("p", id: "logoutButton").click()
 
         then: "N3 - Logout displays - Sorry to see you go"
         $('div').find("h3").text() == "We are sorry to see you go :("
@@ -97,12 +96,12 @@ class LoginLogoutPageFunctionalSpec extends GebSpec {
         $("#login-form input[id=username-field]").value("bad")
         $("#login-form input[id=password-field]").value("login")
         $("#login-form input[id=submit-button]").click()
-        waitFor(5,1) {
+        waitFor(5, 1) {
             getCurrentUrl().endsWith('#/login')
         }
 
         then:
-        !$('form').find("class", id:"alert-warning").displayed
+        !$('form').find("class", id: "alert-warning").displayed
     }
 
 }

@@ -6,21 +6,21 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
     $scope.message = 'User Account Page';
     $scope.canUpdate = false;
 
-    $scope.getAccountDetails = function() {
+    $scope.getAccountDetails = function () {
         $scope.Following = false;
         /**
          * Shows the user's detail page by handlename
          */
-        if($routeParams.handle) {
+        if ($routeParams.handle) {
             console.log("handle passed = " + $routeParams.handle);
-            
+
             // Check to see if the logged in user is following this user
             var currentUser = loginLogoutService.getCurrentUser();
 
             var thisUsersId;
             $scope.accountDetails = accountDetailsService.getAccountDetails($routeParams.handle).get();
 
-            $scope.accountDetails.$promise.then(function(response){
+            $scope.accountDetails.$promise.then(function (response) {
                 $scope.recentMessages = accountDetailsService.getRecentMessagesForAccount(response).query();
                 thisUsersId = $scope.accountDetails.id;
                 for (var i = 0; i < currentUser.followingAccounts.length; i++) {
@@ -44,11 +44,11 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
 
             $scope.accountDetails = accountDetailsService.getAccountDetails(currentUser.username).get();
 
-            $scope.accountDetails.$promise.then(function(response){
-                
+            $scope.accountDetails.$promise.then(function (response) {
+
                 var followingAccounts = $scope.accountDetails.following;
                 var followedByAccounts = $scope.accountDetails.followedBy;
-                
+
                 loginLogoutService.setFollowingAccounts(followingAccounts);
                 loginLogoutService.setFollowedByAccounts(followedByAccounts);
 
@@ -59,21 +59,21 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
         }
     }
 
-    $scope.doSearch = function() {
+    $scope.doSearch = function () {
         $scope.showSearchResult = true;
         var messageResultByToken = accountDetailsService.searchMessageByToken($scope.searchToken).query();
 
-        messageResultByToken.$promise.then(function(data) {
+        messageResultByToken.$promise.then(function (data) {
             $scope.searchResults = data;
         });
-        
+
     }
 
-    $scope.followAccount = function() {
+    $scope.followAccount = function () {
         var currentUser = loginLogoutService.getCurrentUser();
 
-        var follow = followAccountService.post({selfId: currentUser.id,followId: $scope.accountDetails.id},{});
-        follow.$promise.then(function(response){
+        var follow = followAccountService.post({selfId: currentUser.id, followId: $scope.accountDetails.id}, {});
+        follow.$promise.then(function (response) {
             loginLogoutService.addToFollowingAccounts($scope.accountDetails.id);
             $scope.Following = true;
         });
@@ -86,28 +86,28 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
      *       "email": "flashisfast@gmail.com"
      * }
      */
-    $scope.updateInfo = function() {
+    $scope.updateInfo = function () {
         var currentUser = loginLogoutService.getCurrentUser();
 
-        if(!$scope.newName && !$scope.newEmail) {
+        if (!$scope.newName && !$scope.newEmail) {
             // Throw error
         }
-        if(!angular.isDefined($scope.newName)) {
+        if (!angular.isDefined($scope.newName)) {
             $scope.newName = currentUser.username;
-            
+
         }
 
-        if(!angular.isDefined($scope.newEmail)) {
+        if (!angular.isDefined($scope.newEmail)) {
             $scope.newEmail = currentUser.email;
-        } 
+        }
 
-        var payLoad = { "name":$scope.newName, "email":$scope.newEmail };
+        var payLoad = {"name": $scope.newName, "email": $scope.newEmail};
         console.log(payLoad);
-        var upd = updateAccountDetailService.update({ id: currentUser.id}, payLoad);
+        var upd = updateAccountDetailService.update({id: currentUser.id}, payLoad);
 
-        upd.$promise.then(function(response){
+        upd.$promise.then(function (response) {
             $location.path("/account");
         });
 
-    }    
+    }
 });

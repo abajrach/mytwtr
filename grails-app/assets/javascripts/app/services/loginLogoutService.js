@@ -1,4 +1,3 @@
-
 angular.module('app').factory('loginLogoutService', ['$http', '$rootScope', 'webStorage', function ($http, $rootScope, webStorage) {
 
     var service = {};
@@ -33,8 +32,8 @@ angular.module('app').factory('loginLogoutService', ['$http', '$rootScope', 'web
         setCurrentUser(undefined);
     }
 
-    service.isLoggedIn = function() {
-        if(currentUser) {
+    service.isLoggedIn = function () {
+        if (currentUser) {
             return true;
         }
         else {
@@ -52,13 +51,13 @@ angular.module('app').factory('loginLogoutService', ['$http', '$rootScope', 'web
 
     service.setFollowingAccounts = function (following) {
         currentUser.followingAccounts = [];
-        for(i = 0; i < following.length; i++) {
+        for (i = 0; i < following.length; i++) {
             currentUser.followingAccounts.push(following[i].id);
         }
         console.log(currentUser);
     }
 
-    service.addToFollowingAccounts = function($followingId) {
+    service.addToFollowingAccounts = function ($followingId) {
         currentUser.followingAccounts.push($followingId);
         console.log(currentUser);
     }
