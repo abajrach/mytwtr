@@ -120,6 +120,7 @@ class SearchRequirementTests extends GebSpec {
 
         then:
         $('form').find("h3", id: "loggedInUserMessages").allElements()[49].getText().contains("Message #1 admin was partying")
+
     }
 
 }
