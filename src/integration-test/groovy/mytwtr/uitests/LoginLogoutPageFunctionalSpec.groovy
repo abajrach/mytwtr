@@ -1,4 +1,3 @@
-
 package mytwtr.uitests
 
 import geb.spock.GebSpec
