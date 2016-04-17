@@ -7,7 +7,6 @@ import grails.test.mixin.integration.Integration
 @Integration
 class LoginLogoutPageFunctionalSpec extends GebSpec {
 
-    // @Todo: Need more validation
     def 'L1: When not logged in, route user to the login screen'() {
         when:
         go '/'
@@ -16,8 +15,6 @@ class LoginLogoutPageFunctionalSpec extends GebSpec {
         $(".login-header").text() == "Login Into Your Account"
         getCurrentUrl().endsWith('#/login')
 
-        //and: 'Angular generated test displayed properly'
-        //$('h2').first().text() == 'Hello Stranger'
     }
 
     def "L2: Login screen allows a user to enter username and password to gain access"() {
