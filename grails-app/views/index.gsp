@@ -9,6 +9,7 @@
 </head>
 
 <body ng-controller="loginLogoutController">
+<form>
     <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container">
             <div class="navbar-header">
@@ -16,27 +17,28 @@
             </div>
 
 
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right" id="headerLinks">
 
                 <li ng-class="{ active: isActive('/account')}"><a href="#/account">Home</a></li>
                 <li ng-class="{ active: isActive('/about')}"><a href="#about">About</a></li>
                 <li ng-class="{ active: isActive('/logout')}">
-                    <p class="navbar-btn" ng-click="logout()">
-                        <a href="#logout" id="logoutButton" class="btn btn-link">Logout</a>
+                    <p class="navbar-btn" id="logoutButton" ng-click="logout()">
+                        <a href="#logout" class="btn btn-link">Logout</a>
                     </p>
                 </li>
             </ul>
         </div>
     </nav>
+</form>
 
-    <div ng-view></div>
+<div ng-view></div>
 
-    <div class="navbar navbar-default navbar-fixed-bottom">
-        <div class="container">
-            <p class="navbar-text pull-left">Site Built by Arbindra</p>
-            <a class="navbar-btn btn-danger btn pull-right">This twitter is awesome!!!</a>
-        </div>
+<div class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container">
+        <p class="navbar-text pull-left">Site Built by Arbindra</p>
+        <a class="navbar-btn btn-danger btn pull-right">This twitter is awesome!!!</a>
     </div>
+</div>
 
 </body>
 </html>

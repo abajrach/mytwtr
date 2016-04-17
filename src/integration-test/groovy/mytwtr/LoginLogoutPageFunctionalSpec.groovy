@@ -68,6 +68,7 @@ class LoginLogoutPageFunctionalSpec extends GebSpec {
         when:
         $("#login-form input[id=username-field]").value("a")
         $("#login-form input[id=password-field]").value("a")
+
         $("#login-form input[id=submit-button]").click()
         waitFor(5,1) {
             getCurrentUrl().endsWith('#/account/')
@@ -77,24 +78,12 @@ class LoginLogoutPageFunctionalSpec extends GebSpec {
         $('form').find("h4", id:"handlename").text() == "Account: a"
         $('form').find("h4", id:"name").text() == "Name: Mr. Admin"
 
-        when:
-   //     $("#account-form input[id=logoutButton]").click() --didn't work
-        //$('form').find("a", id:"logoutButton").click()
-        //$('form').find("p", id:"logoutButton").click()
-        //$('form').find("navbar-btn", id:"logoutButton").click()
-       // $('form').find("a.btn.btn-link", id:"logoutButton").click()
-       // $(".form input[id=logoutButton]").click()
-       // $('form').find("logoutButton").click()
-       // $('navbar').find("logoutButton").click()
-        $('btn').find("logoutButton").click()
-        waitFor(5,1) {
-            $('form').find("h3").text() == "We are sorry to see you go :("
-        }
+        when: 'the user clicks logout button'
+        $('form').find("p", id:"logoutButton").click()
 
         then: "N3 - Logout displays - Sorry to see you go"
-        $('form').find("h3").text() == "We are sorry to see you go :("
+        $('div').find("h3").text() == "We are sorry to see you go :("
     }
-
 
     def "L3: Invalid login will be rejected with an error message"() {
         when:
