@@ -1,2 +1,1 @@
-* When clicking Logout button, the bye bye message is not appearing
-	* One solution is to put the logic inside the /logout.html template (new template)
+try using ng-class for followers button
