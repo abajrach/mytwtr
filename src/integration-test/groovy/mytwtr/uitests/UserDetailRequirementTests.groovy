@@ -2,9 +2,11 @@ package mytwtr.uitests
 
 import geb.spock.GebSpec
 import grails.test.mixin.integration.Integration
+import spock.lang.Ignore
 
 @Integration
 class UserDetailRequirementTests extends GebSpec {
+
     def "U1: Users detail page is displayed with all their postings"() {
         when:
         go '/'
@@ -43,7 +45,7 @@ class UserDetailRequirementTests extends GebSpec {
 
     }
 
-    def "U2: Other users detail page will allow logged in user to follow"() {
+    def "U2: User’s detail page will provide a way for the logged in user to follow the detail user"() {
         when:
         go '/'
 
@@ -53,7 +55,7 @@ class UserDetailRequirementTests extends GebSpec {
         }
         $(".login-header").text() == "Login Into Your Account"
 
-        when:
+        when: 'User bsanders logs in'
         $("#login-form input[id=username-field]").value("bsanders")
         $("#login-form input[id=password-field]").value("p")
         $("#login-form input[id=submit-button]").click()
@@ -61,7 +63,7 @@ class UserDetailRequirementTests extends GebSpec {
             $('form').find("h4", id: "name").text() == "Name: Bernie Sanders"
         }
 
-        then:
+        then: 'Logged in Users detail page is displayed'
         $('form').find("h4", id: "handlename").text() == "Account: bsanders"
         $('form').find("h4", id: "name").text() == "Name: Bernie Sanders"
         $('form').find("h4", id: "followers-count").text() == "Followers: 0"
@@ -72,25 +74,27 @@ class UserDetailRequirementTests extends GebSpec {
         !$('form').find("button", id: "followButton").displayed
         !$('form').find("button", id: "followingButton").displayed
 
-        when:
+        when: 'bsanders searched for batman in message search box'
         $("#account-form input[id=searchTokenValue]").value("batman")
         $('form').find("button", id: "goButton").click()
         waitFor(5, 1) {
-            $('form').find("h3", id: "searchedMessageResults").allElements()[0].getText() == "Message #1 Batman doesn't sleep Posted by batman"
+            $('form').find("h3", id: "searchedMessageResults").allElements()[0].getText().contains("Message #1 Batman doesn't sleep")
         }
 
-        then:
+        then: 'Verify all 15 messages with word batman appears'
+        $('form').find("h3", id: "searchedMessageResults").allElements().size() == 15
+        $('form').find("h3", id: "searchedMessageResults").allElements()[14].getText().contains("Message #15 Batman doesn't sleep")
         $('form').find("button", id: "update-info-button").displayed
         !$('form').find("button", id: "followButton").displayed
         !$('form').find("button", id: "followingButton").displayed
 
-        when:
+        when: 'Account handle for batman is clicked'
         $('form').find("a", id: "accountHandleLink").click()
         waitFor(5, 1) {
             $('form').find("button", id: "followButton").displayed
         }
 
-        then: 'Clicked on posted by link Batman info is displayed'
+        then: 'Batmans page is loaded and followButton is there, he is being followed by 0 accounts'
         $('form').find("button", id: "followButton").displayed
         $('form').find("h4", id: "followers-count").text() == "Followers: 0"
 
@@ -100,8 +104,9 @@ class UserDetailRequirementTests extends GebSpec {
             $('form').find("button", id: "followingButton").displayed
         }
 
-        then: 'Following button is displayed'
-        $('form').find("button", id: "followingButton").displayed
+        then: 'Followers count for batman is now 1'
+        //$('form').find("button", id: "followingButton").displayed
+        $('form').find("h4", id: "followers-count").text() == "Followers: 1"
     }
 
     def "U3: User info is displayed when logged in"() {
