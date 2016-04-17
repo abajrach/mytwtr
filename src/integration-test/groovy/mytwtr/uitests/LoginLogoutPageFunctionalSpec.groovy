@@ -2,7 +2,7 @@
  * Created by Arbindra on 4/6/2016.
  */
 
-package mytwtr
+package mytwtr.uitests
 
 import geb.spock.GebSpec
 import grails.test.mixin.integration.Integration
@@ -18,6 +18,7 @@ class LoginLogoutPageFunctionalSpec extends GebSpec {
 
         then: 'Login Page displays login to your account message'
         $(".login-header").text() == "Login Into Your Account"
+        getCurrentUrl().endsWith('#/login/')
 
         //and: 'Angular generated test displayed properly'
         //$('h2').first().text() == 'Hello Stranger'

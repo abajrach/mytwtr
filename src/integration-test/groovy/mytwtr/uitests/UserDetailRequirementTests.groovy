@@ -1,4 +1,4 @@
-package mytwtr
+package mytwtr.uitests
 
 import geb.spock.GebSpec
 import grails.test.mixin.integration.Integration
