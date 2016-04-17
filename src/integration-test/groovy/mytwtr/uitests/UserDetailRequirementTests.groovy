@@ -34,6 +34,7 @@ class UserDetailRequirementTests extends GebSpec {
 
         $('form').find("h3", id: "loggedInUserMessages").allElements().size() == 50
         $('form').find("h3", id: "loggedInUserMessages").allElements()[0].getText().contains("Message #50 admin was partying")
+        $('form').find("h3", id: "loggedInUserMessages").allElements()[49].getText().contains("Message #1 admin was partying")
 
         $('form').find("small", id: "messageDateCreated").displayed
 
