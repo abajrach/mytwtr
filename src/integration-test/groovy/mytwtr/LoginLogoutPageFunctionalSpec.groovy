@@ -78,10 +78,16 @@ class LoginLogoutPageFunctionalSpec extends GebSpec {
 
         when:
    //     $("#account-form input[id=logoutButton]").click() --didn't work
-        $('form').find("button", id:"logoutButton").click()
-       // $("#navbar input[id=logoutButton]").click()
+        //$('form').find("a", id:"logoutButton").click()
+        //$('form').find("p", id:"logoutButton").click()
+        //$('form').find("navbar-btn", id:"logoutButton").click()
+       // $('form').find("a.btn.btn-link", id:"logoutButton").click()
+       // $(".form input[id=logoutButton]").click()
+       // $('form').find("logoutButton").click()
+       // $('navbar').find("logoutButton").click()
+        $('btn').find("logoutButton").click()
         waitFor(5,1) {
-            getCurrentUrl().endsWith('#/login')
+            $('form').find("h3").text() == "We are sorry to see you go :("
         }
 
         then: "N3 - Logout displays - Sorry to see you go"
