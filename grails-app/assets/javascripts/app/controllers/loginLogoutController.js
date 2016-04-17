@@ -3,9 +3,13 @@
  */
 
 /**
- *
+ * Controller that handles the login/logout functionality
  */
 angular.module('app').controller('loginLogoutController', function ($scope, $location, loginLogoutService) {
+
+    /**
+     * Login Controller method used for login with username/password
+     */
     $scope.login = function () {
 
         $scope.ui = {alert: false};  // Sends alert message when login fails
@@ -27,6 +31,9 @@ angular.module('app').controller('loginLogoutController', function ($scope, $loc
             });
     };
 
+    /**
+     * Logout controller method used for logging out user
+     */
     $scope.logout = function () {
         var isLoggedIn = loginLogoutService.isLoggedIn();
         if (isLoggedIn) {
@@ -36,6 +43,9 @@ angular.module('app').controller('loginLogoutController', function ($scope, $loc
     };
 });
 
+/**
+ * Controller that gets invoked when clicking the 'About' button in the navbar
+ */
 angular.module('app').controller('aboutController', function ($scope) {
     $scope.message = 'MSSE 5199 Class Project';
 });
