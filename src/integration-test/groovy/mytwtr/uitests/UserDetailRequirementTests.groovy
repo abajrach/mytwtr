@@ -44,6 +44,27 @@ class UserDetailRequirementTests extends GebSpec {
         $('form').find("small", id: "messageDateCreated").displayed
 
     }
+    def "U3: When the logged in user is following the detail user, the detail page will display a message or icon indicating this."() {
+        when:
+        $("#account-form input[id=searchTokenValue]").value("superman ")
+        $('form').find("button", id: "goButton").click()
+        waitFor(5, 1) {
+            def tempString = $('form').find("h3", id: "searchedMessageResults").allElements()[0].getText()
+            $('form').find("h3", id: "searchedMessageResults").allElements()[0].getText().contains("Message #1 Superman")
+        }
+        $('form').find(".links_main").find("a",0).click()
+
+        then:
+        sleep(1000)
+        $('form').find("h4", id: "handlename").text() == "Account: superman"
+        $('form').find("h4", id: "name").text() == "Name: Superman, Chick Magnet"
+        $('form').find("h4", id: "followers-count").text() == "Followers: 1"
+        $('form').find("h4", id: "following-count").text() == "Following: 1"
+
+        !$('form').find("button", id: "update-info-button").displayed
+        !$('form').find("button", id: "followButton").displayed
+        $('form').find("button", id: "followingButton").displayed
+    }
 
     def "U2: User’s detail page will provide a way for the logged in user to follow the detail user"() {
         when:
@@ -109,36 +130,7 @@ class UserDetailRequirementTests extends GebSpec {
         $('form').find("h4", id: "followers-count").text() == "Followers: 1"
     }
 
-    def "U3: User info is displayed when logged in"() {
-        when:
-        go '/'
 
-        then: 'Login Page displays login to your account message'
-        waitFor(5, 0.1) {
-            getCurrentUrl().endsWith('#/login')
-        }
-        $(".login-header").text() == "Login Into Your Account"
-
-        when:
-        $("#login-form input[id=username-field]").value("dtrump")
-        $("#login-form input[id=password-field]").value("p")
-        $("#login-form input[id=submit-button]").click()
-        waitFor(5, 1) {
-            $('form').find("h4", id: "handlename").text() == "Account: dtrump"
-        }
-
-        then:
-        $('form').find("h4", id: "handlename").text() == "Account: dtrump"
-        $('form').find("h4", id: "name").text() == "Name: Donald J. Drumpf"
-        $('form').find("h4", id: "followers-count").text() == "Followers: 0"
-        $('form').find("h4", id: "following-count").text() == "Following: 0"
-        $('form').find("h4", id: "email").text() == "Email: don@gmail.com"
-        $('form').find("h4", id: "dateCreated").text()
-
-        $('form').find("button", id: "update-info-button").displayed
-        !$('form').find("button", id: "followButton").displayed
-        !$('form').find("button", id: "followingButton").displayed
-    }
 
     def "U4: User can update their own detail page logged in"() {
         when:
