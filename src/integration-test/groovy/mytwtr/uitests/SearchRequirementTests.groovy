@@ -2,7 +2,6 @@ package mytwtr.uitests
 
 import geb.spock.GebSpec
 import grails.test.mixin.integration.Integration
-import org.openqa.selenium.JavascriptExecutor
 
 @Integration
 
