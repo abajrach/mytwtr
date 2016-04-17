@@ -18,7 +18,7 @@ class LoginLogoutPageFunctionalSpec extends GebSpec {
 
         then: 'Login Page displays login to your account message'
         $(".login-header").text() == "Login Into Your Account"
-        getCurrentUrl().endsWith('#/login/')
+        getCurrentUrl().endsWith('#/login')
 
         //and: 'Angular generated test displayed properly'
         //$('h2').first().text() == 'Hello Stranger'

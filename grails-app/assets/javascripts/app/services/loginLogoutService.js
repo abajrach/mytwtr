@@ -33,6 +33,15 @@ angular.module('app').factory('loginLogoutService', ['$http', '$rootScope', 'web
         setCurrentUser(undefined);
     }
 
+    service.isLoggedIn = function() {
+        if(currentUser) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     service.getCurrentUser = function () {
         return currentUser
     }

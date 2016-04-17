@@ -29,11 +29,13 @@ angular.module('app').controller('loginLogoutController', function ($scope, $loc
     };
 
     $scope.logout = function  () {
-        console.log("logout in controller called");
-        $scope.loggedOut = true;
-        loginLogoutService.doLogout();
-        console.log("loggedout state:"+$scope.loggedOut);
-
+        var isLoggedIn = loginLogoutService.isLoggedIn();
+        if(isLoggedIn) {
+            console.log("logout in controller called");
+            $scope.loggedOut = true;
+            loginLogoutService.doLogout();
+            console.log("loggedout state:" + $scope.loggedOut);
+        }
     };
 });
 
