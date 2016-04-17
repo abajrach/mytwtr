@@ -9,10 +9,12 @@ class LoginLogoutPageFunctionalSpec extends GebSpec {
     def 'L1: When not logged in, route user to the login screen'() {
         when: 'the root page of the app is accessed'
         go '/'
+        waitFor(5, 1) {
+            getCurrentUrl().endsWith('#/login')
+        }
 
         then: 'Login Page displays login to your account message'
         $(".login-header").text() == "Login Into Your Account"
-        getCurrentUrl().endsWith('#/login')
         !$('form').find("div", id: "account-details").displayed
         !$('form').find("div", id: "center-box").displayed
         !$('form').find("div", id: "update-info-button").displayed
