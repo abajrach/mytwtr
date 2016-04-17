@@ -28,7 +28,7 @@ class UserDetailRequirementTests extends GebSpec {
         $('form').find("h4", id: "email").text() == "Email: i_am_admin@gmail.com"
         $('form').find("h4", id: "dateCreated").text()
 
-        $('form').find("button", id: "udpate-info-button").displayed
+        $('form').find("button", id: "update-info-button").displayed
         !$('form').find("button", id: "followButton").displayed
         !$('form').find("button", id: "followingButton").displayed
 
@@ -62,7 +62,7 @@ class UserDetailRequirementTests extends GebSpec {
         $('form').find("h4", id: "following-count").text() == "Following: 0"
         $('form').find("h4", id: "email").text() == "Email: bern@gmail.com"
 
-        $('form').find("button", id: "udpate-info-button").displayed
+        $('form').find("button", id: "update-info-button").displayed
         !$('form').find("button", id: "followButton").displayed
         !$('form').find("button", id: "followingButton").displayed
 
@@ -74,7 +74,7 @@ class UserDetailRequirementTests extends GebSpec {
         }
 
         then:
-        $('form').find("button", id: "udpate-info-button").displayed
+        $('form').find("button", id: "update-info-button").displayed
         !$('form').find("button", id: "followButton").displayed
         !$('form').find("button", id: "followingButton").displayed
 
@@ -121,7 +121,7 @@ class UserDetailRequirementTests extends GebSpec {
         $('form').find("h4", id: "email").text() == "Email: don@gmail.com"
         $('form').find("h4", id: "dateCreated").text()
 
-        $('form').find("button", id: "udpate-info-button").displayed
+        $('form').find("button", id: "update-info-button").displayed
         !$('form').find("button", id: "followButton").displayed
         !$('form').find("button", id: "followingButton").displayed
     }
@@ -146,12 +146,12 @@ class UserDetailRequirementTests extends GebSpec {
         $('form').find("h4", id: "name").text() == "Name: Donald J. Drumpf"
         $('form').find("h4", id: "email").text() == "Email: don@gmail.com"
 
-        $('form').find("button", id: "udpate-info-button").displayed
+        $('form').find("button", id: "update-info-button").displayed
         !$('form').find("button", id: "followButton").displayed
         !$('form').find("button", id: "followingButton").displayed
 
         when:
-        $('form').find("button", id: "udpate-info-button").click()
+        $('form').find("button", id: "update-info-button").click()
         waitFor(5, 1) {
             $('form').find("h4", class: "modal-title").text() == "Update My Info"
         }

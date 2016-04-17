@@ -32,7 +32,7 @@ class SearchRequirementTests extends GebSpec {
         $('form').find("h4", id: "email").text() == "Email: i_am_admin@gmail.com"
         $('form').find("h4", id: "dateCreated").text()
 
-        $('form').find("button", id: "udpate-info-button").displayed
+        $('form').find("button", id: "update-info-button").displayed
         !$('form').find("button", id: "followButton").displayed
         !$('form').find("button", id: "followingButton").displayed
 
@@ -57,7 +57,7 @@ class SearchRequirementTests extends GebSpec {
         $('form').find("h4", id: "email").text() == "Email: i_am_admin@gmail.com"
         $('form').find("h4", id: "dateCreated").text()
 
-        $('form').find("button", id: "udpate-info-button").displayed
+        $('form').find("button", id: "update-info-button").displayed
         !$('form').find("button", id: "followButton").displayed
         !$('form').find("button", id: "followingButton").displayed
 
@@ -90,7 +90,7 @@ class SearchRequirementTests extends GebSpec {
         $('form').find("h4", id: "email").text() == "Email: i_am_admin@gmail.com"
         $('form').find("h4", id: "dateCreated").text()
 
-        $('form').find("button", id: "udpate-info-button").displayed
+        $('form').find("button", id: "update-info-button").displayed
         !$('form').find("button", id: "followButton").displayed
         !$('form').find("button", id: "followingButton").displayed
 
@@ -123,7 +123,7 @@ class SearchRequirementTests extends GebSpec {
         $('form').find("h4", id:"handlename").text() == "Account: a"
         $('form').find("h4", id:"name").text() == "Name: Mr. Admin"
 
-        $('form').find("button", id:"udpate-info-button").displayed
+        $('form').find("button", id:"update-info-button").displayed
         !$('form').find("button", id:"followButton").displayed
         !$('form').find("button", id:"followingButton").displayed
 
