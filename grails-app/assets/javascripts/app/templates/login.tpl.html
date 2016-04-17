@@ -34,11 +34,11 @@
                         <button class="btn">Cancel</button>
                     </div>
 
-                    <div class="alert alert-warning alert-dismissible inner" id="alert-warning" ng-show="ui.alert">
-                        <button type="button" class="close" ng-click="ui.alert = false">
+                    <div class="alert alert-warning alert-dismissible inner" ng-show="ui.alert">
+                        <button type="button" class="close" ng-click="ui.alert = false" id="alert-dismiss-button">
                             &times;
                         </button>
-                        <p class="text-center"><strong>Incorrect Credentials!</strong></p>
+                        <p class="text-center" id="alert-warning-popup"><strong>Incorrect Credentials!</strong></p>
                     </div>
 
                 </div>
