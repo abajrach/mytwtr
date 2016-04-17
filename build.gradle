@@ -65,6 +65,8 @@ dependencies {
     compile 'org.grails.plugins:spring-security-rest:2.0.0.M2'  // Security Related Stuff
     compile 'org.grails.plugins:spring-security-rest-gorm:2.0.0.M2' // Security Related Stuff
 
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '2.+'
+
 
     profile "org.grails.profiles:web:3.1.1"
     runtime "org.grails.plugins:asset-pipeline"

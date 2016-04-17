@@ -4,12 +4,19 @@ angular.module('app').factory('loginLogoutService', ['$http', '$rootScope', 'web
     var currentUser;
 
     var setCurrentUser = function (user) {
+        console.log("setting Current user "+user)
         currentUser = user;
         webStorage.set('accountUser', currentUser);
         $rootScope.$emit('userChange', currentUser);
     };
 
+    service.publicSetCurrentUser = function(user) {
+        console.log("publicSetCurrentUser "+user)
+        setCurrentUser(user);
+    }
+
     var loginSuccess = function (response) {
+        console.log("login success");
         setCurrentUser({
             username: response.data.username,
             roles: response.data.roles,
@@ -54,12 +61,10 @@ angular.module('app').factory('loginLogoutService', ['$http', '$rootScope', 'web
         for (i = 0; i < following.length; i++) {
             currentUser.followingAccounts.push(following[i].id);
         }
-        console.log(currentUser);
     }
 
     service.addToFollowingAccounts = function ($followingId) {
         currentUser.followingAccounts.push($followingId);
-        console.log(currentUser);
     }
 
     service.setFollowedByAccounts = function (followedByAccounts) {

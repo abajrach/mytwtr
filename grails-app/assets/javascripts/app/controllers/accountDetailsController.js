@@ -12,7 +12,7 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
          * Shows the user's detail page by handlename
          */
         if ($routeParams.handle) {
-            console.log("handle passed = " + $routeParams.handle);
+            console.log("loading page for " + $routeParams.handle);
 
             // Check to see if the logged in user is following this user
             var currentUser = loginLogoutService.getCurrentUser();
@@ -21,9 +21,11 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
             $scope.accountDetails = accountDetailsService.getAccountDetails($routeParams.handle).get();
 
             $scope.accountDetails.$promise.then(function (response) {
+                console.log("inside promise resolved, following accounts length = "+currentUser.followingAccounts.length);
                 $scope.recentMessages = accountDetailsService.getRecentMessagesForAccount(response).query();
                 thisUsersId = $scope.accountDetails.id;
                 for (var i = 0; i < currentUser.followingAccounts.length; i++) {
+                    console.log("inside for");
                     if (thisUsersId === currentUser.followingAccounts[i]) {
                         console.log(currentUser.id + " is following " + thisUsersId);
                         $scope.Following = true;
@@ -66,7 +68,6 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
         messageResultByToken.$promise.then(function (data) {
             $scope.searchResults = data;
         });
-
     }
 
     $scope.followAccount = function () {
@@ -75,7 +76,14 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
         var follow = followAccountService.post({selfId: currentUser.id, followId: $scope.accountDetails.id}, {});
         follow.$promise.then(function (response) {
             loginLogoutService.addToFollowingAccounts($scope.accountDetails.id);
+
+            var currentUser2 = loginLogoutService.getCurrentUser();
+            console.log(currentUser2);
+            loginLogoutService.publicSetCurrentUser(currentUser2);
+
             $scope.Following = true;
+            var path = "#/account/"+$routeParams.handle;
+            window.location.reload()
         });
     }
 
@@ -102,7 +110,6 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
         }
 
         var payLoad = {"name": $scope.newName, "email": $scope.newEmail};
-        console.log(payLoad);
         var upd = updateAccountDetailService.update({id: currentUser.id}, payLoad);
 
         upd.$promise.then(function (response) {

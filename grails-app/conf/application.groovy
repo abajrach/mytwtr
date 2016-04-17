@@ -26,7 +26,6 @@ grails.plugin.springsecurity.userLookup.passwordPropertyName = 'password'
 grails.plugin.springsecurity.securityConfigType = 'InterceptUrlMap'
 grails.plugin.springsecurity.interceptUrlMap = [
         [
-                //[pattern: '/**', access: ['ROLE_READ']]
                 [pattern: '/accounts/**', access: ['ROLE_READ']]
         ],
         [

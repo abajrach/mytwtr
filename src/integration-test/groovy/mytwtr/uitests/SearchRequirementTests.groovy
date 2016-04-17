@@ -2,10 +2,13 @@ package mytwtr.uitests
 
 import geb.spock.GebSpec
 import grails.test.mixin.integration.Integration
+import org.openqa.selenium.JavascriptExecutor
+import spock.lang.Ignore
 
 @Integration
 
 class SearchRequirementTests extends GebSpec {
+
     def "S1 and S3: Provide a search box for finding messages and contents show posting user"() {
         when:
         go '/'
@@ -95,12 +98,12 @@ class SearchRequirementTests extends GebSpec {
         $('form').find("h3", id: "loggedInUserMessages").allElements()[0].getText().contains("Message #50 admin was partying")
 
         when:
-        browser.driver.executeScript("return arguments[0];", 1)
-     //   browser.driver.executeScript('arguments[0].scrollIntoView', greeting.getWebElement());
+        ((JavascriptExecutor) driver).executeScript("scroll(0,2000);");
 
         then:
         $('form').find("h3", id: "loggedInUserMessages").allElements()[49].getText().contains("Message #1 admin was partying")
     }
+
     def "S4: Clicking on posting user will route to the users detail page"(){
         when:
         go '/'

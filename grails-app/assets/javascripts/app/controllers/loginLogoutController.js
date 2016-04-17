@@ -22,7 +22,6 @@ angular.module('app').controller('loginLogoutController', function ($scope, $loc
                     $location.path("/account");
                 }
                 else {
-                    console.log("failed");
                     $scope.ui.alert = true;
                 }
             });
@@ -31,10 +30,8 @@ angular.module('app').controller('loginLogoutController', function ($scope, $loc
     $scope.logout = function () {
         var isLoggedIn = loginLogoutService.isLoggedIn();
         if (isLoggedIn) {
-            console.log("logout in controller called");
             $scope.loggedOut = true;
             loginLogoutService.doLogout();
-            console.log("loggedout state:" + $scope.loggedOut);
         }
     };
 });
