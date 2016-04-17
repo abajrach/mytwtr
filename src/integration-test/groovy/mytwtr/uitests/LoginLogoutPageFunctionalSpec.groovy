@@ -1,6 +1,3 @@
-/**
- * Created by Arbindra on 4/6/2016.
- */
 
 package mytwtr.uitests
 
