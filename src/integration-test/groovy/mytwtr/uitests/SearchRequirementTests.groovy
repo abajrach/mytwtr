@@ -150,12 +150,15 @@ class SearchRequirementTests extends GebSpec {
         }
 
         then: 'S4 - Clicked on posted by user.'
-        def tempAttribute = $('form').find("h3", id:"searchedMessageResults").allElements()[0].getAttribute("accountHandleLink")
-        $('form').find("h4", id:"handlename").text() == "Account: a"
-        $('form').find("h4", id:"name").text() == "Name: Mr. Admin"
+        $('form').find("a", id: "accountHandleLink").click()
+        waitFor(5, 1) {
+            $('form').find("button", id: "followButton").displayed
+        }
+        $('form').find("h4", id:"handlename").text() == "Account: batman"
+        $('form').find("h4", id:"name").text() == "Name: Batman, Dark Knight"
 
-        $('form').find("h3", id:"searchedMessageResults").allElements().size() == 15
-        $('form').find("h3", id:"searchedMessageResults").allElements()[0].getText() == "Message #1 Batman doesn't sleep Posted by batman"
-        $('form').find("h3", id:"searchedMessageResults").allElements()[14].getText() == "Message #15 Batman doesn't sleep Posted by batman"
+        $('form').find("h3", id:"loggedInUserMessages").allElements().size() == 15
+        $('form').find("h3", id:"loggedInUserMessages").allElements()[0].getText().contains("Message #15 Batman doesn't sleep")
+        $('form').find("h3", id:"loggedInUserMessages").allElements()[14].getText().contains("Message #1 Batman doesn't sleep")
     }
 }
