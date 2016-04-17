@@ -119,14 +119,13 @@ class UserDetailRequirementTests extends GebSpec {
         $('form').find("button", id: "followButton").displayed
         $('form').find("h4", id: "followers-count").text() == "Followers: 0"
 
-        when:
+        when: 'Follow button is clicked, expect the followButton to turn into followingButton'
         $('form').find("button", id: "followButton").click()
         waitFor(5, 1) {
             $('form').find("button", id: "followingButton").displayed
         }
 
         then: 'Followers count for batman is now 1'
-        //$('form').find("button", id: "followingButton").displayed
         $('form').find("h4", id: "followers-count").text() == "Followers: 1"
     }
 
