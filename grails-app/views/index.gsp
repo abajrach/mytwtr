@@ -21,8 +21,8 @@
                 <li ng-class="{ active: isActive('/account')}"><a href="#/account">Home</a></li>
                 <li ng-class="{ active: isActive('/about')}"><a href="#about">About</a></li>
                 <li ng-class="{ active: isActive('/logout')}">
-                    <p class="navbar-btn" id="logoutButton" ng-click="logout()">
-                        <a href="#logout" class="btn btn-link">Logout</a>
+                    <p class="navbar-btn" ng-click="logout()">
+                        <a href="#logout" id="logoutButton" class="btn btn-link">Logout</a>
                     </p>
                 </li>
             </ul>
