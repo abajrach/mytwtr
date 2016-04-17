@@ -10,6 +10,9 @@ class UserDetailRequirementTests extends GebSpec {
         go '/'
 
         then: 'Login Page displays login to your account message'
+        waitFor(5, 0.1) {
+            getCurrentUrl().endsWith('#/login')
+        }
         $(".login-header").text() == "Login Into Your Account"
 
         when:
@@ -45,6 +48,9 @@ class UserDetailRequirementTests extends GebSpec {
         go '/'
 
         then: 'Login Page displays login to your account message'
+        waitFor(5, 0.1) {
+            getCurrentUrl().endsWith('#/login')
+        }
         $(".login-header").text() == "Login Into Your Account"
 
         when:
@@ -103,6 +109,9 @@ class UserDetailRequirementTests extends GebSpec {
         go '/'
 
         then: 'Login Page displays login to your account message'
+        waitFor(5, 0.1) {
+            getCurrentUrl().endsWith('#/login')
+        }
         $(".login-header").text() == "Login Into Your Account"
 
         when:
@@ -131,6 +140,9 @@ class UserDetailRequirementTests extends GebSpec {
         go '/'
 
         then: 'Login Page displays login to your account message'
+        waitFor(5, 0.1) {
+            getCurrentUrl().endsWith('#/login')
+        }
         $(".login-header").text() == "Login Into Your Account"
 
         when:

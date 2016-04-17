@@ -9,7 +9,7 @@ class LoginLogoutPageFunctionalSpec extends GebSpec {
     def 'L1: When not logged in, route user to the login screen'() {
         when: 'the root page of the app is accessed'
         go '/'
-        waitFor(5, 1) {
+        waitFor(5, 0.1) {
             getCurrentUrl().endsWith('#/login')
         }
 

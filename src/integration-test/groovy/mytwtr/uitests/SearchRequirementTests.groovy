@@ -14,6 +14,9 @@ class SearchRequirementTests extends GebSpec {
         go '/'
 
         then: 'S1 - Login Page displays login to your account message'
+        waitFor(5, 0.1) {
+            getCurrentUrl().endsWith('#/login')
+        }
         $(".login-header").text() == "Login Into Your Account"
 
         when:
@@ -61,6 +64,7 @@ class SearchRequirementTests extends GebSpec {
         $('form').find(".links_main").find("a",0).click()
 
         then:
+        sleep(1000)
         $('form').find("h4", id: "handlename").text() == "Account: batman"
         $('form').find("h4", id: "name").text() == "Name: Batman, Dark Knight"
         $('form').find("h4", id: "followers-count").text() == "Followers: 0"
@@ -83,6 +87,9 @@ class SearchRequirementTests extends GebSpec {
         go '/'
 
         then: 'S2 - Login Page displays login to your account message'
+        waitFor(5, 0.1) {
+            getCurrentUrl().endsWith('#/login')
+        }
         $(".login-header").text() == "Login Into Your Account"
 
         when:
