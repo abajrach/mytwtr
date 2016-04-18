@@ -2,7 +2,9 @@ package mytwtr.uitests
 
 import geb.spock.GebSpec
 import grails.test.mixin.integration.Integration
+import org.openqa.selenium.By
 import org.openqa.selenium.JavascriptExecutor
+import org.openqa.selenium.WebElement
 import spock.lang.Ignore
 
 @Integration
@@ -115,12 +117,13 @@ class SearchRequirementTests extends GebSpec {
         $('form').find("h3", id: "loggedInUserMessages").allElements().size() == 50
         $('form').find("h3", id: "loggedInUserMessages").allElements()[0].getText().contains("Message #50 admin was partying")
 
-        when:
-        ((JavascriptExecutor) driver).executeScript("scroll(0,2000);");
+        when: 'The page is scrolled to the bottom of the screen'
+        WebElement element = driver.findElement(By.id("EndOfMessage"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        Thread.sleep(500);
 
-        then:
-        $('form').find("h3", id: "loggedInUserMessages").allElements()[49].getText().contains("Message #1 admin was partying")
-
+        then: 'Check if the EndOfMessage tag is displayed after scrolled down'
+        $('form').find("h3", id: "EndOfMessage").displayed
     }
 
 }
