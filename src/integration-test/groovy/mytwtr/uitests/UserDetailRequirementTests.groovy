@@ -2,6 +2,9 @@ package mytwtr.uitests
 
 import geb.spock.GebSpec
 import grails.test.mixin.integration.Integration
+import org.openqa.selenium.By
+import org.openqa.selenium.JavascriptExecutor
+import org.openqa.selenium.WebElement
 import spock.lang.Ignore
 
 @Integration
@@ -42,7 +45,13 @@ class UserDetailRequirementTests extends GebSpec {
         $('form').find("h3", id: "loggedInUserMessages").allElements()[49].getText().contains("Message #1 admin was partying")
 
         $('form').find("small", id: "messageDateCreated").displayed
+        when:
+        WebElement element = driver.findElement(By.id("EndOfMessage"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        Thread.sleep(3000);
+        then:
 
+        $('form').find("h3", id: "EndOfMessage").displayed
     }
     def "U3: When the logged in user is following the detail user, the detail page will display a message or icon indicating this."() {
         when:
