@@ -5,7 +5,6 @@ import grails.test.mixin.integration.Integration
 import org.openqa.selenium.By
 import org.openqa.selenium.JavascriptExecutor
 import org.openqa.selenium.WebElement
-import spock.lang.Ignore
 
 @Integration
 class UserDetailRequirementTests extends GebSpec {
@@ -20,7 +19,7 @@ class UserDetailRequirementTests extends GebSpec {
         }
         $(".login-header").text() == "Login Into Your Account"
 
-        when:
+        when: 'user logs in'
         $("#login-form input[id=username-field]").value("a")
         $("#login-form input[id=password-field]").value("a")
         $("#login-form input[id=submit-button]").click()
@@ -28,7 +27,7 @@ class UserDetailRequirementTests extends GebSpec {
             getCurrentUrl().endsWith('#/account/')
         }
 
-        then:
+        then: 'account details and their recent messages are displayed'
         $('form').find("h4", id: "handlename").text() == "Account: a"
         $('form').find("h4", id: "name").text() == "Name: Mr. Admin"
         $('form').find("h4", id: "followers-count").text() == "Followers: 3"
@@ -45,25 +44,28 @@ class UserDetailRequirementTests extends GebSpec {
         $('form').find("h3", id: "loggedInUserMessages").allElements()[49].getText().contains("Message #1 admin was partying")
 
         $('form').find("small", id: "messageDateCreated").displayed
-        when:
+
+        when: 'the list of messages is scrolled all the way tot he bottom'
         WebElement element = driver.findElement(By.id("EndOfMessage"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
         Thread.sleep(3000);
-        then:
 
+        then: 'End of message identifier is displayed'
         $('form').find("h3", id: "EndOfMessage").displayed
     }
+
     def "U3: When the logged in user is following the detail user, the detail page will display a message or icon indicating this."() {
-        when:
+
+        when: 'the logged in user clicks on another account names link'
         $("#account-form input[id=searchTokenValue]").value("superman ")
         $('form').find("button", id: "goButton").click()
         waitFor(5, 1) {
             def tempString = $('form').find("h3", id: "searchedMessageResults").allElements()[0].getText()
             $('form').find("h3", id: "searchedMessageResults").allElements()[0].getText().contains("Message #1 Superman")
         }
-        $('form').find(".links_main").find("a",0).click()
+        $('form').find(".links_main").find("a", 0).click()
 
-        then:
+        then: 'the account details and their messages are displayed'
         sleep(1000)
         $('form').find("h4", id: "handlename").text() == "Account: superman"
         $('form').find("h4", id: "name").text() == "Name: Superman, Chick Magnet"
@@ -139,7 +141,6 @@ class UserDetailRequirementTests extends GebSpec {
     }
 
 
-
     def "U4: User can update their own detail page logged in"() {
         when:
         go '/'
@@ -150,7 +151,7 @@ class UserDetailRequirementTests extends GebSpec {
         }
         $(".login-header").text() == "Login Into Your Account"
 
-        when:
+        when: 'some user logs in'
         $("#login-form input[id=username-field]").value("dtrump")
         $("#login-form input[id=password-field]").value("p")
         $("#login-form input[id=submit-button]").click()
@@ -158,7 +159,7 @@ class UserDetailRequirementTests extends GebSpec {
             $('form').find("h4", id: "name").text() == "Name: Donald J. Drumpf"
         }
 
-        then:
+        then: 'Logged in users detail is displayed'
         $('form').find("h4", id: "handlename").text() == "Account: dtrump"
         $('form').find("h4", id: "name").text() == "Name: Donald J. Drumpf"
         $('form').find("h4", id: "email").text() == "Email: don@gmail.com"
@@ -167,7 +168,7 @@ class UserDetailRequirementTests extends GebSpec {
         !$('form').find("button", id: "followButton").displayed
         !$('form').find("button", id: "followingButton").displayed
 
-        when:
+        when: 'Update info button is clicked'
         $('form').find("button", id: "update-info-button").click()
         waitFor(5, 1) {
             $('form').find("h4", class: "modal-title").text() == "Update My Info"
@@ -176,7 +177,7 @@ class UserDetailRequirementTests extends GebSpec {
         then: 'Update My Info screen is displayed'
         $('form').find("h4", class: "modal-title").text() == "Update My Info"
 
-        when:
+        when: 'User enters new name and email in the update info modal'
         $('form').find(id: "update-info-name-field").value("dtrump2")
         $('form').find(id: "update-info-email-field").value("dtrump2@gmail.com")
         $('form').find("button", id: "update-info-submit-button").click()
@@ -187,6 +188,5 @@ class UserDetailRequirementTests extends GebSpec {
         then: 'name and email are updated'
         $('form').find("h4", id: "name").text() == "Name: dtrump2"
         $('form').find("h4", id: "email").text() == "Email: dtrump2@gmail.com"
-
     }
 }
