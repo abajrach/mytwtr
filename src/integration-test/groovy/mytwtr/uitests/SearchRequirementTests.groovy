@@ -50,7 +50,6 @@ class SearchRequirementTests extends GebSpec {
         $("#account-form input[id=searchTokenValue]").value("batman")
         $('form').find("button", id: "goButton").click()
         waitFor(5, 1) {
-            def tempString = $('form').find("h3", id: "searchedMessageResults").allElements()[0].getText()
             $('form').find("h3", id: "searchedMessageResults").allElements()[0].getText().contains("Message #1 Batman doesn't sleep")
         }
 

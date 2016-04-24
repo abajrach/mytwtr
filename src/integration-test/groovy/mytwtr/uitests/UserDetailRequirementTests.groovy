@@ -48,9 +48,9 @@ class UserDetailRequirementTests extends GebSpec {
         when: 'the list of messages is scrolled all the way tot he bottom'
         WebElement element = driver.findElement(By.id("EndOfMessage"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-        Thread.sleep(3000);
 
         then: 'End of message identifier is displayed'
+        waitFor(3000, { $('form').find("h3", id: "EndOfMessage") })
         $('form').find("h3", id: "EndOfMessage").displayed
     }
 
@@ -60,13 +60,12 @@ class UserDetailRequirementTests extends GebSpec {
         $("#account-form input[id=searchTokenValue]").value("superman ")
         $('form').find("button", id: "goButton").click()
         waitFor(5, 1) {
-            def tempString = $('form').find("h3", id: "searchedMessageResults").allElements()[0].getText()
             $('form').find("h3", id: "searchedMessageResults").allElements()[0].getText().contains("Message #1 Superman")
         }
         $('form').find(".links_main").find("a", 0).click()
 
         then: 'the account details and their messages are displayed'
-        sleep(1000)
+        waitFor(1000, { $('form').find("h4", id: "handlename") })
         $('form').find("h4", id: "handlename").text() == "Account: superman"
         $('form').find("h4", id: "name").text() == "Name: Superman, Chick Magnet"
         $('form').find("h4", id: "followers-count").text() == "Followers: 1"
