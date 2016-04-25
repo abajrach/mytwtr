@@ -99,7 +99,7 @@
                                 </div>
                                 <h3 id="loggedInUserMessages" ng-repeat="message in recentMessages">{{
                                     message.status_message }}
-                                    <small id="messageDateCreated"> Posted on {{message.dateCreated}}</small>
+                                    <small id="messageDateCreated"> Posted on {{message.dateCreated | date:'MMM dd'}}</small>
                                 </h3>
                                 <h3 id="EndOfMessage">---</h3>
                             </div>
