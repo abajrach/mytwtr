@@ -99,7 +99,7 @@ bower {
         source 'dist/css/bootstrap-theme.css' >> 'css/'
         source 'dist/fonts/**' >> 'fonts/'
         source 'dist/js/bootstrap.js'
-        excludes 'jquery'
+     //   excludes 'jquery'
     }
 
     'angular-route'('1.5.x') {
