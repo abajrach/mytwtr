@@ -15,10 +15,18 @@
             <div class="navbar-header">
                 <a class="navbar-brand">My Awesome Twitter!!!</a>
             </div>
-
-
+            <div class="col-lg-4 col-lg-offset-3">
+            <div class="input-group">
+                <input type="text" class="form-control" id="postMessageId" ,
+                       ng-model="postMessageToken"/>
+                <span class="input-group-btn">
+                    <button class="btn btn-default" id="postMessageButton" , type="button" ,
+                            ng-click="doPostMessage()">PostMessage!
+                    </button>
+                </span>
+            </div>
+        </div>
             <ul class="nav navbar-nav navbar-right" id="headerLinks">
-
                 <li ng-class="{ active: isActive('/account')}"><a href="#/account">Home</a></li>
                 <li ng-class="{ active: isActive('/about')}"><a href="#about">About</a></li>
                 <li ng-class="{ active: isActive('/logout')}">
@@ -28,6 +36,7 @@
                 </li>
             </ul>
         </div>
+
     </nav>
 </form>
 

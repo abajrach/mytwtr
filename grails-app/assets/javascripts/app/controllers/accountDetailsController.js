@@ -4,7 +4,7 @@
  * @Todo: Break the functionalities into separate modular controllers in phase 4
  */
 
-angular.module('app').controller('accountDetailsController', function ($scope, $routeParams, $location, loginLogoutService, accountDetailsService, updateAccountDetailService, followAccountService) {
+angular.module('app').controller('accountDetailsController', function ($scope, $routeParams, $location, loginLogoutService, accountDetailsService, updateAccountDetailService, followAccountService, messageService) {
     $scope.message = 'User Account Page';
     $scope.canUpdate = false;
 
@@ -125,6 +125,23 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
 
         // Make a PUT request
         var upd = updateAccountDetailService.update({id: currentUser.id}, payLoad);
+
+        upd.$promise.then(function (response) {
+            $location.path("/account");
+        });
+    }
+
+    $scope.doPostMessage = function () {
+        var currentUser = loginLogoutService.getCurrentUser();
+
+        if (!$scope.newMessage) {
+            // Throw error
+        }
+
+        var payLoad = {"message": $scope.newMessage};
+
+        // Make a PUT request
+        var upd = createMessageService.update({id: currentUser.id}, payLoad);
 
         upd.$promise.then(function (response) {
             $location.path("/account");
