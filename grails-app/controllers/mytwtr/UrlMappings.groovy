@@ -19,7 +19,7 @@ class UrlMappings {
         "/accounts/${id}/shownewsfeed"(controller: "account", action: "shownewsfeed", method: "GET")
         "/messages/${id}/recentmessages"(controller: "message", action: "recentMessages", method: "GET")
         "/messages/search"(controller: "message", action: "search", method: "GET")
-        "/accounts/${id}/messages"(controller: "message", action: "postMessage", method: "POST")
+       // "/accounts/${id}/messages"(controller: "message", action: "postMessage", method: "POST")
 
         "/"(view: "/index")
         //"500"(view: '/error')
