@@ -16,3 +16,5 @@ node_modules/*
 *node_modules*
 grails-app/assets/bower
 classes/
+coverage/
+TESTS-*.xml
