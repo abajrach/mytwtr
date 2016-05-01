@@ -3,8 +3,11 @@ package mytwtr.uitests
 import geb.spock.GebSpec
 import grails.test.mixin.integration.Integration
 
+import java.time.Month
+
 @Integration
 class LoginLogoutPageFunctionalSpec extends GebSpec {
+
 
     def 'L1: When not logged in, route user to the login screen'() {
         when: 'the root page of the app is accessed'
@@ -53,6 +56,14 @@ class LoginLogoutPageFunctionalSpec extends GebSpec {
 
         $('form').find("small", id: "messageDateCreated").displayed
 
+    }
+
+    def "R5. Use AngularJS date filter to fomrat the date of a message in the feed with MMM DD"(){
+        when: 'Verify the date format is mmm dd format date will be current month and date - should already be displayed'
+        String mmmDD_Date = new String(new Date().toString()).substring(4,6)
+
+        then:
+        $('div').find("h3").text().contains(mmmDD_Date)
     }
 
     def "N3: Logout - clicking this should bring you to the login screen and provide a helpful message"() {
