@@ -56,9 +56,12 @@
                     </div>
                 </div>
             </div>
-
+            <div>
             <!-- Follow this account button -->
-            <div class="container" ng-show="!canUpdate && !Following">
+
+            <button-directive></button-directive>
+
+      <!--      <div class="container" ng-show="!canUpdate && !Following">
                 <h5>You are not following this account yet!</h5>
                 <button id="followButton" type="button" class="btn btn-danger btn-lg" ng-click="followAccount()">Follow
                     this account!
@@ -72,6 +75,7 @@
                 </button>
             </div>
 
+
             <div class="container">
                 <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}"
                 close="alerts.splice($index, 1)"
@@ -80,6 +84,9 @@
 
             </div>
 
+
+      -->
+                </div>
         </div>
 
         <!--The middle pane-->

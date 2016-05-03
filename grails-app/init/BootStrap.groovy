@@ -18,6 +18,8 @@ class BootStrap {
         def account5 = new Account(handlename: 'bsanders', name: 'Bernie Sanders', password: 'p', email: 'bern@gmail.com').save(flush: true, failOnError: true)
         def account6 = new Account(handlename: 'hclinton', name: 'Hilary Clinton', password: 'p', email: 'clint@gmail.com').save(flush: true, failOnError: true)
 
+        def account7 = new Account(handlename: 'ironman', name: 'Tony Stark', password: 'p', email: 'ironman@stark.com').save(flush: true, failOnError: true)
+
         new AccountRole(account: account1, role: role).save(flush: true, failOnError: true)
         new AccountRole(account: account2, role: role).save(flush: true, failOnError: true)
         new AccountRole(account: account3, role: role).save(flush: true, failOnError: true)
@@ -26,10 +28,14 @@ class BootStrap {
         new AccountRole(account: account5, role: role).save(flush: true, failOnError: true)
         new AccountRole(account: account6, role: role).save(flush: true, failOnError: true)
 
+        new AccountRole(account: account7, role: role).save(flush: true, failOnError: true)
+
         (1..50).each { id -> adminAccount.addToMessages(status_message: "Message #$id admin was partying").save(flush: true) }
         (1..20).each { id -> account1.addToMessages(status_message: "Message #$id abajrach loves smoothie").save(flush: true) }
         (1..15).each { id -> account2.addToMessages(status_message: "Message #$id Batman doesn't sleep").save(flush: true) }
         (1..5).each { id -> account3.addToMessages(status_message: "Message #$id Superman is a chick magnet").save(flush: true) }
+        (1..20).each { id -> account7.addToMessages(status_message: "Message #$id Ironman Rules").save(flush: true) }
+
 
         account3.addToMessages(status_message: "I am real hero!").save(flush: true)
         account3.addToMessages(status_message: "bla bla bla").save(flush: true)

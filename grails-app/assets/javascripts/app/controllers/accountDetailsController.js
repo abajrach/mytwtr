@@ -20,7 +20,7 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
         if ($routeParams.handle) {
 
             var currentUser = loginLogoutService.getCurrentUser();
-
+            console.log("currentUser", currentUser);
             var thisUsersId;
 
             // Get the account details for this user
@@ -180,4 +180,31 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
         $scope.tweetPosted = false;
         $scope.alerts.splice(index, 1);
     };*/
+});
+
+angular.module("app").directive('buttonDirective', function($compile) {
+    return {
+       // ... Link lets you keep track of changes in your directive
+    link: function (scope, element) {
+        scope.$watchGroup(['canUpdate', 'Following'], function (newValues, oldValues, scope) {
+            console.log(newValues)
+            console.log ("following", scope.Following)
+            console.log("canUpdate", scope.canUpdate)
+
+
+            if (!scope.canUpdate && !scope.Following){
+                element.html('<h5>You are not following this account yet!</h5>')
+                element.html('<button id="followButton" type="button" class="btn btn-danger btn-lg" ng-click="followAccount()">Follow this account!</button>');
+
+            }
+            if (!scope.canUpdate && scope.Following){
+                element.html('<h5>You are following this account</h5>')
+                element.html('<button id="followingButton" type="button" class="btn btn-success btn-lg" data-target="#myModal">Following</button>');
+            }
+
+            //... Once you make a button, for it to be able to use an Angular click, it needs to be recompiled
+            $compile(element.contents())(scope.$new());
+        });
+    }
+}
 });
