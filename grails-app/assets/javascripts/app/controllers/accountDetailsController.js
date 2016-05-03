@@ -68,6 +68,7 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
      * Search messages by message content
      */
     $scope.doSearch = function () {
+        console.log("inside doSearch")
         $scope.showSearchResult = true;
         var messageResultByToken = accountDetailsService.searchMessageByToken($scope.searchToken).query();
 
@@ -132,19 +133,17 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
     }
 
     $scope.doPostMessage = function () {
+
         var currentUser = loginLogoutService.getCurrentUser();
 
-        if (!$scope.newMessage) {
-            // Throw error
-        }
+        var payLoad = {"status_message": $scope.postMessageToken, "account": currentUser.id};
 
-        var payLoad = {"message": $scope.newMessage};
+        // Make a POST request
+        var tweet = messageService.save({selfId: currentUser.id}, payLoad);
 
-        // Make a PUT request
-        var upd = createMessageService.update({id: currentUser.id}, payLoad);
-
-        upd.$promise.then(function (response) {
-            $location.path("/account");
+        tweet.$promise.then(function(response) {
+            console.log("tweet created successfully");
         });
+
     }
 });

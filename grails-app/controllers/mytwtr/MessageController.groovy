@@ -2,7 +2,10 @@ package mytwtr
 
 import grails.converters.JSON
 import grails.rest.RestfulController
+import grails.transaction.Transactional
+import org.apache.http.protocol.HTTP
 
+import javax.servlet.http.HttpServletResponse
 import java.text.SimpleDateFormat
 
 class MessageController extends RestfulController<Message> {
@@ -72,7 +75,6 @@ class MessageController extends RestfulController<Message> {
     def search() {
 
         def querySearch = params.query.toString()
-        //def queryHandle = params.handle.toString()
 
         respond Message.where {
             status_message =~ "%${querySearch}%"
@@ -80,4 +82,40 @@ class MessageController extends RestfulController<Message> {
             m -> return [message: m, accountHandle: Account.get(m.account.id).handlename]
         }
     }
+
+    /*
+     * This method is used to post Message for an account
+     */
+    /*
+    @Transactional
+    def postMessage() {
+        Account account;
+        def tweet = request.JSON.tweet
+
+        if(tweet.size() == 0 || tweet.size() > 40) {
+            response.sendError(HttpServletResponse.SC_LENGTH_REQUIRED)
+            return
+        }
+
+        if(params.id) {
+            account = Account.findById(params.id)
+        }
+        else if (params.handle) {
+            account = Account.findByHandlename(params.handle)
+        }
+        else {
+            response.sendError(404)
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST)
+            return
+        }
+
+        if(!account) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST)
+            return
+        }
+
+        Message newTweet = new Message(status_message: tweet, account: account)
+        respond(status: 201, text: 'Tweet successfully posted!!!')
+    }
+    */
 }

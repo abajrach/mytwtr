@@ -74,23 +74,43 @@
 
         </div>
 
+        <div class="container">
+            <div class="col-lg-9">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="searchTokenValue" ,
+                                   ng-model="searchToken"/>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" id="goButton" , type="button" ,
+                                            ng-click="doSearch()">Search Messages!
+                                    </button>
+                                </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Display messages from currently logged in user or message search result -->
         <div class="container" id="center-box">
             <div class="row">
-                <div class="col-lg-9">
+                <div class="col-lg-9 col-lg-offset-2">
                     <div class="panel panel-default">
                         <div class="panel-body">
 
-                            <div class="col-lg-4 col-lg-offset-4">
+                            <div class="col-lg-9 col-lg-offset-1" ng-controller="accountDetailsController">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="searchTokenValue" ,
-                                           ng-model="searchToken"/>
-			                    <span class="input-group-btn">
-			                        <button class="btn btn-default" id="goButton" , type="button" ,
-                                            ng-click="doSearch()">Go!
+                                    <input type="text" class="form-control" id="postMessageId" ,
+                                           ng-model="postMessageToken"/>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" id="postMessageButton" , type="button" ,
+                                            ng-click="doPostMessage()">PostMessage!
                                     </button>
-			                    </span>
+                                </span>
+
                                 </div>
+                                <br>
                             </div>
 
                             <div ng-show="!showSearchResult" id="message-pane">
@@ -99,7 +119,8 @@
                                 </div>
                                 <h3 id="loggedInUserMessages" ng-repeat="message in recentMessages">{{
                                     message.status_message }}
-                                    <small id="messageDateCreated"> Posted on {{message.dateCreated | date:'MMM dd'}}</small>
+                                    <small id="messageDateCreated"> Posted on {{message.dateCreated | date:'MMM dd'}}
+                                    </small>
                                 </h3>
                                 <h3 id="EndOfMessage">---</h3>
                             </div>
