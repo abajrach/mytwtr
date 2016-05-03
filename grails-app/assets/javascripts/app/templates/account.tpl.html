@@ -55,110 +55,111 @@
                         </div>
                     </div>
                 </div>
+                <div class="container">
+                    <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}"
+                               close="alerts.splice($index, 1)"
+                               dismiss-on-timeout="5000">{{alert.msg}}
+                    </uib-alert>
+
+                </div>
             </div>
             <div>
-            <!-- Follow this account button -->
+                <!-- Follow this account button -->
 
-            <button-directive></button-directive>
+                <button-directive></button-directive>
 
-      <!--      <div class="container" ng-show="!canUpdate && !Following">
-                <h5>You are not following this account yet!</h5>
-                <button id="followButton" type="button" class="btn btn-danger btn-lg" ng-click="followAccount()">Follow
-                    this account!
-                </button>
+                <!--      <div class="container" ng-show="!canUpdate && !Following">
+                          <h5>You are not following this account yet!</h5>
+                          <button id="followButton" type="button" class="btn btn-danger btn-lg" ng-click="followAccount()">Follow
+                              this account!
+                          </button>
+                      </div>
+
+                      <div class="container" ng-show="!canUpdate && Following">
+                          <h5>You are following this account</h5>
+                          <button id="followingButton" type="button" class="btn btn-success btn-lg" data-target="#myModal">
+                              Following
+                          </button>
+                      </div>
+
+
+
+
+                -->
             </div>
-
-            <div class="container" ng-show="!canUpdate && Following">
-                <h5>You are following this account</h5>
-                <button id="followingButton" type="button" class="btn btn-success btn-lg" data-target="#myModal">
-                    Following
-                </button>
-            </div>
-
-
-            <div class="container">
-                <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}"
-                close="alerts.splice($index, 1)"
-                dismiss-on-timeout="5000">{{alert.msg}}
-                </uib-alert>
-
-            </div>
-
-
-      -->
-                </div>
         </div>
 
         <!--The middle pane-->
         <div class="container">
-        <div class="container">
-            <div class="col-lg-9">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="searchTokenValue" ,
-                                   ng-model="searchToken"/>
+            <div class="container">
+                <div class="col-lg-9">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="searchTokenValue" ,
+                                       ng-model="searchToken"/>
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" id="goButton" , type="button" ,
                                             ng-click="doSearch()">Search Messages!
                                     </button>
                                 </span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Display messages from currently logged in user or message search result -->
-        <div class="container" id="center-box">
-            <div class="row">
-                <div class="col-lg-9 col-lg-offset-2">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
+            <!-- Display messages from currently logged in user or message search result -->
+            <div class="container" id="center-box">
+                <div class="row">
+                    <div class="col-lg-9 col-lg-offset-2">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
 
-                            <div class="col-lg-9 col-lg-offset-1" ng-controller="accountDetailsController">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="postMessageId" ,
-                                           ng-model="postMessageToken"/>
+                                <div class="col-lg-9 col-lg-offset-1" ng-controller="accountDetailsController">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="postMessageId" ,
+                                               ng-model="postMessageToken"/>
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" id="postMessageButton" , type="button" ,
                                             ng-click="doPostMessage()">PostMessage!
                                     </button>
                                 </span>
 
+                                    </div>
+                                    <br>
                                 </div>
-                                <br>
-                            </div>
 
 
-                            <div ng-show="!showSearchResult" id="message-pane">
-                                <div class="page-header">
-                                    <h1>Messages posted by: {{accountDetails.handlename}}</h1>
+                                <div ng-show="!showSearchResult" id="message-pane">
+                                    <div class="page-header">
+                                        <h1>Messages posted by: {{accountDetails.handlename}}</h1>
+                                    </div>
+                                    <h3 id="loggedInUserMessages" ng-repeat="message in recentMessages">{{
+                                        message.status_message }}
+                                        <small id="messageDateCreated"> Posted on {{message.dateCreated | date:'MMM
+                                            dd'}}
+                                        </small>
+                                    </h3>
+                                    <h3 id="EndOfMessage">---</h3>
                                 </div>
-                                <h3 id="loggedInUserMessages" ng-repeat="message in recentMessages">{{
-                                    message.status_message }}
-                                    <small id="messageDateCreated"> Posted on {{message.dateCreated | date:'MMM dd'}}
-                                    </small>
-                                </h3>
-                                <h3 id="EndOfMessage">---</h3>
-                            </div>
 
-                            <br><br><br>
+                                <br><br><br>
 
-                            <div ng-show="showSearchResult">
-                                <h3 id="searchedMessageResults" ng-repeat="result in searchResults">{{
-                                    result.message.status_message }}
-                                    <small id="postedByLabel" class="links_main">
-                                        Posted by <a id="accountHandleLink"
-                                                     href='#/account/{{result.accountHandle}}'>{{result.accountHandle}}</a>
-                                    </small>
-                                </h3>
+                                <div ng-show="showSearchResult">
+                                    <h3 id="searchedMessageResults" ng-repeat="result in searchResults">{{
+                                        result.message.status_message }}
+                                        <small id="postedByLabel" class="links_main">
+                                            Posted by <a id="accountHandleLink"
+                                                         href='#/account/{{result.accountHandle}}'>{{result.accountHandle}}</a>
+                                        </small>
+                                    </h3>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </div>
 </form>
