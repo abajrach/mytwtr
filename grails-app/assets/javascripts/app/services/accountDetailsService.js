@@ -6,6 +6,7 @@
 
 angular.module('app').factory('accountDetailsService', function ($resource) {
     var service = {};
+    var tweetPosted = false;
 
     /**
      * Get account details by handlename
@@ -42,6 +43,15 @@ angular.module('app').factory('accountDetailsService', function ($resource) {
     service.searchMessageByToken = function ($searchToken) {
         return $resource('messages/search?query=' + $searchToken, {});
     };
+
+
+    service.setTweetPosted = function (flag) {
+        tweetPosted = flag;
+    };
+
+    service.getTweetPosted = function() {
+        return tweetPosted;
+    }
 
     return service;
 });

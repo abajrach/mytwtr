@@ -120,6 +120,12 @@ bower {
         source 'angular-csp.css'
     }
 
+    'angular-bootstrap'('1.3.x') {
+        source 'ui-bootstrap.js'
+        source 'ui-bootstrap-tpls.js'
+        source 'ui-bootstrap-csp.css' >> 'css/'
+    }
+
 }
 compileJava.dependsOn bowerInstall
 clean.dependsOn bowerClean

@@ -12,7 +12,6 @@ angular.module('app').factory('loginLogoutService', ['$http', '$rootScope', 'web
      * @param user
      */
     var setCurrentUser = function (user) {
-        console.log("setting Current user "+user)
         currentUser = user;
         webStorage.set('accountUser', currentUser);
         $rootScope.$emit('userChange', currentUser);
