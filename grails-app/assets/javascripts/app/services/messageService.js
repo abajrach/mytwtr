@@ -1,18 +1,11 @@
 angular.module('app').factory('messageService', function ($resource) {
-    var service = {};
-
-    /**
-     * Post message
-     */
-
-    angular.module('app').factory('createMessageService', function ($resource) {
-
-        return $resource('/accounts/:id/messages', null,
-            {
-                'create': {method: 'PUT'}
-            });
-
-    });
-
-    return service;
+    return $resource('/accounts/:selfId/messages', {},
+        {
+            post: {
+                method: 'POST', params: {
+                    selfId: '@selfId',
+                    status_message: '@message'
+                }, isArray: true
+            }
+        });
 });

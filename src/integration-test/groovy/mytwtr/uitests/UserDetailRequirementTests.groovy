@@ -45,7 +45,7 @@ class UserDetailRequirementTests extends GebSpec {
 
         $('form').find("small", id: "messageDateCreated").displayed
 
-        when: 'the list of messages is scrolled all the way tot he bottom'
+        when: 'the list of messages is scrolled all the way to the bottom'
         WebElement element = driver.findElement(By.id("EndOfMessage"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
         Thread.sleep(3000);
@@ -57,7 +57,7 @@ class UserDetailRequirementTests extends GebSpec {
     def "U3: When the logged in user is following the detail user, the detail page will display a message or icon indicating this."() {
 
         when: 'the logged in user clicks on another account names link'
-        $("#account-form input[id=searchTokenValue]").value("superman ")
+        $("#account-form input[id=searchTokenValue]").value("superman")
         $('form').find("button", id: "goButton").click()
         waitFor(5, 1) {
             def tempString = $('form').find("h3", id: "searchedMessageResults").allElements()[0].getText()
