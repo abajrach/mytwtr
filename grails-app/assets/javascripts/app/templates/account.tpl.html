@@ -1,76 +1,79 @@
-<!--Created by Arbindra-->
-
 <form id="account-form">
     <div data-ng-controller="accountDetailsController" data-ng-init="getAccountDetails()">
+        <div class="row">
 
-        <div class="col-lg-3" id="account-details-leftpane">
-
-            <!-- Displays User details -->
-            <div class="panel-group" id="account-details">
-                <div class="panel panel-primary">
-                    <div class="panel-heading"> <h3 class="text-center">Account Details</h3></div>
-                    <div class="panel-body">
-                    <h4 id="handlename" class="list-group-item-heading">Account: {{accountDetails.handlename}}</h4>
-                    <h4 id="name" class="list-group-item-heading">Name: {{accountDetails.name}}</h4>
-                    <h4 id="followers-count" class="list-group-item-heading">Followers:
-                        {{accountDetails.followedBy.length}}</h4>
-                    <h4 id="following-count" class="list-group-item-heading">Following:
-                        {{accountDetails.following.length}}</h4>
-                    <h4 id="email" class="list-group-item-heading">Email: {{accountDetails.email}}</h4>
-                    <h4 id="dateCreated" class="list-group-item-heading">Account Created:
-                        {{accountDetails.dateCreated}}</h4>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Update User details - Name and Email. Brings up a modal -->
-            <div class="container" ng-show="canUpdate">
-                <button id="update-info-button" type="button" class="btn btn-info btn-lg" data-toggle="modal"
-                        data-target="#myModal">Update My
-                    Info!
-                </button>
-                <!-- Update Info Modal Dialog Box-->
-                <div class="modal" id="myModal" role="dialog">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title"><strong>Update My Info</strong></h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <input type="text" class="form-control input-lg" placeholder="Name"
-                                           id="update-info-name-field" ,
-                                           ng-model="newName">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control input-lg" placeholder="Email"
-                                           id="update-info-email-field" ,
-                                           ng-model="newEmail">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-success" data-dismiss="modal"
-                                        id="update-info-submit-button"
-                                        ng-click="updateInfo()">Submit
-                                </button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            </div>
+            <!-- Start of left pane -->
+            <div class="col-sm-3" id="account-details-leftpane">
+                <!-- Displays User details -->
+                <div class="panel-group" id="account-details">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><h3 class="text-center">Account Details</h3></div>
+                        <div class="panel-body">
+                            <h4 id="handlename" class="list-group-item-heading">Account:
+                                {{accountDetails.handlename}}</h4>
+                            <h4 id="name" class="list-group-item-heading">Name: {{accountDetails.name}}</h4>
+                            <h4 id="followers-count" class="list-group-item-heading">Followers:
+                                {{accountDetails.followedBy.length}}</h4>
+                            <h4 id="following-count" class="list-group-item-heading">Following:
+                                {{accountDetails.following.length}}</h4>
+                            <h4 id="email" class="list-group-item-heading">Email: {{accountDetails.email}}</h4>
+                            <h4 id="dateCreated" class="list-group-item-heading">Account Created:
+                                {{accountDetails.dateCreated}}</h4>
                         </div>
                     </div>
                 </div>
 
+                <!-- Update User details - Name and Email. Brings up a modal -->
+                <div class="container" ng-show="canUpdate">
+                    <button id="update-info-button" type="button" class="btn btn-info btn-lg" data-toggle="modal"
+                            data-target="#myModal">Update My
+                        Info!
+                    </button>
+
+                    <!-- Update Info Modal Dialog Box-->
+                    <div class="modal" id="myModal" role="dialog">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title"><strong>Update My Info</strong></h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control input-lg" placeholder="Name"
+                                               id="update-info-name-field" ,
+                                               ng-model="newName">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control input-lg" placeholder="Email"
+                                               id="update-info-email-field" ,
+                                               ng-model="newEmail">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success" data-dismiss="modal"
+                                            id="update-info-submit-button"
+                                            ng-click="updateInfo()">Submit
+                                    </button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+                    <button-directive></button-directive>
+                </div>
             </div>
-            <div>
-                <button-directive></button-directive>
-            </div>
-        </div>
+            <!-- End of left pane -->
 
 
-        <!--The middle pane-->
-        <div class="container">
-            <div class="container">
-                <div class="col-lg-9">
+            <!-- Beginning of right pane -->
+            <div class="col-sm-5">
+
+                <!-- Search bar -->
+                <div class="container">
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="input-group">
@@ -78,26 +81,27 @@
                                        ng-model="searchToken"/>
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary" id="goButton" , type="button" ,
-                                            ng-click="doSearch()"><span class="glyphicon glyphicon-search"></span> Search Messages!
+                                            ng-click="doSearch()"><span class="glyphicon glyphicon-search"></span>
+                                        Search Messages!
                                     </button>
                                 </span>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="container col-lg-offset-2" style="width: 880px; margin-top: 50px;">
-                <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}"
-                           close="alerts.splice($index, 1)"
-                           dismiss-on-timeout="5000">{{alert.msg}}
-                </uib-alert>
-            </div>
+                <!-- Alert message -->
+                <div class="container col-lg-offset-2" style="width: 880px; margin-top: 50px;">
+                    <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}"
+                               close="alerts.splice($index, 1)"
+                               dismiss-on-timeout="5000">{{alert.msg}}
+                    </uib-alert>
+                </div>
 
-            <!-- Display messages from currently logged in user or message search result -->
-            <div class="container" id="center-box">
-                <div class="row">
-                    <div class="col-lg-9 col-lg-offset-2">
+                <!-- Display messages from currently logged in user or message search result -->
+                <div class="container" id="center-box">
+                    <div class="row">
+
                         <div class="panel panel-default">
                             <div class="panel-body">
 
@@ -107,7 +111,8 @@
                                                ng-model="postMessageToken"/>
                                         <span class="input-group-btn">
                                             <button class="btn btn-primary" id="postMessageButton" , type="button" ,
-                                                    ng-click="doPostMessage()"><span class="glyphicon glyphicon-envelope"></span> Post Message!
+                                                    ng-click="doPostMessage()"><span
+                                                    class="glyphicon glyphicon-envelope"></span> Post Message!
                                             </button>
                                         </span>
 
@@ -142,9 +147,12 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
+
             </div>
+            <!-- End of right pane -->
         </div>
     </div>
 </form>
