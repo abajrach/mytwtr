@@ -61,7 +61,7 @@ class SearchRequirementTests extends GebSpec {
         $('div').find("small", id: "postedByLabel").text() == "Posted by batman"
     }
 
-    def "S4 and N1: Clicking on posting user will route to the users detail page"() {
+    def "S4, N1, and R4: Clicking on posting user will route to the users detail page"() {
         when:
         $('form').find(".links_main").find("a",0).click()
 

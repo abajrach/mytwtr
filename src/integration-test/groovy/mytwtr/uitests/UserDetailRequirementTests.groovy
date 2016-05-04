@@ -54,7 +54,7 @@ class UserDetailRequirementTests extends GebSpec {
         $('form').find("h3", id: "EndOfMessage").displayed
     }
 
-    def "U3: When the logged in user is following the detail user, the detail page will display a message or icon indicating this."() {
+    def "U3 and R4: When the logged in user is following the detail user, the detail page will display a message or icon indicating this."() {
 
         when: 'the logged in user clicks on another account names link'
         $("#account-form input[id=searchTokenValue]").value("superman")
@@ -77,7 +77,7 @@ class UserDetailRequirementTests extends GebSpec {
         $('form').find("button", id: "followingButton").displayed
     }
 
-    def "U2: User’s detail page will provide a way for the logged in user to follow the detail user"() {
+    def "U2 and R4: User’s detail page will provide a way for the logged in user to follow the detail user"() {
         when:
         go '/'
 
