@@ -16,8 +16,8 @@ class Assignment4FunctionalSpec extends GebSpec {
         waitFor(5, 0.1) {
             getCurrentUrl().endsWith('#/login')
         }
-        $("#login-form input[id=username-field]").value("a")
-        $("#login-form input[id=password-field]").value("a")
+        $("#login-form input[id=username-field]").value("ironman")
+        $("#login-form input[id=password-field]").value("p")
         $("#login-form input[id=submit-button]").click()
         waitFor(5, 1) {
             getCurrentUrl().endsWith('#/account/')
