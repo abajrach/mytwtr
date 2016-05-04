@@ -2,11 +2,14 @@
 
 <form id="account-form">
     <div data-ng-controller="accountDetailsController" data-ng-init="getAccountDetails()">
+
         <div class="col-lg-3" id="account-details-leftpane">
 
             <!-- Displays User details -->
-            <div class="list-group" id="account-details">
-                <div class="list-group-item">
+            <div class="panel-group" id="account-details">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"> <h3 class="text-center">Account Details</h3></div>
+                    <div class="panel-body">
                     <h4 id="handlename" class="list-group-item-heading">Account: {{accountDetails.handlename}}</h4>
                     <h4 id="name" class="list-group-item-heading">Name: {{accountDetails.name}}</h4>
                     <h4 id="followers-count" class="list-group-item-heading">Followers:
@@ -16,6 +19,7 @@
                     <h4 id="email" class="list-group-item-heading">Email: {{accountDetails.email}}</h4>
                     <h4 id="dateCreated" class="list-group-item-heading">Account Created:
                         {{accountDetails.dateCreated}}</h4>
+                    </div>
                 </div>
             </div>
 
@@ -62,6 +66,7 @@
             </div>
         </div>
 
+
         <!--The middle pane-->
         <div class="container">
             <div class="container">
@@ -72,8 +77,8 @@
                                 <input type="text" class="form-control" id="searchTokenValue" ,
                                        ng-model="searchToken"/>
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" id="goButton" , type="button" ,
-                                            ng-click="doSearch()">Search Messages!
+                                    <button class="btn btn-primary" id="goButton" , type="button" ,
+                                            ng-click="doSearch()"><span class="glyphicon glyphicon-search"></span> Search Messages!
                                     </button>
                                 </span>
                             </div>
@@ -96,15 +101,15 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
 
-                                <div class="col-lg-9 col-lg-offset-1" ng-controller="accountDetailsController">
+                                <div class="col-lg-12" ng-controller="accountDetailsController">
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="postMessageId" ,
                                                ng-model="postMessageToken"/>
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" id="postMessageButton" , type="button" ,
-                                            ng-click="doPostMessage()">PostMessage!
-                                    </button>
-                                </span>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" id="postMessageButton" , type="button" ,
+                                                    ng-click="doPostMessage()"><span class="glyphicon glyphicon-envelope"></span> Post Message!
+                                            </button>
+                                        </span>
 
                                     </div>
                                     <br>
