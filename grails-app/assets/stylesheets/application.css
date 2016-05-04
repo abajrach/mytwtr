@@ -8,6 +8,8 @@
 * compiled file, but it's generally better to create a new file per style scope.
 *
 *= require_self
+*= require main
+*= require mobile
 *= require ../bower/angular/angular-csp.css
 *= require ../bower/bootstrap/css/bootstrap.css
 *= require_tree ../bower/bootstrap/css/bootstrap-theme.css

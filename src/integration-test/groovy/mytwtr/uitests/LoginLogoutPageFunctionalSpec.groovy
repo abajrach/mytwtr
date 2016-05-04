@@ -63,7 +63,9 @@ class LoginLogoutPageFunctionalSpec extends GebSpec {
         String mmmDD_Date = new String(new Date().toString()).substring(4,6)
 
         then:
-        $('div').find("h3").text().contains(mmmDD_Date)
+        //$('div').find("h3").text().contains(mmmDD_Date)
+        $('form').find("small", id: "messageDateCreated").text().contains(mmmDD_Date)
+
     }
 
     def "N3: Logout - clicking this should bring you to the login screen and provide a helpful message"() {

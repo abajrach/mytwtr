@@ -1,7 +1,15 @@
+/**
+ * Created by Arbindra on 4/6/2016.
+ * Controller that handles logic after successfully logging into an account
+ */
 
 angular.module('app').controller('accountDetailsController', function ($scope, $routeParams, $location, loginLogoutService, accountDetailsService, updateAccountDetailService, followAccountService, messageService) {
     $scope.message = 'User Account Page';
     $scope.canUpdate = false;
+    //console.log("global line")
+
+    //var tweeted = false;
+    //$scope.tweetPosted = false;
 
     $scope.getAccountDetails = function () {
         $scope.Following = false;
@@ -37,7 +45,7 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
          * Shows the user's detail page for the currently logged in user
          */
         else {
-            console.log("Getting account details for logged in user");
+            //console.log("Getting account details for logged in user");
             var currentUser = loginLogoutService.getCurrentUser();
 
             // Get the account details for this user
@@ -56,6 +64,14 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
                 $scope.recentMessages = accountDetailsService.getRecentMessagesForAccount(response).query();
             });
             $scope.canUpdate = true;
+
+            if(accountDetailsService.getTweetPosted()) {
+                $scope.alerts = [
+                    { type: 'success', msg: 'Message Posted!' }
+                ];
+            }
+
+            accountDetailsService.setTweetPosted(false);
         }
     }
 
@@ -63,7 +79,6 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
      * Search messages by message content
      */
     $scope.doSearch = function () {
-        console.log("inside doSearch")
         $scope.showSearchResult = true;
         var messageResultByToken = accountDetailsService.searchMessageByToken($scope.searchToken).query();
 
@@ -129,6 +144,9 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
 
     $scope.doPostMessage = function () {
 
+        $scope.alerts = [
+            { type: 'success', msg: 'Message Posted!' }
+        ];
         var currentUser = loginLogoutService.getCurrentUser();
 
         var payLoad = {"status_message": $scope.postMessageToken, "account": currentUser.id};
@@ -137,7 +155,8 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
         var tweet = messageService.save({selfId: currentUser.id}, payLoad);
 
         tweet.$promise.then(function(response) {
-            console.log("tweet created successfully");
+            accountDetailsService.setTweetPosted(true);
+            $location.path("/account");
         });
 
     }

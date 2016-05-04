@@ -1,149 +1,158 @@
-<!--Created by Arbindra-->
-
 <form id="account-form">
     <div data-ng-controller="accountDetailsController" data-ng-init="getAccountDetails()">
-        <div class="col-lg-3" id="account-details-leftpane">
+        <div class="row">
 
-            <!-- Displays User details -->
-            <div class="list-group" id="account-details">
-                <div class="list-group-item">
-                    <h4 id="handlename" class="list-group-item-heading">Account: {{accountDetails.handlename}}</h4>
-                    <h4 id="name" class="list-group-item-heading">Name: {{accountDetails.name}}</h4>
-                    <h4 id="followers-count" class="list-group-item-heading">Followers:
-                        {{accountDetails.followedBy.length}}</h4>
-                    <h4 id="following-count" class="list-group-item-heading">Following:
-                        {{accountDetails.following.length}}</h4>
-                    <h4 id="email" class="list-group-item-heading">Email: {{accountDetails.email}}</h4>
-                    <h4 id="dateCreated" class="list-group-item-heading">Account Created:
-                        {{accountDetails.dateCreated}}</h4>
-                </div>
-            </div>
-
-            <!-- Update User details - Name and Email. Brings up a modal -->
-            <div class="container" ng-show="canUpdate">
-                <button id="update-info-button" type="button" class="btn btn-info btn-lg" data-toggle="modal"
-                        data-target="#myModal">Update My
-                    Info!
-                </button>
-                <!-- Update Info Modal Dialog Box-->
-                <div class="modal" id="myModal" role="dialog">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title"><strong>Update My Info</strong></h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <input type="text" class="form-control input-lg" placeholder="Name"
-                                           id="update-info-name-field" ,
-                                           ng-model="newName">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control input-lg" placeholder="Email"
-                                           id="update-info-email-field" ,
-                                           ng-model="newEmail">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-success" data-dismiss="modal"
-                                        id="update-info-submit-button"
-                                        ng-click="updateInfo()">Submit
-                                </button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            </div>
+            <!-- Start of left pane -->
+            <div class="col-sm-3" id="account-details-leftpane">
+                <!-- Displays User details -->
+                <div class="panel-group" id="account-details">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><h3 class="text-center">Account Details</h3></div>
+                        <div class="panel-body">
+                            <h4 id="handlename" class="list-group-item-heading">Account:
+                                {{accountDetails.handlename}}</h4>
+                            <h4 id="name" class="list-group-item-heading">Name: {{accountDetails.name}}</h4>
+                            <h4 id="followers-count" class="list-group-item-heading">Followers:
+                                {{accountDetails.followedBy.length}}</h4>
+                            <h4 id="following-count" class="list-group-item-heading">Following:
+                                {{accountDetails.following.length}}</h4>
+                            <h4 id="email" class="list-group-item-heading">Email: {{accountDetails.email}}</h4>
+                            <h4 id="dateCreated" class="list-group-item-heading">Account Created:
+                                {{accountDetails.dateCreated}}</h4>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div>
-            <!-- Follow this account button -->
 
-            <button-directive></button-directive>
+                <!-- Update User details - Name and Email. Brings up a modal -->
+                <div class="container" ng-show="canUpdate">
+                    <button id="update-info-button" type="button" class="btn btn-info btn-lg" data-toggle="modal"
+                            data-target="#myModal">Update My
+                        Info!
+                    </button>
 
-      <!--      <div class="container" ng-show="!canUpdate && !Following">
-                <h5>You are not following this account yet!</h5>
-                <button id="followButton" type="button" class="btn btn-danger btn-lg" ng-click="followAccount()">Follow
-                    this account!
-                </button>
-            </div>
-
-            <div class="container" ng-show="!canUpdate && Following">
-                <h5>You are following this account</h5>
-                <button id="followingButton" type="button" class="btn btn-success btn-lg" data-target="#myModal">
-                    Following
-                </button>
-            </div>
-      -->
-                </div>
-        </div>
-
-        <div class="container">
-            <div class="col-lg-9">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="searchTokenValue" ,
-                                   ng-model="searchToken"/>
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" id="goButton" , type="button" ,
-                                            ng-click="doSearch()">Search Messages!
+                    <!-- Update Info Modal Dialog Box-->
+                    <div class="modal" id="myModal" role="dialog">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title"><strong>Update My Info</strong></h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control input-lg" placeholder="Name"
+                                               id="update-info-name-field" ,
+                                               ng-model="newName">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control input-lg" placeholder="Email"
+                                               id="update-info-email-field" ,
+                                               ng-model="newEmail">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success" data-dismiss="modal"
+                                            id="update-info-submit-button"
+                                            ng-click="updateInfo()">Submit
                                     </button>
-                                </span>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+                </div>
+                <div>
+                    <button-directive></button-directive>
                 </div>
             </div>
-        </div>
+            <!-- End of left pane -->
 
-        <!-- Display messages from currently logged in user or message search result -->
-        <div class="container" id="center-box">
-            <div class="row">
-                <div class="col-lg-9 col-lg-offset-2">
+
+            <!-- Beginning of right pane -->
+            <div class="col-sm-5">
+
+                <!-- Search bar -->
+                <div class="container">
                     <div class="panel panel-default">
                         <div class="panel-body">
-
-                            <div class="col-lg-9 col-lg-offset-1" ng-controller="accountDetailsController">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="postMessageId" ,
-                                           ng-model="postMessageToken"/>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="searchTokenValue" ,
+                                       ng-model="searchToken"/>
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" id="postMessageButton" , type="button" ,
-                                            ng-click="doPostMessage()">PostMessage!
+                                    <button class="btn btn-primary" id="goButton" , type="button" ,
+                                            ng-click="doSearch()"><span class="glyphicon glyphicon-search"></span>
+                                        Search Messages!
                                     </button>
                                 </span>
-
-                                </div>
-                                <br>
-                            </div>
-
-                            <div ng-show="!showSearchResult" id="message-pane">
-                                <div class="page-header">
-                                    <h1>Messages posted by: {{accountDetails.handlename}}</h1>
-                                </div>
-                                <h3 id="loggedInUserMessages" ng-repeat="message in recentMessages">{{
-                                    message.status_message }}
-                                    <small id="messageDateCreated"> Posted on {{message.dateCreated | date:'MMM dd'}}
-                                    </small>
-                                </h3>
-                                <h3 id="EndOfMessage">---</h3>
-                            </div>
-
-                            <br><br><br>
-
-                            <div ng-show="showSearchResult">
-                                <h3 id="searchedMessageResults" ng-repeat="result in searchResults">{{
-                                    result.message.status_message }}
-                                    <small id="postedByLabel" class="links_main">
-                                        Posted by <a id="accountHandleLink"
-                                                     href='#/account/{{result.accountHandle}}'>{{result.accountHandle}}</a>
-                                    </small>
-                                </h3>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Alert message -->
+                <div class="container col-lg-offset-2" style="width: 880px; margin-top: 50px;">
+                    <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" id="tweetPosted-alert"
+                               close="alerts.splice($index, 1)"
+                               dismiss-on-timeout="5000">{{alert.msg}}
+                    </uib-alert>
+                </div>
+
+                <!-- Display messages from currently logged in user or message search result -->
+                <div class="container" id="center-box">
+                    <div class="row">
+
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+
+                                <div class="col-lg-12" ng-controller="accountDetailsController">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="postMessageId" ,
+                                               ng-model="postMessageToken"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" id="postMessageButton" , type="button" ,
+                                                    ng-click="doPostMessage()"><span
+                                                    class="glyphicon glyphicon-envelope"></span> Post Message!
+                                            </button>
+                                        </span>
+
+                                    </div>
+                                    <br>
+                                </div>
+
+
+                                <div ng-show="!showSearchResult" id="message-pane">
+                                    <div class="page-header">
+                                        <h1>Messages posted by: {{accountDetails.handlename}}</h1>
+                                    </div>
+                                    <h3 id="loggedInUserMessages" ng-repeat="message in recentMessages">{{
+                                        message.status_message }}
+                                        <small id="messageDateCreated"> Posted on {{message.dateCreated | date:'MMM
+                                            dd'}}
+                                        </small>
+                                    </h3>
+                                    <h3 id="EndOfMessage">---</h3>
+                                </div>
+
+                                <br><br><br>
+
+                                <div ng-show="showSearchResult">
+                                    <h3 id="searchedMessageResults" ng-repeat="result in searchResults">{{
+                                        result.message.status_message }}
+                                        <small id="postedByLabel" class="links_main">
+                                            Posted by <a id="accountHandleLink"
+                                                         href='#/account/{{result.accountHandle}}'>{{result.accountHandle}}</a>
+                                        </small>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
+            <!-- End of right pane -->
         </div>
     </div>
 </form>

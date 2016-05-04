@@ -9,6 +9,7 @@
 //= require jquery-2.2.0.min.js
 //= require ../bower/bootstrap/bootstrap.js
 //= require ../bower/angular/angular.js
+//= require angular-bootstrap/ui-bootstrap-tpls
 //= require ../bower/angular-resource/angular-resource.js
 //= require ../bower/angular-route/angular-route.js
 //= require ../bower/angular-webstorage/angular-webstorage.js
@@ -16,4 +17,4 @@
 //= require_self
 //= require_tree app
 
-angular.module('app', ['ngRoute', 'ngResource', 'webStorageModule']);
+angular.module('app', ['ngRoute', 'ngResource', 'webStorageModule', 'ui.bootstrap']);
