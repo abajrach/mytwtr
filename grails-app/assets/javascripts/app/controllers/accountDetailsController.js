@@ -66,14 +66,12 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
             $scope.canUpdate = true;
 
             if(accountDetailsService.getTweetPosted()) {
-                console.log("inside true block")
                 $scope.alerts = [
                     { type: 'success', msg: 'Message Posted!' }
                 ];
             }
 
             accountDetailsService.setTweetPosted(false);
-            console.log("outsidegfdf true block")
         }
     }
 
@@ -81,7 +79,6 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
      * Search messages by message content
      */
     $scope.doSearch = function () {
-        console.log("inside doSearch")
         $scope.showSearchResult = true;
         var messageResultByToken = accountDetailsService.searchMessageByToken($scope.searchToken).query();
 

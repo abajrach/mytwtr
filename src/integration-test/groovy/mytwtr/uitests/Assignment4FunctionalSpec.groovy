@@ -33,13 +33,31 @@ class Assignment4FunctionalSpec extends GebSpec {
         when: 'When the user types in a tweet and hits the post Message button'
         $("#account-form input[id=postMessageId]").value("This is my first tweet!")
         $('div').find("button", id: "postMessageButton").click()
-        waitFor(5, 1) {
+/*        waitFor(5, 1) {
             getCurrentUrl().endsWith('#/account/')
-        }
+        }*/
+        sleep(2000)
 
         then: 'Verify the newly created tweet gets posted and shows up in the list of tweets/messages'
         $('form').find("h3", id: "loggedInUserMessages").allElements()[0].getText().contains("This is my first tweet!")
 
     }
 
+    def 'R1. Use a alert control from the Angular UI library to display an info message saying ‘Message Posted!’'() {
+
+        when: 'When the user types in a tweet and hits the post Message button'
+        $("#account-form input[id=postMessageId]").value("This is my second tweet!")
+        $('div').find("button", id: "postMessageButton").click()
+        waitFor(5,1) {
+            $('form').find("h3", id: "loggedInUserMessages").allElements()[0].getText().contains("This is my second tweet!")
+        }
+
+        then: 'Verify the angular alert saying Message posted is displayed'
+        $('#tweetPosted-alert').displayed
+        $('#tweetPosted-alert').text() == "×\n" + "Close\n" + "Message Posted!"
+        waitFor(5,1) {
+            !$('#tweetPosted-alert').displayed
+        }
+
+    }
 }

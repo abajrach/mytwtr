@@ -92,7 +92,7 @@
 
                 <!-- Alert message -->
                 <div class="container col-lg-offset-2" style="width: 880px; margin-top: 50px;">
-                    <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}"
+                    <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" id="tweetPosted-alert"
                                close="alerts.splice($index, 1)"
                                dismiss-on-timeout="5000">{{alert.msg}}
                     </uib-alert>
