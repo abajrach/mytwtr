@@ -58,7 +58,7 @@ class LoginLogoutPageFunctionalSpec extends GebSpec {
 
     }
 
-    def "R5. Use AngularJS date filter to fomrat the date of a message in the feed with MMM DD"(){
+    def "R5. Use AngularJS date filter to format the date of a message in the feed with MMM DD"(){
         when: 'Verify the date format is mmm dd format date will be current month and date - should already be displayed'
         String mmmDD_Date = new String(new Date().toString()).substring(4,6)
 
