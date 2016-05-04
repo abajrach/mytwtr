@@ -175,11 +175,6 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
         });
 
     }
-
-/*    $scope.closeAlert = function() {
-        $scope.tweetPosted = false;
-        $scope.alerts.splice(index, 1);
-    };*/
 });
 
 angular.module("app").directive('buttonDirective', function($compile) {
