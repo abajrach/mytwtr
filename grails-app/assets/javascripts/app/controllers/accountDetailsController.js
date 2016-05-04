@@ -144,9 +144,6 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
 
     $scope.doPostMessage = function () {
 
-        //$scope.alerts = [];
-        //$scope.tweetPosted = true;
-        //tweeted  = true;
         $scope.alerts = [
             { type: 'success', msg: 'Message Posted!' }
         ];
@@ -158,15 +155,6 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
         var tweet = messageService.save({selfId: currentUser.id}, payLoad);
 
         tweet.$promise.then(function(response) {
-            console.log("tweet created successfully");
-            //$scope.alerts.push({type: 'success', msg: 'Tweet successfully created!!!'});
-            //$scope.tweetPosted = true;
-            //$scope.$apply();
-            //tweeted  = true;
-            //$scope.alerts = [
-            //    { type: 'success', msg: 'Message Posted!' }
-            //];
-            //location.reload();
             accountDetailsService.setTweetPosted(true);
             $location.path("/account");
         });
