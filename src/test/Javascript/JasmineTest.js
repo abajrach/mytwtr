@@ -75,7 +75,7 @@ describe('messageService', function () {
 
     describe('save', function () {
         it('handles save message', function () {
-            $httpBackend.expectPOST('/accounts/1/messages', {selfId: 1}, payLoad).respond(200, {username: 'earl', roles: ['root'], 'access_token': 'xyz123'});
+            $httpBackend.expectPOST('/accounts/1/messages', {selfId: 1},  payLoad).respond(200, {username: 'earl', roles: ['root'], 'access_token': 'xyz123'});
             messageService.save('u', 'p');
             $httpBackend.flush();
             var user = messageService.currentUser();
