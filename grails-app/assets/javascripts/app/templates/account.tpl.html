@@ -70,10 +70,10 @@
 
 
             <!-- Beginning of right pane -->
-            <div class="col-sm-5">
+            <div class="col-sm-7">
 
                 <!-- Search bar -->
-                <div class="container">
+                <div class="container-fluid">
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="input-group">
@@ -91,7 +91,7 @@
                 </div>
 
                 <!-- Alert message -->
-                <div class="container col-lg-offset-2" style="width: 880px; margin-top: 50px;">
+                <div class="container-fluid col-lg-offset-2" style="width: 600px; margin-top: 50px;">
                     <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" id="tweetPosted-alert"
                                close="alerts.splice($index, 1)"
                                dismiss-on-timeout="5000">{{alert.msg}}
@@ -99,16 +99,16 @@
                 </div>
 
                 <!-- Display messages from currently logged in user or message search result -->
-                <div class="container" id="center-box">
+                <div class="container-fluid" id="center-box">
                     <div class="row">
 
                         <div class="panel panel-default">
                             <div class="panel-body">
 
-                                <div class="col-lg-12" ng-controller="accountDetailsController">
+                                <div class="col-lg-12" >
 
                                     <form name = "postMessageForm">
-                                        <div class="input-group">
+                                        <div class="input-group" ng-show="canPostMessage" id="postMessageField">
                                             <input type="text" class="form-control" id="postMessageId" ,
                                                    ng-model="postMessageToken"/>
                                             <span class="input-group-btn">

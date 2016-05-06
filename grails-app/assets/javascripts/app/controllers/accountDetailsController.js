@@ -6,6 +6,7 @@
 angular.module('app').controller('accountDetailsController', function ($scope, $routeParams, $location, loginLogoutService, accountDetailsService, updateAccountDetailService, followAccountService, messageService) {
     $scope.message = 'User Account Page';
     $scope.canUpdate = false;
+    $scope.canPostMessage = false;
 
     $scope.getAccountDetails = function () {
         $scope.Following = false;
@@ -35,6 +36,7 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
             });
 
             $scope.canUpdate = false;
+            $scope.canPostMessage = false;
         }
 
         /**
@@ -60,6 +62,7 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
                 $scope.recentMessages = accountDetailsService.getRecentMessagesForAccount(response).query();
             });
             $scope.canUpdate = true;
+            $scope.canPostMessage = true;
 
             if (accountDetailsService.getTweetPosted()) {
                 $scope.alerts = [

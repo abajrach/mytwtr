@@ -24,8 +24,8 @@ class Assignment4FunctionalSpec extends GebSpec {
         }
 
         then: 'Login Page displays login to your account message'
-        $(".login-header").text() == "Login Into Your Account"
-
+        $('form').find("h4", id: "handlename").text() == "Account: ironman"
+        $('form').find("h4", id: "name").text() == "Name: Tony Stark"
     }
 
     def 'R0. Allow for the logged in user to post a new message'() {
@@ -33,9 +33,6 @@ class Assignment4FunctionalSpec extends GebSpec {
         when: 'When the user types in a tweet and hits the post Message button'
         $("#account-form input[id=postMessageId]").value("This is my first tweet!")
         $('div').find("button", id: "postMessageButton").click()
-/*        waitFor(5, 1) {
-            getCurrentUrl().endsWith('#/account/')
-        }*/
         sleep(2000)
 
         then: 'Verify the newly created tweet gets posted and shows up in the list of tweets/messages'
@@ -65,18 +62,67 @@ class Assignment4FunctionalSpec extends GebSpec {
 
         when: 'When the user enters a tweet longer than 40 characters the post button is disabled and a message is shown'
         $("#account-form input[id=postMessageId]").value("12345678911234567892123456789312345678941")
-        sleep(2000)
+        sleep(1000)
 
         then: 'Verify the postMessageButton is disabled and error message is shown'
         $('div').find("button", id: "postMessageButton").@disabled == 'true'
         $('form').find("div", id: "length40Error").isDisplayed()
+
+        when: 'The input field for posting message is empty, the postMessageButton is disabled'
+        $("#account-form input[id=postMessageId]").value("")
+
+        then: 'the postMessageButton is disabled'
+        $('div').find("button", id: "postMessageButton").@disabled == 'true'
     }
 
-    def 'R4. The tests to handle these buttons were done in S4, U2, and U3'(){
-        when:
-            true
-        then:
-            true
+    def 'The postMessage input field is disabled when in a different account page'() {
+        when: 'the logged in user goes to another accounts user details page'
+        $("#account-form input[id=searchTokenValue]").value("superman")
+        $('form').find("button", id: "goButton").click()
+        waitFor(5, 1) {
+            $('form').find("h3", id: "searchedMessageResults").allElements()[0].getText().contains("Message #1 Superman")
+        }
+
+        $('form').find(".links_main").find("a", 0).click()
+        waitFor(5, 1) {
+            $('form').find("h4", id: "handlename").text() == "Account: superman"
+        }
+
+        then: 'the postMessage input field does not exist'
+        !$('#postMessageField').displayed
+    }
+
+    def 'R4. Follow and Following buttons are displayed on another users page (using angular directive)'(){
+
+        when: 'ironman searched for democrat in message search box'
+        $("#account-form input[id=searchTokenValue]").value("democrat")
+        $('form').find("button", id: "goButton").click()
+        waitFor(5, 1) {
+            $('form').find("h3", id: "searchedMessageResults").allElements()[0].getText().contains("democrat")
+        }
+
+        then: 'Verify all 15 messages with word democrat appears'
+        $('form').find("h3", id: "searchedMessageResults").allElements().size() == 1
+        $('form').find("h3", id: "searchedMessageResults").allElements()[0].getText().contains("democrat")
+
+        when: 'Account handle for hclinton is clicked'
+        $('form').find("a", id: "accountHandleLink").click()
+        waitFor(5, 1) {
+            $('form').find("button", id: "followButton").displayed
+        }
+
+        then: 'Hillary Clintons page is loaded and followButton is there, he is being followed by 0 accounts'
+        $('form').find("button", id: "followButton").displayed
+        $('form').find("h4", id: "followers-count").text() == "Followers: 0"
+
+        when: 'Follow button is clicked, expect the followButton to turn into followingButton'
+        $('form').find("button", id: "followButton").click()
+        waitFor(5, 1) {
+            $('form').find("button", id: "followingButton").displayed
+        }
+
+        then: 'Followers count for Hillary Clinton is now 1'
+        $('form').find("h4", id: "followers-count").text() == "Followers: 1"
     }
 
     def "R5. Use AngularJS date filter to format the date of a message in the feed with MMM DD"(){
@@ -84,7 +130,6 @@ class Assignment4FunctionalSpec extends GebSpec {
         String mmmDD_Date = new String(new Date().toString()).substring(4,6)
 
         then:
-        //$('div').find("h3").text().contains(mmmDD_Date)
         $('form').find("small", id: "messageDateCreated").text().contains(mmmDD_Date)
 
     }

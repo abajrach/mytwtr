@@ -42,7 +42,7 @@ class BootStrap {
 
         account4.addToMessages(status_message: "wall").save(flush: true)
         account5.addToMessages(status_message: "school").save(flush: true)
-        account6.addToMessages(status_message: "bla bla bla").save(flush: true)
+        account6.addToMessages(status_message: "democrat").save(flush: true)
 
         account1.addToFollowing(adminAccount).save(flush: true, failOnError: true)
         adminAccount.addToFollowedBy(account1).save(flush: true, failOnError: true)
