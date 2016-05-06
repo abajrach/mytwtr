@@ -80,9 +80,9 @@ class Assignment4FunctionalSpec extends GebSpec {
         $("#account-form input[id=searchTokenValue]").value("superman")
         $('form').find("button", id: "goButton").click()
         waitFor(5, 1) {
-            def tempString = $('form').find("h3", id: "searchedMessageResults").allElements()[0].getText()
             $('form').find("h3", id: "searchedMessageResults").allElements()[0].getText().contains("Message #1 Superman")
         }
+
         $('form').find(".links_main").find("a", 0).click()
         waitFor(5, 1) {
             $('form').find("h4", id: "handlename").text() == "Account: superman"
