@@ -60,6 +60,7 @@ class Assignment4FunctionalSpec extends GebSpec {
         }
 
     }
+
     def 'R2. AngularValidation to validate the message before posting'() {
 
         when: 'When the user enters a tweet longer than 40 characters the post button is disabled and a message is shown'
@@ -70,12 +71,14 @@ class Assignment4FunctionalSpec extends GebSpec {
         $('div').find("button", id: "postMessageButton").@disabled == 'true'
         $('form').find("div", id: "length40Error").isDisplayed()
     }
+
     def 'R4. The tests to handle these buttons were done in S4, U2, and U3'(){
         when:
             true
         then:
             true
     }
+
     def "R5. Use AngularJS date filter to format the date of a message in the feed with MMM DD"(){
         when: 'Verify the date format is mmm dd format date will be current month and date - should already be displayed'
         String mmmDD_Date = new String(new Date().toString()).substring(4,6)
