@@ -33,9 +33,6 @@ class Assignment4FunctionalSpec extends GebSpec {
         when: 'When the user types in a tweet and hits the post Message button'
         $("#account-form input[id=postMessageId]").value("This is my first tweet!")
         $('div').find("button", id: "postMessageButton").click()
-/*        waitFor(5, 1) {
-            getCurrentUrl().endsWith('#/account/')
-        }*/
         sleep(2000)
 
         then: 'Verify the newly created tweet gets posted and shows up in the list of tweets/messages'
@@ -65,7 +62,7 @@ class Assignment4FunctionalSpec extends GebSpec {
 
         when: 'When the user enters a tweet longer than 40 characters the post button is disabled and a message is shown'
         $("#account-form input[id=postMessageId]").value("12345678911234567892123456789312345678941")
-        sleep(2000)
+        sleep(1000)
 
         then: 'Verify the postMessageButton is disabled and error message is shown'
         $('div').find("button", id: "postMessageButton").@disabled == 'true'
@@ -76,6 +73,23 @@ class Assignment4FunctionalSpec extends GebSpec {
 
         then: 'the postMessageButton is disabled'
         $('div').find("button", id: "postMessageButton").@disabled == 'true'
+    }
+
+    def 'The postMessage input field is disabled when in a different account page'() {
+        when: 'the logged in user goes to another accounts user details page'
+        $("#account-form input[id=searchTokenValue]").value("superman")
+        $('form').find("button", id: "goButton").click()
+        waitFor(5, 1) {
+            def tempString = $('form').find("h3", id: "searchedMessageResults").allElements()[0].getText()
+            $('form').find("h3", id: "searchedMessageResults").allElements()[0].getText().contains("Message #1 Superman")
+        }
+        $('form').find(".links_main").find("a", 0).click()
+        waitFor(5, 1) {
+            $('form').find("h4", id: "handlename").text() == "Account: superman"
+        }
+
+        then: 'the postMessage input field does not exist'
+        !$('#postMessageField').displayed
     }
 
     def 'R4. The tests to handle these buttons were done in S4, U2, and U3'(){
@@ -90,7 +104,6 @@ class Assignment4FunctionalSpec extends GebSpec {
         String mmmDD_Date = new String(new Date().toString()).substring(4,6)
 
         then:
-        //$('div').find("h3").text().contains(mmmDD_Date)
         $('form').find("small", id: "messageDateCreated").text().contains(mmmDD_Date)
 
     }
