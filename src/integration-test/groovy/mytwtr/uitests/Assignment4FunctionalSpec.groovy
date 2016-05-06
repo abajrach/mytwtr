@@ -70,6 +70,12 @@ class Assignment4FunctionalSpec extends GebSpec {
         then: 'Verify the postMessageButton is disabled and error message is shown'
         $('div').find("button", id: "postMessageButton").@disabled == 'true'
         $('form').find("div", id: "length40Error").isDisplayed()
+
+        when: 'The input field for posting message is empty, the postMessageButton is disabled'
+        $("#account-form input[id=postMessageId]").value("")
+
+        then: 'the postMessageButton is disabled'
+        $('div').find("button", id: "postMessageButton").@disabled == 'true'
     }
 
     def 'R4. The tests to handle these buttons were done in S4, U2, and U3'(){
