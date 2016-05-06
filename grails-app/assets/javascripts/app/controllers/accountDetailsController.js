@@ -141,6 +141,11 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
         });
     }
 
+    /**
+     * Post Message/Tweet by logged in user
+     * Does POST on URI http://localhost:8080/accounts/1/messages with message body as:
+     * { "status_message": "My first tweet", "account": 1 }
+     */
     $scope.doPostMessage = function () {
 
         $scope.alerts = [
