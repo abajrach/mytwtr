@@ -14,43 +14,43 @@ describe("true", function()
 
 
 
-describe('MessageController', function () {
+ describe('MessageController', function () {
 
-    var $controller, $httpBackend, $scope;
-    var now = new Date();
-    var posts = [
-        {song: {title: 'Loser', artist: {name: 'Beck'}}, timestamp: now},
-        {song: {title: 'Enjoy The Silence', artist: {name: 'Depeche Mode'}}, timestamp: now}];
+ var $controller, $httpBackend, $scope;
+ var now = new Date();
+ var posts = [
+ {song: {title: 'Loser', artist: {name: 'Beck'}}, timestamp: now},
+ {song: {title: 'Enjoy The Silence', artist: {name: 'Depeche Mode'}}, timestamp: now}];
 
-    beforeEach(module('app'));
+ beforeEach(module('app'));
 
-    beforeEach(inject(function ($injector) {
-        $controller = $injector.get('$controller');
-        $httpBackend = $injector.get('$httpBackend');
-        $scope = $injector.get('$rootScope').$new();
-    }));
+ beforeEach(inject(function ($injector) {
+ $controller = $injector.get('$controller');
+ $httpBackend = $injector.get('$httpBackend');
+ $scope = $injector.get('$rootScope').$new();
+ }));
 
-    describe('initializes scope', function () {
+ describe('initializes scope', function () {
 
-        it('fetches the play data into scope', function () {
-            $httpBackend.expectGET('play/').respond(200, plays);
-            $controller('PostMessageController', {$scope: $scope});
-            $httpBackend.flush();
+ it('fetches the play data into scope', function () {
+ $httpBackend.expectGET('play/').respond(200, plays);
+ $controller('PostMessageController', {$scope: $scope});
+ $httpBackend.flush();
 
-            expect($scope.plays).toEqual(plays);
-        });
+ expect($scope.plays).toEqual(plays);
+ });
 
-    });
+ });
 
-    afterEach(function () {
-        $httpBackend.verifyNoOutstandingExpectation();
-        $httpBackend.verifyNoOutstandingRequest();
-    });
-});
+ afterEach(function () {
+ $httpBackend.verifyNoOutstandingExpectation();
+ $httpBackend.verifyNoOutstandingRequest();
+ });
+ });
 
 
 
-*/
+ */
 
 
 
@@ -79,20 +79,20 @@ describe('messageService', function () {
             messageService.save('u', 'p');
             $httpBackend.flush();
             var user = messageService.currentUser();
-         //   expect(user).toBeDefined();
-         //   expect(user.username).toBe('earl');
-         //   expect(user.roles).toContain('root');
-         //   expect(user.token).toBe('xyz123');
+            //   expect(user).toBeDefined();
+            //   expect(user.username).toBe('earl');
+            //   expect(user.roles).toContain('root');
+            //   expect(user.token).toBe('xyz123');
         });
 
 
-      //  it('handles invalid message too long', function () {
-      //      $httpBackend.expectPOST('/api/login', {username: 'u', password: 'p'}).respond(403, {status: 403, message: 'Forbidden'});
-      //      securityService.login('u', 'p');
-      //      $httpBackend.flush();
-      //      var user = securityService.currentUser();
-      //      expect(user).toBeUndefined();
-      //  });
+        //  it('handles invalid message too long', function () {
+        //      $httpBackend.expectPOST('/api/login', {username: 'u', password: 'p'}).respond(403, {status: 403, message: 'Forbidden'});
+        //      securityService.login('u', 'p');
+        //      $httpBackend.flush();
+        //      var user = securityService.currentUser();
+        //      expect(user).toBeUndefined();
+        //  });
     });
 
 
