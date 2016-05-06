@@ -24,8 +24,8 @@ class Assignment4FunctionalSpec extends GebSpec {
         }
 
         then: 'Login Page displays login to your account message'
-        $(".login-header").text() == "Login Into Your Account"
-
+        $('form').find("h4", id: "handlename").text() == "Account: ironman"
+        $('form').find("h4", id: "name").text() == "Name: Tony Stark"
     }
 
     def 'R0. Allow for the logged in user to post a new message'() {
@@ -92,11 +92,37 @@ class Assignment4FunctionalSpec extends GebSpec {
         !$('#postMessageField').displayed
     }
 
-    def 'R4. The tests to handle these buttons were done in S4, U2, and U3'(){
-        when:
-            true
-        then:
-            true
+    def 'R4. Follow and Following buttons are displayed on another users page (using angular directive)'(){
+
+        when: 'ironman searched for democrat in message search box'
+        $("#account-form input[id=searchTokenValue]").value("democrat")
+        $('form').find("button", id: "goButton").click()
+        waitFor(5, 1) {
+            $('form').find("h3", id: "searchedMessageResults").allElements()[0].getText().contains("democrat")
+        }
+
+        then: 'Verify all 15 messages with word democrat appears'
+        $('form').find("h3", id: "searchedMessageResults").allElements().size() == 1
+        $('form').find("h3", id: "searchedMessageResults").allElements()[0].getText().contains("democrat")
+
+        when: 'Account handle for hclinton is clicked'
+        $('form').find("a", id: "accountHandleLink").click()
+        waitFor(5, 1) {
+            $('form').find("button", id: "followButton").displayed
+        }
+
+        then: 'Hillary Clintons page is loaded and followButton is there, he is being followed by 0 accounts'
+        $('form').find("button", id: "followButton").displayed
+        $('form').find("h4", id: "followers-count").text() == "Followers: 0"
+
+        when: 'Follow button is clicked, expect the followButton to turn into followingButton'
+        $('form').find("button", id: "followButton").click()
+        waitFor(5, 1) {
+            $('form').find("button", id: "followingButton").displayed
+        }
+
+        then: 'Followers count for Hillary Clinton is now 1'
+        $('form').find("h4", id: "followers-count").text() == "Followers: 1"
     }
 
     def "R5. Use AngularJS date filter to format the date of a message in the feed with MMM DD"(){
