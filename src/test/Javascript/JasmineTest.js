@@ -1,14 +1,14 @@
 /*describe("true", function()
-{
-    it("Should be true", function(){
-        expect(true).toBeTruthy()
+ {
+ it("Should be true", function(){
+ expect(true).toBeTruthy()
 
-    });
+ });
 
-});
+ });
 
 
-*/
+ */
 
 describe('messageService', function () {
     beforeEach(module('app'));
@@ -25,11 +25,11 @@ describe('messageService', function () {
 
     describe('save', function () {
         it('handles save message', function () {
-        //    $httpBackend.expectPOST('/accounts/1/messages', {status_message:'test', account:'1'}).respond(201, {messageId: '1', status_message: 'test'});
+            //    $httpBackend.expectPOST('/accounts/1/messages', {status_message:'test', account:'1'}).respond(201, {messageId: '1', status_message: 'test'});
             console.log('------------------1---------------------')
             $httpBackend.expectPOST('/accounts/messages', {status_message:'test',id:1}).respond(201, {id:1,status_message:'test'});
             console.log('------------------2---------------------')
-           // messageService.postMessage(1, 'test');
+            // messageService.postMessage(1, 'test');
             messageService.$resource.post(1, 'test');
             console.log('------------------3---------------------')
             $httpBackend.flush();
