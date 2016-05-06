@@ -106,6 +106,9 @@ bower {
         source 'angular-route.js'
     }
 
+    'angular-mocks'('1.5.x') {
+        source 'angular-mocks.js'
+    }
     'angular-resource'('1.5.x') {
         source 'angular-resource.js'
     }
