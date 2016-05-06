@@ -6,10 +6,6 @@
 angular.module('app').controller('accountDetailsController', function ($scope, $routeParams, $location, loginLogoutService, accountDetailsService, updateAccountDetailService, followAccountService, messageService) {
     $scope.message = 'User Account Page';
     $scope.canUpdate = false;
-    //console.log("global line")
-
-    //var tweeted = false;
-    //$scope.tweetPosted = false;
 
     $scope.getAccountDetails = function () {
         $scope.Following = false;
@@ -65,9 +61,9 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
             });
             $scope.canUpdate = true;
 
-            if(accountDetailsService.getTweetPosted()) {
+            if (accountDetailsService.getTweetPosted()) {
                 $scope.alerts = [
-                    { type: 'success', msg: 'Message Posted!' }
+                    {type: 'success', msg: 'Message Posted!'}
                 ];
             }
 
@@ -102,7 +98,7 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
             loginLogoutService.publicSetCurrentUser(currentUser2);
 
             $scope.Following = true;
-            var path = "#/account/"+$routeParams.handle;
+            var path = "#/account/" + $routeParams.handle;
             window.location.reload()
         });
     }
@@ -145,7 +141,7 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
     $scope.doPostMessage = function () {
 
         $scope.alerts = [
-            { type: 'success', msg: 'Message Posted!' }
+            {type: 'success', msg: 'Message Posted!'}
         ];
         var currentUser = loginLogoutService.getCurrentUser();
 
@@ -154,7 +150,7 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
         // Make a POST request
         var tweet = messageService.save({selfId: currentUser.id}, payLoad);
 
-        tweet.$promise.then(function(response) {
+        tweet.$promise.then(function (response) {
             accountDetailsService.setTweetPosted(true);
             $location.path("/account");
         });
@@ -162,29 +158,29 @@ angular.module('app').controller('accountDetailsController', function ($scope, $
     }
 });
 
-angular.module("app").directive('buttonDirective', function($compile) {
+angular.module("app").directive('buttonDirective', function ($compile) {
     return {
-       // ... Link lets you keep track of changes in your directive
-    link: function (scope, element) {
-        scope.$watchGroup(['canUpdate', 'Following'], function (newValues, oldValues, scope) {
-            console.log(newValues)
-            console.log ("following", scope.Following)
-            console.log("canUpdate", scope.canUpdate)
+        // ... Link lets you keep track of changes in your directive
+        link: function (scope, element) {
+            scope.$watchGroup(['canUpdate', 'Following'], function (newValues, oldValues, scope) {
+                console.log(newValues)
+                console.log("following", scope.Following)
+                console.log("canUpdate", scope.canUpdate)
 
 
-            if (!scope.canUpdate && !scope.Following){
-                element.html('<h5>You are not following this account yet!</h5>')
-                element.html('<button id="followButton" type="button" class="btn btn-danger btn-lg" ng-click="followAccount()">Follow this account!</button>');
+                if (!scope.canUpdate && !scope.Following) {
+                    element.html('<h5>You are not following this account yet!</h5>')
+                    element.html('<button id="followButton" type="button" class="btn btn-danger btn-lg" ng-click="followAccount()">Follow this account!</button>');
 
-            }
-            if (!scope.canUpdate && scope.Following){
-                element.html('<h5>You are following this account</h5>')
-                element.html('<button id="followingButton" type="button" class="btn btn-success btn-lg" data-target="#myModal">Following</button>');
-            }
+                }
+                if (!scope.canUpdate && scope.Following) {
+                    element.html('<h5>You are following this account</h5>')
+                    element.html('<button id="followingButton" type="button" class="btn btn-success btn-lg" data-target="#myModal">Following</button>');
+                }
 
-            //... Once you make a button, for it to be able to use an Angular click, it needs to be recompiled
-            $compile(element.contents())(scope.$new());
-        });
+                //... Once you make a button, for it to be able to use an Angular click, it needs to be recompiled
+                $compile(element.contents())(scope.$new());
+            });
+        }
     }
-}
 });
