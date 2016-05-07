@@ -19,7 +19,6 @@ describe('messageService', function () {
 
             var payLoad = {"status_message": "test", "account": 1};
             var returnMessage = messageService.save({selfId: 1}, payLoad);
-            console.log(returnMessage);
             $httpBackend.flush();
 
             expect(returnMessage.status_message == 'test');
@@ -32,7 +31,6 @@ describe('messageService', function () {
             spyOn(messageService, 'save');
             var payLoad = {"status_message": "test", "account": 1};
             var returnMessage = messageService.save({selfId: 1}, payLoad);
-            console.log(returnMessage);
 
             expect(messageService.save).toHaveBeenCalled();
         });
